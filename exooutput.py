@@ -63,6 +63,11 @@ def OutputTransitNodeData(transitNode, TransitID, aWinID, terrain, exodusmtafile
     terrain 0 , 2 escalator, 8 lift/elevator
     """
     Width = transitNode['Width']
+    if terrain == 2:
+        # escalators
+        if 'ClearWidth' in transitNode:
+            Width = transitNode['ClearWidth']
+    
     if 'Lanes' in transitNode and transitNode['Lanes'] is not None:
         Lanes = max(1, transitNode['Lanes'])
     else:
@@ -74,20 +79,23 @@ def OutputTransitNodeData(transitNode, TransitID, aWinID, terrain, exodusmtafile
     print("TransitNodeLabel:", transitNode['nodeid'], file=exodusmtafile)  # Associate node
     print("IconType:1", file=exodusmtafile)  # how's displayed in EXODUS
     print("Terrain:", terrain, file=exodusmtafile)  # 0 staircase
-    if 'risers' in transitNode:
+    if terrain == 0:
+        NumberOfUnits = transitNode['risers'] - 1 # 'risers'-1
         print("NumberOfSubUnits:", transitNode['risers'] - 1, file=exodusmtafile)  # 'risers'-1
-        UnitLength = math.sqrt(math.pow(transitNode['riserheight'], 2) + math.pow(transitNode['treadlength'], 2))
+        UnitLength = math.sqrt(math.pow(transitNode['RiserHeight'], 2) + math.pow(transitNode['TreadLength'], 2))
         print("UnitLengthSize:", UnitLength, file=exodusmtafile)  # diagonal tread distance 'riserheight' 'treadlength'
         print("TheDirectionAngle:", transitNode['Direction'], file=exodusmtafile)  # Direction of icon on screen
-        print("TheMaxCapacity:", (transitNode['risers'] - 1) * 2, file=exodusmtafile)  # 'risers'-1
-        print("LaneMaxCapacity:", transitNode['risers'] - 1, file=exodusmtafile)  # 'risers'-1
-        print("TheDownMaxCapacity:", (transitNode['risers'] - 1) * 2,
-              file=exodusmtafile)  # Lanes times (number of risers -1) 'risers'-1
-        print("LaneDownMaxCapacity:", transitNode['risers'] - 1, file=exodusmtafile)  # 'risers'-1
+        print("TheMaxCapacity:", NumberOfUnits * Lanes, file=exodusmtafile)
+        print("LaneMaxCapacity:", NumberOfUnits, file=exodusmtafile)
+        print("TheDownMaxCapacity:", NumberOfUnits * Lanes, file=exodusmtafile)  # Lanes times (number of risers -1) 'risers'-1
+        print("LaneDownMaxCapacity:", NumberOfUnits, file=exodusmtafile)
     else:
         # for lifts we have transitNode['ClearWidth'] and transitNode['ClearDepth']
         # however at the moment not sure whether they are required
-        UnitLengthSize = 0.5
+        if 'TreadLength' in transitNode:
+            UnitLengthSize = transitNode['TreadLength']
+        else:
+            UnitLengthSize = 0.5
         NumberOfUnits = 1
         TravelDist = 0.5
         if 'HorizontalLength' in transitNode:
@@ -104,15 +112,14 @@ def OutputTransitNodeData(transitNode, TransitID, aWinID, terrain, exodusmtafile
         if Lanes > 1:
             LaneCapacity = LaneCapacity / Lanes
 
-        print("NumberOfSubUnits:", NumberOfUnits, file=exodusmtafile)  # 'risers'-1
-        print("UnitLengthSize:", UnitLengthSize,
-              file=exodusmtafile)  # diagonal tread distance 'riserheight' 'treadlength'
-        print("TheDirectionAngle:", transitNode['Direction'], file=exodusmtafile)  # Direction of icon on screen
-        print("TheMaxCapacity:", Capacity, file=exodusmtafile)  # 'risers'-1
-        print("LaneMaxCapacity:", LaneCapacity, file=exodusmtafile)  # 'risers'-1
-        print("TheDownMaxCapacity:", Capacity, file=exodusmtafile)  # Lanes times (number of risers -1) 'risers'-1
-        print("LaneDownMaxCapacity:", Capacity, file=exodusmtafile)  # 'risers'-1
-
+        print("NumberOfSubUnits:", NumberOfUnits, file=exodusmtafile)
+        print("UnitLengthSize:", UnitLengthSize, file=exodusmtafile)
+        print("TheDirectionAngle:", transitNode['Direction'], file=exodusmtafile)
+        print("TheMaxCapacity:", Capacity, file=exodusmtafile) 
+        print("LaneMaxCapacity:", LaneCapacity, file=exodusmtafile)
+        print("TheDownMaxCapacity:", Capacity, file=exodusmtafile)
+        print("LaneDownMaxCapacity:", Capacity, file=exodusmtafile)
+        
     print("DefaultRates:1", file=exodusmtafile)
     if 'TotalRun' in transitNode:
         TravelDist = math.sqrt(math.pow(transitNode['TotalRun'], 2) + math.pow(transitNode['Height'], 2))
@@ -132,7 +139,9 @@ def OutputTransitNodeData(transitNode, TransitID, aWinID, terrain, exodusmtafile
         # for stairs we remove top and bottom risers
         print("Height:", transitNode['Height'] - 2 * transitNode['riserheight'],
               file=exodusmtafile)  # 'Height' - 2*'riserheight' vertical Height, not including top and bottom risers
-    else:
+    elif 'RunHeight' in transitNode:
+        print("Height:", transitNode['RunHeight'], file=exodusmtafile)
+    else:    
         print("Height:", transitNode['Height'], file=exodusmtafile)
 
     if 'noising' in transitNode:

@@ -84,8 +84,8 @@ def output_geom_data(object_list):
     print("===================== Geometry Data ====================")
     for an_object in object_list:
         print ("Geometry Data for ",an_object['Name'])
-        output_attributes(an_object,'risers','riserheight')
-        output_attributes(an_object,'treads','treadlength')
+        output_attributes(an_object,'risers','RiserHeight')
+        output_attributes(an_object,'treads','TreadLength')
         output_attribute(an_object,'Length')
         output_attribute(an_object,'Width')
         output_attribute(an_object,'HorizontalLength')

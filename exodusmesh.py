@@ -167,7 +167,7 @@ def calc_flightstair_box(ifc_stairflight):
             #print("PathData :",ifc_stairflight['PathData'])
             print("===========================================================")
             width = ifc_stairflight['Width']/2.0
-            expand_size = ifc_stairflight['treadlength']/2.0
+            expand_size = ifc_stairflight['TreadLength']/2.0
             extra_size = 0.5
             path_data = ifc_stairflight['PathData']
             level_data = ifc_stairflight['AStepData']

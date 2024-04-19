@@ -696,7 +696,7 @@ def stairs_data(ifc_file, settings):
                         lx, ly, NdeHeight, Direction, width, CalcTotalRun = level_geom(entity_shape.geometry, Elevation)
                         geom_data = level_flight_geom(entity_shape.geometry, Elevation, 0.05)
                         stair_flight_dict['GeomData'] = geom_data
-                        AStepCount, AStepData, PathData, calcwidth = extract_flight_geom(entity_shape.geometry, stair_flight_dict['riserheight']/2.0)
+                        AStepCount, AStepData, PathData, calcwidth = extract_flight_geom(entity_shape.geometry, stair_flight_dict['RiserHeight']/2.0)
                         if calcwidth > 0.0:
                             width = calcwidth
                         stair_flight_dict['AStepCount'] = AStepCount
@@ -745,6 +745,34 @@ def stairs_data(ifc_file, settings):
                         g_OMA_Class.m_landings_list.append(ifcslab_dict)
 
 
+def calc_escalator_level_run(escalator_dict):
+    # calc Level run
+    # should use RunLength  for HorizontalLength - but currently the wrong value
+    RunLength = escalator_dict['HorizontalLength']
+    #if 'RunLength' in escalator_dict:
+    #    RunLength = escalator_dict['RunLength']
+    
+    if 'RunHeight' in escalator_dict:
+        Height = escalator_dict['RunHeight']
+    else:
+        Height = escalator_dict['Height']
+    
+    riser_height = 0.2
+    tread_depth = 0.3
+    if 'RiserHeight' in escalator_dict:
+        riser_height = escalator_dict['RiserHeight']
+        
+    if 'TreadLength' in escalator_dict and escalator_dict['TreadLength'] is not None:
+        tread_depth = escalator_dict['TreadLength']
+        
+    LevelRun = 1.2
+    if riser_height > 0.0 and riser_height > 0.0:
+        RisersUp = math.ceil(Height/riser_height)
+        if RisersUp > 1:
+            LevelRun =  (RunLength - (RisersUp-1) * tread_depth)/2.0
+    return LevelRun
+
+
 def get_escalator_data(transport_info, settings, ifc_transport, Elevation):
     global g_OMA_Class
     global g_StairNodeID
@@ -767,7 +795,13 @@ def get_escalator_data(transport_info, settings, ifc_transport, Elevation):
     escalator_dict['Lanes'] = math.floor(width/0.7)
     escalator_dict['xpos'] = lx
     escalator_dict['ypos'] = ly
-    escalator_dict['Height'] = NdeHeight
+    if 'RunHeight' in escalator_dict:
+        escalator_dict['Height'] = escalator_dict['RunHeight']
+    else:
+        escalator_dict['Height'] = 3.0
+
+    LevelRun = calc_escalator_level_run(escalator_dict)
+    escalator_dict['LevelRun'] = LevelRun
     
     escalator_dict['nodedata'] = [g_StairNodeID, lx, ly, NdeHeight, Elevation]
     escalator_dict['nodeid'] = g_StairNodeID
@@ -797,7 +831,7 @@ def get_elevator_data(transport_info, settings, ifc_transport, Elevation):
     elevator_dict['HorizontalLength'] = HorizontalLength
     elevator_dict['xpos'] = lx
     elevator_dict['ypos'] = ly
-    elevator_dict['Height'] = NdeHeight
+    elevator_dict['Height'] = 3.0
     elevator_dict['boundary_points'] = boundary_points
     elevator_dict['maxheight'] = maxheight
     elevator_dict['minheight'] = minheight
@@ -835,7 +869,7 @@ def get_movingwalkway_data(transport_info, settings, ifc_transport, Elevation):
     movingwalkway_dict['Lanes'] = math.floor(width/0.7)
     movingwalkway_dict['xpos'] = lx
     movingwalkway_dict['ypos'] = ly
-    movingwalkway_dict['Height'] = NdeHeight
+    movingwalkway_dict['Height'] = 0.0
     
     movingwalkway_dict['nodedata'] = [g_StairNodeID, lx, ly, NdeHeight, Elevation]
     movingwalkway_dict['nodeid'] = g_StairNodeID

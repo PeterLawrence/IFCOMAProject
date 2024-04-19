@@ -63,8 +63,8 @@ def output_connection_stair_enz(root, ifc_stair, space_list):
         ConnectionType = ET.SubElement(Connection, "ConnectionType", type = 'enz_stairs')
         ET.indent(Connection, space="\t", level=2)
         
-        ET.SubElement(ConnectionType, "Tread", units = 'm').text = str(ifc_stair['treadlength'])
-        ET.SubElement(ConnectionType, "Riser", units = 'm').text = str(ifc_stair['riserheight'])
+        ET.SubElement(ConnectionType, "Tread", units = 'm').text = str(ifc_stair['TreadLength'])
+        ET.SubElement(ConnectionType, "Riser", units = 'm').text = str(ifc_stair['RiserHeight'])
         ET.SubElement(ConnectionType, "Width", units = 'm').text = str(ifc_stair['Width'])
     else:
         print("Rejected Door ",ifc_stair['Name'], ifc_stair['space_connecting'])

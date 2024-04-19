@@ -128,10 +128,10 @@ def get_basic_stair_info(stair, stair_dict):
         outputElement(entry, 'IsExternal', 3)
         outputElement(entry, 'Reference', 3)
         stair_dict['treads'] = get_property(entry, 'NumberOfTreads')  # In IDS
-        stair_dict['treadlength'] = get_property(entry, 'TreadLength')  # In IDS
+        stair_dict['TreadLength'] = get_property(entry, 'TreadLength')  # In IDS
         stair_dict['risers'] = get_property(entry, 'NumberOfRiser')  # In IDS
-        stair_dict['riserheight'] = get_property(entry, 'RiserHeight')  # In IDS
-        stair_dict['noisinglength'] = get_property(entry, 'NosingLength')  # In IDS
+        stair_dict['RiserHeight'] = get_property(entry, 'RiserHeight')  # In IDS
+        stair_dict['NosingLength'] = get_property(entry, 'NosingLength')  # In IDS
         outputElement(entry, 'TreadLengthAtOffset', 3)
         outputElement(entry, 'TreadLengthAtInnerSide', 3)
 
@@ -166,7 +166,7 @@ def get_stair_flight_info(stair_flight, stair_flight_dict, stair_dict):
         riser_height = get_property(entry, 'RiserHeight')  # In IDS
         riser_number = get_property(entry, 'NumberOfRiser')  # In IDS
         tread_length = get_property(entry, 'TreadLength')  # In IDS
-        stair_flight_dict['noising'] = get_property(entry, 'NosingLength')  # In IDS
+        stair_flight_dict['NosingLength'] = get_property(entry, 'NosingLength')  # In IDS
         tread_number = get_property(entry, 'NumberOfTreads')  # In IDS
         stair_flight_dict['EffectiveWidth'] = get_property(entry, 'EffectiveWidth')  # In IDS
 
@@ -193,12 +193,12 @@ def get_stair_flight_info(stair_flight, stair_flight_dict, stair_dict):
         stair_flight_dict['risers'] = riser_number
 
     if riser_height is None:
-        if 'riserheight' in stair_dict:
-            riser_height = stair_dict['riserheight']
+        if 'RiserHeight' in stair_dict:
+            riser_height = stair_dict['RiserHeight']
 
     if riser_height is not  None:
         print(f"  RiserHeight:{riser_height}")
-        stair_flight_dict['riserheight'] = riser_height
+        stair_flight_dict['RiserHeight'] = riser_height
 
     if riser_number is not  None and riser_height != None:
         stair_flight_dict['Height'] = riser_number * riser_height
@@ -212,12 +212,12 @@ def get_stair_flight_info(stair_flight, stair_flight_dict, stair_dict):
         stair_flight_dict['treads'] = tread_number
 
     if tread_length is None:
-        if 'treadlength' in stair_dict:
-            tread_length = stair_dict['treadlength']
+        if 'TreadLength' in stair_dict:
+            tread_length = stair_dict['TreadLength']
 
     if tread_length is not  None:
         print(f"  TreadLength:{tread_length}")
-        stair_flight_dict['treadlength'] = tread_length
+        stair_flight_dict['TreadLength'] = tread_length
 
     if tread_length is not  None and tread_number != None:
         stair_flight_dict['TotalRun'] = tread_number * tread_length
@@ -238,7 +238,6 @@ def get_basic_escalator_info(escalator_dict, ifc_transport):
         escalator_dict['TreadLength'] = get_property(entry, "TreadLength")  # In IDS
         escalator_dict['ClearWidth'] = get_property(entry, "ClearWidth")  # In IDS
         escalator_dict['LoadingArea'] = get_property(entry, "LoadingArea")  # In IDS
-        escalator_dict['DepthOfTread'] = get_property(entry, "DepthOfTread")  # In IDS
         escalator_dict['DesignPeopleFlowRate'] = get_property(entry, "DesignPeopleFlowRate")  # In IDS
         escalator_dict['CapacityPeople'] = get_property(entry, "CapacityPeople")  # In IDS
         escalator_dict['RiserHeight'] = get_property(entry, "RiserHeight")  # In IDS
