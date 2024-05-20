@@ -746,11 +746,21 @@ def stairs_data(ifc_file, settings):
 
 
 def calc_escalator_level_run(escalator_dict):
-    # calc Level run
-    # should use RunLength  for HorizontalLength - but currently the wrong value
-    RunLength = escalator_dict['HorizontalLength']
-    #if 'RunLength' in escalator_dict:
-    #    RunLength = escalator_dict['RunLength']
+    if 'OverallLength' in escalator_dict and 'RunLength' in escalator_dict:
+        # OverallLength and RunLength are property values for the escalator
+        OverallLength = escalator_dict['OverallLength']
+        RunLength = escalator_dict['RunLength']
+        if RunLength < OverallLength:
+            LevelRun = (OverallLength - RunLength)/2.0
+            return LevelRun
+                
+    # else calc Level run
+    if 'RunLength' in escalator_dict:
+        # OverallLength is a property value for the escalator
+        RunLength = escalator_dict['RunLength']
+    else:
+        # HorizontalLength calculated from the escalator geometry representation
+        RunLength = escalator_dict['HorizontalLength']
     
     if 'RunHeight' in escalator_dict:
         Height = escalator_dict['RunHeight']
@@ -966,6 +976,12 @@ def scan_spaces(ifc_file, settings):
                         elif elem.is_a("IfcStairFlight"):
                             print(elem)
                         elif elem.is_a("IfcSpace"):
+                            print(elem)
+                        elif elem.is_a("IfcSlab") or elem.is_a("IfcCovering"):
+                            pass
+                        elif elem.is_a("IfcWall") or elem.is_a("IfcColumn") or elem.is_a("IfcWindow"):
+                            pass
+                        else:
                             print(elem)
 
 

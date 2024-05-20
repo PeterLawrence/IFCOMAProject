@@ -98,8 +98,13 @@ def OutputTransitNodeData(transitNode, TransitID, aWinID, terrain, exodusmtafile
             UnitLengthSize = 0.5
         NumberOfUnits = 1
         TravelDist = 0.5
-        if 'HorizontalLength' in transitNode:
+        if 'OverallLength' in transitNode:
+            # Overall Length is specified in the a property value 
+            TravelDist = transitNode['OverallLength'] 
+            NumberOfUnits = TravelDist / UnitLengthSize
+        elif 'HorizontalLength' in transitNode:
             TravelDist = transitNode['HorizontalLength']
+            # Horizontal Length is calculated from the object representation
             NumberOfUnits = TravelDist / UnitLengthSize
 
         Capacity = 1

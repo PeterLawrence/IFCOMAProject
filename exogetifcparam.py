@@ -243,6 +243,7 @@ def get_basic_escalator_info(escalator_dict, ifc_transport):
         escalator_dict['RiserHeight'] = get_property(entry, "RiserHeight")  # In IDS
         escalator_dict['RunLength'] = get_property(entry, "RunLength")  # In IDS
         escalator_dict['RunHeight'] = get_property(entry, "RunHeight")  # In IDS
+        escalator_dict['OverallLength'] = get_property(entry, "OverallLength")  # Not in IDS
 
     # also need level run and direction of travel
 
@@ -263,6 +264,7 @@ def get_basic_movingwalkway_info(movingwalkway_dict, ifc_transport):
         movingwalkway_dict['LoadingArea'] = get_property(entry, "LoadingArea")  # In IDS
         movingwalkway_dict['DesignPeopleFlowRate'] = get_property(entry, "DesignPeopleFlowRate")  # In IDS
         movingwalkway_dict['RunLength'] = get_property(entry, "RunLength")  # In IDS
+        movingwalkway_dict['OverallLength'] = get_property(entry, "OverallLength")  # Not in IDS
 
     # also need ldirection of travel
 
