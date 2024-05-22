@@ -79,7 +79,7 @@ def calc_door_box(shape):
             ymax = max(ymax, yp[iPoint])
             myPoints.append(aPoint)
         
-    # since we know test case the doors are vert/horz. quick fix
+    # since we know in the test case the doors are vert/horz. quick fix
     door_points = []
     door_box = []
     boxwidth = 0.60

@@ -448,6 +448,7 @@ def get_subfloor_indices(min_elev, max_elev, floor_list):
         return subfloorlist
     return None
 
+
 def get_subfloor_heights(min_elev, max_elev, floor_list):
     subfloorlistheights = []
     iPos = 0

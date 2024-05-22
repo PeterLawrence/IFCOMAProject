@@ -15,13 +15,13 @@ IFCFile = Folder + os.sep + FileName
 
 # the default output file names if no command line parameters  are provided
 OutputFolder = "Outputs"
-EZFile = OutputFolder + os.sep + "\\EZtest2.xml"
-MTAFile = OutputFolder + os.sep + "\\IFCMeshLevels2.mta"
-GraphFile = OutputFolder + os.sep + "\\BuildingGraph.html"
+EZFile = OutputFolder + os.sep + "EZtest2.xml"
+MTAFile = OutputFolder + os.sep + "IFCMeshLevels2.mta"
+GraphFile = OutputFolder + os.sep + "BuildingGraph.html"
+CFastFile = OutputFolder + os.sep + "Building.in"
 
 # the default output file type if no command line parameters  are provided
-
-OutputType = "Graph"  # "DumpStairs" "Exodus" "EvacutionZ" "Graph"
+OutputType = "Graph"  # "DumpStairs" "Exodus" "EvacutionZ" "Graph" "CFAST"
 
 # show a basic plot of the model
 plot_model = True

@@ -19,6 +19,7 @@ import exoifcutils
 import enzoutput
 import graphoutput
 import exodusmesh
+import cfastoutput
 import ifc_config
 
 from plot_functions import PlotterClass
@@ -750,7 +751,7 @@ def calc_escalator_level_run(escalator_dict):
         # OverallLength and RunLength are property values for the escalator
         OverallLength = escalator_dict['OverallLength']
         RunLength = escalator_dict['RunLength']
-        if RunLength < OverallLength:
+        if OverallLength is not None and RunLength < OverallLength:
             LevelRun = (OverallLength - RunLength)/2.0
             return LevelRun
                 
@@ -985,7 +986,7 @@ def scan_spaces(ifc_file, settings):
                             print(elem)
 
 
-def build_door_list(ifc_file, settings):
+def build_door_list(ifc_file):
     global g_OMA_Class
     
     ifc_doors = ifc_file.by_type("IfcDoor")
@@ -1011,7 +1012,7 @@ def build_door_list(ifc_file, settings):
             g_OMA_Class.m_door_list.append(door_data)
 
 
-def connect_rooms_doors(ifc_file, settings):
+def connect_rooms_doors(ifc_file):
     global g_OMA_Class
     
     ifc_doors = ifc_file.by_type("IfcDoor")
@@ -1161,7 +1162,7 @@ def generate_data(IFC_filename, output_file, output_type):
     settings = geom.settings()
     settings.set(settings.USE_WORLD_COORDS, True)
 
-    build_door_list(ifc_file, settings)
+    build_door_list(ifc_file)
 
     stairs_data(ifc_file, settings)
 
@@ -1194,7 +1195,7 @@ def generate_data(IFC_filename, output_file, output_type):
         movingwalkway['FloorIndex'] = exoifcutils.find_floor(elevator['Elevation'], g_OMA_Class.m_floor_list)
     
     scan_spaces(ifc_file, settings)
-    connect_rooms_doors(ifc_file, settings)
+    connect_rooms_doors(ifc_file)
 
     print("===================== door data ====================")
     #for door in g_OMA_Class.m_door_list:
@@ -1221,6 +1222,8 @@ def generate_data(IFC_filename, output_file, output_type):
         enzoutput.enz_output(output_file, g_OMA_Class.m_space_list, g_OMA_Class.m_door_list, g_OMA_Class.m_stair_list)
     elif output_type == "Graph":
         graphoutput.graph_view(g_OMA_Class, ifc_file, output_file)
+    elif output_type == "CFAST":
+        cfastoutput.cfast_output(g_OMA_Class, ifc_file, settings, output_file)
     elif output_type == "DumpStairs":
         g_OMA_Class.dump_data()
     else:
@@ -1252,6 +1255,8 @@ def main(argv):
                 output_type = "EvacutionZ"
             elif ext == '.html':
                 output_type = "Graph"
+            elif ext == '.in':
+                output_type = "CFAST"
             else:
               print("Unsupported format")
               return  
@@ -1270,6 +1275,8 @@ def main(argv):
              output_file = ifc_config.EZFile
         elif output_type == "Graph":
             output_file = ifc_config.GraphFile
+        elif output_type == "CFAST":
+            output_file = ifc_config.CFastFile
         elif output_type == "DumpStairs":
             output_file = None
         else:

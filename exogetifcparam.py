@@ -63,6 +63,7 @@ def get_basic_door_info(door):
     door_info = door.get_info()
     name = get_property(door_info, 'Name')
     OverallWidth = get_property(door_info, "OverallWidth")
+    OverallHeight = get_property(door_info, "OverallHeight")
     psetdata = ifcopenshell.util.element.get_psets(door)
     door_data = {}
     door_data['GlobalId'] = get_property(door_info, 'GlobalId')
@@ -70,6 +71,9 @@ def get_basic_door_info(door):
         door_data['Name'] = name
     if OverallWidth is not  None:
         door_data['OverallWidth'] = OverallWidth
+
+    if OverallHeight is not  None:
+        door_data['OverallHeight'] = OverallHeight
 
     if 'Pset_DoorCommon' in psetdata:
         entry = psetdata['Pset_DoorCommon']
