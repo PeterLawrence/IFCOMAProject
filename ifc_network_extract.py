@@ -60,7 +60,23 @@ def plot_geom(shape):
     if g_plotter_class is not None:
         g_plotter_class.add_faces(xp, yp, zp, faces)
 
+
+def sign_locations_xy(shape):
+    """
+    calculates location of sign
+    assumes vertices 1 and 2 space the signs width
+    """
+    startloc = [0.0,0.0]
+    endloc = [0.0,0.0]
+    verts = shape.verts  # X Y Z of vertices in flattened list e.g. [v1x, v1y, v1z, v2x, v2y, v2z, ...]
+
+    VertexCount = len(verts)
+    if VertexCount>13:
+        startloc = [verts[9],verts[10]]
+        endloc   = [verts[12],verts[13]]
         
+    return startloc,endloc
+
 
 def level_geom(shape, LevelElevation):
     """
@@ -726,6 +742,7 @@ def stairs_data(ifc_file, settings):
                         lx, ly, NdeHeight, Direction, width, CalcTotalRun = level_geom(entity_shape.geometry, Elevation)
                         geom_data = level_flight_geom(entity_shape.geometry, Elevation, 0.05)
                         stair_flight_dict['GeomData'] = geom_data
+                        stair_flight_dict['ExoAngle'] = CalcAngle(geom_data['UpperPoints'],geom_data['LowerPoints'])
                         AStepCount, AStepData, PathData, calcwidth = extract_flight_geom(entity_shape.geometry, stair_flight_dict['RiserHeight']/2.0)
                         if calcwidth > 0.0:
                             width = calcwidth
@@ -942,6 +959,36 @@ def transport_data(ifc_file, settings):
             get_movingwalkway_data(transport_info, settings, transport, Elevation)
 
 
+def CalcAngle(upper_points, lower_points):
+    '''
+    Calculates the direction of an object based on it's upper and lower points
+    for example the lower and upper lines of a IfcStairFlight or IfcRampFlight
+    '''
+    UpperCount = len(upper_points)
+    LowerCount = len(lower_points)
+    if UpperCount==0 or LowerCount==0:
+        return 0.0;
+    Upper = [0,0]
+    for point in upper_points:
+        Upper[0] += point[0]
+        Upper[1] += point[1]
+
+    Upper[0] = Upper[0]/UpperCount
+    Upper[1] = Upper[1]/UpperCount
+    Lower = [0,0]
+    for point in lower_points:
+        Lower[0] += point[0]
+        Lower[1] += point[1]
+
+    Lower[0] = Lower[0]/LowerCount
+    Lower[1] = Lower[1]/LowerCount
+
+    lineA = [Lower,Upper]
+    lineB = [Lower,[Upper[0],1]]
+    return exoifcutils.calcAngle(lineA,lineB)
+        
+
+
 def ramp_data(ifc_file, settings):
     global g_OMA_Class
     global g_StairNodeID
@@ -965,6 +1012,8 @@ def ramp_data(ifc_file, settings):
                     plot_geom(entity_shape.geometry)
                     geom_data = level_flight_geom(entity_shape.geometry, Elevation, 0.01)
                     ramp_dict['GeomData'] = geom_data
+                    ramp_dict['ExoAngle'] = CalcAngle(geom_data['UpperPoints'],geom_data['LowerPoints'])
+                    ramp_dict['Angle'] = Direction
                     #ramp_dict['Floor'] = floor_longname
                     #ramp_dict['FloorIndex'] = exoifcutils.find_floor(Elevation, g_OMA_Class.m_floor_list)
                     ramp_dict['Direction'] = Direction
@@ -974,6 +1023,11 @@ def ramp_data(ifc_file, settings):
                     ramp_dict['xpos'] = lx
                     ramp_dict['ypos'] = ly
                     ramp_dict['Height'] = NdeHeight
+                    
+                    ramp_dict['nodedata'] = [g_StairNodeID, lx, ly, NdeHeight, Elevation]
+                    ramp_dict['nodeid'] = g_StairNodeID
+                    g_StairNodeID += 1
+                    
             print(ramp_dict)
             g_OMA_Class.m_ramp_list.append(ramp_dict)
 
@@ -991,11 +1045,18 @@ def sign_data(ifc_file, settings):
         exogetifcparam.get_basic_sign_info(sign_dict, ifcsign)
         
         Elevation = exogetifcparam.get_entity_storey_elevation(ifcsign)
+        sign_dict['Elevation'] = Elevation
         entity_shape = ifcopenshell.geom.create_shape(settings, ifcsign)
         lx, ly, NdeHeight, Direction, width, HorizontalLength = level_geom(entity_shape.geometry, Elevation)
+        startloc, endloc = sign_locations_xy(entity_shape.geometry)
         plot_geom(entity_shape.geometry)
         sign_dict['HeightFromTheGroundCalc'] = NdeHeight
         sign_dict['Direction'] = Direction
+        sign_dict['StartLoc'] = startloc
+        sign_dict['EndLoc'] = endloc
+
+        g_OMA_Class.m_sign_list.append(sign_dict)
+        
 
 
 def scan_spaces(ifc_file, settings):
@@ -1245,6 +1306,12 @@ def generate_data(IFC_filename, output_file, output_type):
         
     for movingwalkway in g_OMA_Class.m_movingwalkway_list:
         movingwalkway['FloorIndex'] = exoifcutils.find_floor(elevator['Elevation'], g_OMA_Class.m_floor_list)
+
+    for ramp in g_OMA_Class.m_ramp_list:
+        ramp['FloorIndex'] = exoifcutils.find_floor(ramp['Elevation'], g_OMA_Class.m_floor_list)
+
+    for sign in g_OMA_Class.m_sign_list:
+        sign['FloorIndex'] = exoifcutils.find_floor(sign['Elevation'], g_OMA_Class.m_floor_list)
     
     scan_spaces(ifc_file, settings)
     connect_rooms_doors(ifc_file)

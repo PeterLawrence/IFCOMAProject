@@ -60,7 +60,7 @@ def OutputTransitArcData(stairflight, exodusmtafile):
 
 def OutputTransitNodeData(transitNode, TransitID, aWinID, terrain, exodusmtafile):
     """
-    terrain 0 , 2 escalator, 8 lift/elevator
+    terrain 0 , 2 escalator, 8 lift/elevator, 16 Ramp
     """
     Width = transitNode['Width']
     if terrain == 2:
@@ -84,7 +84,11 @@ def OutputTransitNodeData(transitNode, TransitID, aWinID, terrain, exodusmtafile
         print("NumberOfSubUnits:", transitNode['risers'] - 1, file=exodusmtafile)  # 'risers'-1
         UnitLength = math.sqrt(math.pow(transitNode['RiserHeight'], 2) + math.pow(transitNode['TreadLength'], 2))
         print("UnitLengthSize:", UnitLength, file=exodusmtafile)  # diagonal tread distance 'riserheight' 'treadlength'
-        print("TheDirectionAngle:", transitNode['Direction'], file=exodusmtafile)  # Direction of icon on screen
+        #if 'ExoAngle' in transitNode:
+        #    print("TheDirectionAngle:", transitNode['ExoAngle'], file=exodusmtafile)
+        #else:
+        #    print("TheDirectionAngle:", transitNode['Direction'], file=exodusmtafile)
+        print("TheDirectionAngle:", transitNode['Direction'], file=exodusmtafile)
         print("TheMaxCapacity:", NumberOfUnits * Lanes, file=exodusmtafile)
         print("LaneMaxCapacity:", NumberOfUnits, file=exodusmtafile)
         print("TheDownMaxCapacity:", NumberOfUnits * Lanes, file=exodusmtafile)  # Lanes times (number of risers -1) 'risers'-1
@@ -119,7 +123,10 @@ def OutputTransitNodeData(transitNode, TransitID, aWinID, terrain, exodusmtafile
 
         print("NumberOfSubUnits:", NumberOfUnits, file=exodusmtafile)
         print("UnitLengthSize:", UnitLengthSize, file=exodusmtafile)
-        print("TheDirectionAngle:", transitNode['Direction'], file=exodusmtafile)
+        if 'ExoAngle' in transitNode:
+            print("TheDirectionAngle:", transitNode['ExoAngle'], file=exodusmtafile)
+        else:
+            print("TheDirectionAngle:", transitNode['Direction'], file=exodusmtafile)
         print("TheMaxCapacity:", Capacity, file=exodusmtafile) 
         print("LaneMaxCapacity:", LaneCapacity, file=exodusmtafile)
         print("TheDownMaxCapacity:", Capacity, file=exodusmtafile)
@@ -235,6 +242,46 @@ def OutputExternalDoor(aDoor, aWinID, exodusmtafile):
     print("Capacity:999999999", file=exodusmtafile)
 
 
+def OutputSign(aSign, signID, aWinID, exodusmtafile):
+    print("SignEntry:", file=exodusmtafile)
+    if 'Title' in aSign:
+        print("SignTitle:", aSign['Title'], file=exodusmtafile)
+    else:
+        print("SignTitle:", aSign['Name'], file=exodusmtafile)
+    print("SignsFloor:", aWinID, file=exodusmtafile)
+    print("SignType:", 0, file=exodusmtafile)
+    print("SignUse:", 0, file=exodusmtafile)
+    print("SignArrow:", 0, file=exodusmtafile)
+    print("SignVisibilityTerminationType:", 0, file=exodusmtafile)
+    aHeight = 3.0
+    if 'HeightFromTheGround' in aSign:
+        aHeight = aSign['HeightFromTheGround']
+    elif 'HeightFromTheGroundCalc' in aSign:
+        aHeight = aSign['HeightFromTheGroundCalc']
+    print("SignHeight:", aHeight, file=exodusmtafile)
+    LetterHeight = 0.152
+    if 'LetterHeight' in aSign:
+        LetterHeight = aSign['LetterHeight']
+    print("SignLetterHeight:", LetterHeight, file=exodusmtafile)
+    print("SignMaxRange:", 30.0, file=exodusmtafile)
+
+    start_x = 31.7
+    start_y = 6.2
+    if 'StartLoc' in aSign:
+        start_x = aSign['StartLoc'][0]
+        start_y = aSign['StartLoc'][1]
+    end_x = 31.6
+    end_y = 4.2
+    if 'EndLoc' in aSign:
+        end_x = aSign['EndLoc'][0]
+        end_y = aSign['EndLoc'][1]
+    print("StartX:",start_x, file=exodusmtafile)
+    print("StartY:",start_y, file=exodusmtafile)
+    print("EndX:",end_x, file=exodusmtafile)
+    print("EndY:",end_y, file=exodusmtafile)
+    print("Colour:",16777216, file=exodusmtafile)
+
+
 def OutputLineFileHeader(NumberOfFloors, exodusegxfile):
     print("File Version:1", file=exodusegxfile)
     print("Floor Number:", NumberOfFloors, file=exodusegxfile)
@@ -274,6 +321,14 @@ def AdjustLineLoc(RangeX, RangeY, offsetX, offsetY, lines):
         line[1] = offsetY + ((RangeY[1] - RangeY[0]) - line[1])
         line[2] = offsetX + line[2]
         line[3] = offsetY + ((RangeY[1] - RangeY[0]) - line[3])
+
+
+def AdjustSignLoc(RangeX, RangeY, offsetX, offsetY, signs):
+    for sign in signs:
+        sign['StartLoc'][0] = offsetX + sign['StartLoc'][0]
+        sign['StartLoc'][1] = offsetY + ((RangeY[1] - RangeY[0]) - sign['StartLoc'][1])
+        sign['EndLoc'][0] = offsetX + sign['EndLoc'][0]
+        sign['EndLoc'][1] = offsetY + ((RangeY[1] - RangeY[0]) - sign['EndLoc'][1])
 
 
 def AdjustNodeLoc(RangeX, RangeY, offsetX, offsetY, room_nodes):

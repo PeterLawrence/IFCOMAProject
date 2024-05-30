@@ -844,6 +844,8 @@ def exodus_ouput(OMA_Class, ifc_file, settings, plotter_class, MTAFile):
     exooutput.AdjustTransitNodeLoc(g_rangeX, g_rangeY, offsetX, offsetY, OMA_Class.m_escalator_list)
     exooutput.AdjustTransitNodeLoc(g_rangeX, g_rangeY, offsetX, offsetY, OMA_Class.m_elevator_list)
     exooutput.AdjustTransitNodeLoc(g_rangeX, g_rangeY, offsetX, offsetY, OMA_Class.m_movingwalkway_list)
+    exooutput.AdjustTransitNodeLoc(g_rangeX, g_rangeY, offsetX, offsetY, OMA_Class.m_ramp_list)
+    exooutput.AdjustSignLoc(g_rangeX, g_rangeY, offsetX, offsetY, OMA_Class.m_sign_list)
 
     print("g_lines", len(g_lines))
     print("g_space_node_list", len(g_space_node_list))
@@ -927,6 +929,22 @@ def exodus_ouput(OMA_Class, ifc_file, settings, plotter_class, MTAFile):
                 node_data = [movingwalkway_node_data[0], movingwalkway_node_data[1], movingwalkway_node_data[2], movingwalkway_node_data[3], movingwalkway['Name']]
                 exooutput.OutputNodeLoc(node_data, 80, aWinID, exodusmtafile)
 
+    if OMA_Class.m_ramp_list is not None:
+        for ramp in OMA_Class.m_ramp_list:
+            if 'nodedata' in ramp:
+                ramp_node_data = ramp['nodedata']
+                if ramp_node_data[0] < transit_node_offset:
+                    ramp['nodeid'] = g_NodeID
+                    g_NodeID += 1
+                ramp_node_data[0] = ramp['nodeid']
+                
+                #Elevation = movingwalkway_node_data[4]
+                aWinID = ramp['FloorIndex']
+                
+                node_data = [ramp_node_data[0], ramp_node_data[1], ramp_node_data[2], ramp_node_data[3], ramp['Name']]
+                exooutput.OutputNodeLoc(node_data, 80, aWinID, exodusmtafile)
+
+
     lift_count = 0
     if OMA_Class.m_elevator_list is not None:
         for elevator in OMA_Class.m_elevator_list:
@@ -955,6 +973,14 @@ def exodus_ouput(OMA_Class, ifc_file, settings, plotter_class, MTAFile):
                     lift_count += 1
                     elevator['LiftNodeList'] = LiftNodeList
 
+    signID = 0
+    if OMA_Class. m_sign_list is not None:
+        for sign in OMA_Class.m_sign_list:
+            aWinID = sign['FloorIndex']
+            exooutput.OutputSign(sign, signID, aWinID, exodusmtafile)
+            signID += 1
+        
+
     TransitID = 1
     for stairflight in OMA_Class.m_stair_flights_list:
         aWinID = stairflight['FloorIndex']
@@ -975,6 +1001,12 @@ def exodus_ouput(OMA_Class, ifc_file, settings, plotter_class, MTAFile):
             exooutput.OutputTransitNodeData(movingwalkway, TransitID, aWinID, 3, exodusmtafile)
             TransitID += 1
 
+    if OMA_Class.m_ramp_list is not None:
+        for ramp in OMA_Class.m_ramp_list:
+            aWinID = ramp['FloorIndex']
+            exooutput.OutputTransitNodeData(ramp, TransitID, aWinID, 16, exodusmtafile)
+            TransitID += 1
+
     if OMA_Class.m_elevator_list is not None:
         for elevator in OMA_Class.m_elevator_list:
             if 'LiftNodeList' in elevator:
@@ -984,6 +1016,7 @@ def exodus_ouput(OMA_Class, ifc_file, settings, plotter_class, MTAFile):
                     exooutput.OutputTransitNodeData(elevator, TransitID, aWinID, 8, exodusmtafile)
                     TransitID += 1
 
+
     if lift_count > 0:
         LiftBankID = 0
         print("LiftsCount:", lift_count, file=exodusmtafile)
@@ -992,7 +1025,7 @@ def exodus_ouput(OMA_Class, ifc_file, settings, plotter_class, MTAFile):
                 LiftNodeList = elevator['LiftNodeList']
                 exooutput.OutputLiftData(elevator, LiftBankID, LiftNodeList, exodusmtafile)
                 LiftBankID += 1
-        
+
 
     exodusmtafile.close()
 
