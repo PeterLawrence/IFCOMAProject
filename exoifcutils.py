@@ -329,14 +329,73 @@ def SameValue(v1, v2):
     return abs(v1-v2)<0.06
 
 
+def order_boundary_list(boundary_points):
+    """
+        orders a set of boundary_points edge lists
+        for example {e1,e2,e2,e3,e4,e5,e3,e4,e5,e1} to get {e1,e2,e3,e4,e5}
+        returns ordered list 
+        :param boundary_points : list of point edges on boundary
+    """
+    ec1 = 0
+    en1 = 1
+    p1 = boundary_points[ec1]
+    p2 = boundary_points[en1]
+    boundary_ordered_poly = [p1,p2]
+    max_loop = len(boundary_points)
+
+    index_list = []
+    for i in range(2, max_loop):
+        index_list.append(i)
+
+    #print('boundary_points ',boundary_points)
+    p1 = boundary_ordered_poly[0]
+    for i in range(0, max_loop):
+        ec1 = len(boundary_ordered_poly)-2
+        en1 = len(boundary_ordered_poly)-1
+        #print('boundary_ordered_poly ',boundary_ordered_poly)
+        if SameValue(boundary_ordered_poly[en1][0],p1[0]) and  SameValue(boundary_ordered_poly[en1][1],p1[1]):
+            # loop found
+            break;
+
+        for pc2 in range(0, len(index_list), 2):
+            pn2 = (pc2 + 1)
+            pc2Index = index_list[pc2]
+            pn2Index = index_list[pn2]
+            #print("Test 1",boundary_ordered_poly[en1],boundary_points[pn2Index])
+            #print("Test 2",boundary_ordered_poly[en1],boundary_points[pc2Index])
+            if SameValue(boundary_ordered_poly[en1][0],boundary_points[pn2Index][0]) and  SameValue(boundary_ordered_poly[en1][1],boundary_points[pn2Index][1]):
+                index_list.pop(pn2)
+                index_list.pop(pc2)
+                boundary_ordered_poly.append(boundary_points[pc2Index])
+                break
+            elif SameValue(boundary_ordered_poly[en1][0],boundary_points[pc2Index][0]) and  SameValue(boundary_ordered_poly[en1][1],boundary_points[pc2Index][1]):
+                index_list.pop(pn2)
+                index_list.pop(pc2)
+                boundary_ordered_poly.append(boundary_points[pn2Index])
+                break
+        if len(index_list)==0:
+            # loop found
+            break;
+    return boundary_ordered_poly
+            
+
 def are_adjacent(boundary_points1, boundary_points2):
+    """
+        returns true if to boundary lists are adjacent(edge groups)
+        :param boundary_points1 : list of points on boundary 1
+        :param boundary_points2 : list of points on boundary 2
+    """
     if boundary_points1 is None or boundary_points2 is None:
         return False
     count1 = len(boundary_points1)
     count2 = len(boundary_points2)
+    # note the steps size of two (each edge if in groups of two
     for point1 in range(0, count1, 2):
+        # pn1, next point in edge (point1,pn1)
         pn1 = (point1 + 1) % count1
+        # note the steps size of two
         for point2 in range(0, count2, 2):
+            # pn2, next point in edge (point2,pn2)
             pn2 = (point2 + 1) % count2
             if boundary_points1[point1][2] != boundary_points2[point2][2]:
                 return False
@@ -499,9 +558,6 @@ def remove_virtual_lines(lines, spaces, subspaces):
                     print("Space mismatch")
                 for iLine in range(iIndex,iIndex+iLines):
                     for jLine in range(jIndex,jIndex+jLines):
-                        #print(space['Name'],"==========================")
-                        #print(lines[iLine])
-                        #print(lines[jLine])
                         if same_point(lines[iLine][0],lines[jLine][0],lines[iLine][1],lines[jLine][1]) and same_point(lines[iLine][2],lines[jLine][2],lines[iLine][3],lines[jLine][3]):
                             print("Remove Clockwise",iLine,jLine)
                             lines[iLine][4]=False

@@ -312,7 +312,7 @@ def get_basic_elevator_info(elevator_dict, ifc_transport):
 
 def get_basic_ramp_info(ramp_dict, ifc_ramp):
     ramp_info = ifc_ramp.get_info()
-    ramp_dict['Name'] = ramp_info['Name']
+    ramp_dict['Name'] = get_property(ramp_info, 'Name')
 
     psetdata = ifcopenshell.util.element.get_psets(ifc_ramp)
     if 'Pset_RampCommon' in psetdata:
@@ -324,7 +324,30 @@ def get_basic_ramp_info(ramp_dict, ifc_ramp):
     if 'ePset_OMA_RampCommon' in psetdata:
         entry = psetdata['ePset_OMA_RampCommon']
         ramp_dict['DirectionOfTravel'] = get_property(entry, "HandicapAccessible")  # In IDS
+
     
+def get_basic_sign_info(sign_dict, ifc_sign):
+    element_info = ifc_sign.get_info()
+    sign_dict['Name'] = get_property(element_info, 'Name')
+    sign_dict['GlobalId'] = get_property(element_info, 'GlobalId')
+
+    psetdata = ifcopenshell.util.element.get_psets(ifc_sign)
+    if 'ePset_OMA_Signage' in psetdata:
+        entry = psetdata['ePset_OMA_Signage']
+        sign_dict['Title'] = get_property(entry, "Title")  # In IDS
+        sign_dict['HeightFromTheGround'] = get_property(entry, "HeightFromTheGround")  # In IDS
+        sign_dict['LetterHeight'] = get_property(entry, "LetterHeight")  # In IDS
+        sign_dict['TextColour'] = get_property(entry, "TextColour")  # In IDS
+        sign_dict['BackgroundColour'] = get_property(entry, "BackgroundColour")  # In IDS
+        sign_dict['Usage'] = get_property(entry, "Usage")  # In IDS
+        sign_dict['LuminousIntensity'] = get_property(entry, "LuminousIntensity")  # In IDS
+
+    if 'Qto_SignBaseQuantities' in psetdata:
+        entry = psetdata['Qto_SignBaseQuantities']
+        sign_dict['Width'] = get_property(entry, "Width")  # In IDS
+        sign_dict['Height'] = get_property(entry, "Height")
+
+
 
 def get_basic_space_info(ifc_space, space_data):
     element_info = ifc_space.get_info()
@@ -377,8 +400,7 @@ def get_storey_Elevation_spaceboundary_quiet(ifc_element):
     if aRelatingSpace:
         a_storey = aRelatingSpace.Decomposes[0].RelatingObject
         element_info = a_storey.get_info()
-        Elevation = get_property(element_info,
-                                 'Elevation')  # moving to ElevationOfFFLRelative, under Pset_BuildingStoreyCommon
+        Elevation = get_property(element_info,'Elevation')  # moving to ElevationOfFFLRelative, under Pset_BuildingStoreyCommon
     return Elevation
 
 
@@ -428,14 +450,34 @@ def get_storey_GlobalId(ifc_element):
 
 
 def get_storey_Elevation(ifc_element):
+    """
+   Get element building storey
+   to be replaced by get_entity_storey_elevation
+   :param ifc_element if element to find building storey for
+   """
     aRelatingSpace = parent(ifc_element)
     Elevation = 0
     if aRelatingSpace:
-        # print("Has Parent")
         element_info = aRelatingSpace.get_info()
-        # outputElement(element_info,'GlobalId',0)
-        # outputElement(element_info,'Name',0)
         Elevation = get_property(element_info, 'Elevation')
+
+    return Elevation
+
+
+def get_entity_storey_elevation(ifc_element):
+    """
+    Get element building storey
+    Replaces function get_storey_Elevation
+    :param ifc_element if element to find building storey for
+    """
+    aRelatingSpace = parent(ifc_element)
+    Elevation = None
+    while aRelatingSpace is not None:
+        if 'IfcBuildingStorey' == aRelatingSpace.is_a():
+            element_info = aRelatingSpace.get_info()
+            Elevation = get_property(element_info, 'Elevation')
+            break
+        aRelatingSpace = parent(aRelatingSpace)
 
     return Elevation
 

@@ -30,6 +30,37 @@ g_StairNodeID = 0  # used for numbering doors local IDs
 g_OMA_Class = OMAClass()
 g_plotter_class = None
 
+def plot_geom(shape):
+    '''
+    Extract path and step data for stairs
+    :return: number of levels (steps) found, step level data and mid point path data
+    '''
+    global g_plotter_class
+    faces = shape.faces  # Indices of vertices per triangle face e.g. [f1v1, f1v2, f1v3, f2v1, f2v2, f2v3,
+    verts = shape.verts  # X Y Z of vertices in flattened list e.g. [v1x, v1y, v1z, v2x, v2y, v2z, ...]
+    VertexCount = len(verts)
+    if VertexCount < 3:
+        return None
+    
+    # extract face area on floor
+
+    iPoint = 0
+    xp = []
+    yp = []
+    zp = []
+    VertexCount = len(verts)
+    while iPoint < VertexCount:
+        xp.append(verts[iPoint])
+        iPoint += 1
+        yp.append(verts[iPoint])
+        iPoint += 1
+        zp.append(verts[iPoint])
+        iPoint += 1
+
+    if g_plotter_class is not None:
+        g_plotter_class.add_faces(xp, yp, zp, faces)
+
+        
 
 def level_geom(shape, LevelElevation):
     """
@@ -364,10 +395,6 @@ def boundary_element_tri_gen_h(shape, Elev, aTol):
         iPoint += 1
         if zp[ip3] > Elev-aTol and zp[ip3] < Elev+aTol and zp[ip2] > Elev-aTol and zp[ip2] < Elev+aTol and zp[ip1] > Elev-aTol and zp[ip1] < Elev+aTol:
             tri_idx.append((ip1, ip2, ip3))
-
-    
-    #if g_plotter_class is not None:
-    #    g_plotter_class.add_faces(xp, yp, zp, tri_idx)
     
     edge_list = find_boundary(tri_idx)
     print("boundary edge list ", edge_list)
@@ -377,7 +404,6 @@ def boundary_element_tri_gen_h(shape, Elev, aTol):
         for edge in edge_list:
             edge_list_pt.append([xp[edge[0]], yp[edge[0]], zp[edge[0]]])
             edge_list_pt.append([xp[edge[1]], yp[edge[1]], zp[edge[1]]])
-        #print ("boundary edge list points ", edge_list_pt)
     else:
         return "Invalid"
     
@@ -385,6 +411,9 @@ def boundary_element_tri_gen_h(shape, Elev, aTol):
 
 
 def find_boundary(tri_idx):
+    """
+      Generate a list edges from a set of triangles 
+    """
     edge_list = []
     
     for itri in tri_idx:
@@ -933,6 +962,7 @@ def ramp_data(ifc_file, settings):
                 if 'IfcRampFlight' == ramp_element.is_a():
                     entity_shape = ifcopenshell.geom.create_shape(settings, ramp_element)
                     lx, ly, NdeHeight, Direction, width, HorizontalLength = level_geom(entity_shape.geometry, Elevation)
+                    plot_geom(entity_shape.geometry)
                     geom_data = level_flight_geom(entity_shape.geometry, Elevation, 0.01)
                     ramp_dict['GeomData'] = geom_data
                     #ramp_dict['Floor'] = floor_longname
@@ -946,6 +976,26 @@ def ramp_data(ifc_file, settings):
                     ramp_dict['Height'] = NdeHeight
             print(ramp_dict)
             g_OMA_Class.m_ramp_list.append(ramp_dict)
+
+
+def sign_data(ifc_file, settings):
+    global g_OMA_Class
+    
+    signs = ifc_file.by_type("IfcSign")
+    sign_count = 0
+    for ifcsign in signs:
+        sign_count+=1
+        sign_info = ifcsign.get_info()
+        sign_dict = {'id': sign_count}
+        print(ifcsign.PredefinedType, sign_info['Name'])
+        exogetifcparam.get_basic_sign_info(sign_dict, ifcsign)
+        
+        Elevation = exogetifcparam.get_entity_storey_elevation(ifcsign)
+        entity_shape = ifcopenshell.geom.create_shape(settings, ifcsign)
+        lx, ly, NdeHeight, Direction, width, HorizontalLength = level_geom(entity_shape.geometry, Elevation)
+        plot_geom(entity_shape.geometry)
+        sign_dict['HeightFromTheGroundCalc'] = NdeHeight
+        sign_dict['Direction'] = Direction
 
 
 def scan_spaces(ifc_file, settings):
@@ -1170,6 +1220,8 @@ def generate_data(IFC_filename, output_file, output_type):
 
     ramp_data(ifc_file, settings)
 
+    sign_data(ifc_file, settings)
+
     # sorts floors before finding spaces - as we require an ordered list for linking levels
     ordered_floor_list = sorted(g_OMA_Class.m_floor_list, key=itemgetter('Elevation'))
     g_OMA_Class.m_floor_list = ordered_floor_list
@@ -1226,6 +1278,7 @@ def generate_data(IFC_filename, output_file, output_type):
         cfastoutput.cfast_output(g_OMA_Class, ifc_file, settings, output_file)
     elif output_type == "DumpStairs":
         g_OMA_Class.dump_data()
+        g_OMA_Class.dump_ordered_space_boundaries()
     else:
         print("Unsupported format")
 
