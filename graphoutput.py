@@ -136,8 +136,22 @@ def graph_view(OMA_Class, ifc_file, filename):
             net.add_edge(ifc_space1['enz_node_id'], ifc_space2['enz_node_id'], title=a_title, color='#00FF00')
             linkcount += 1
 
-    # virtual boundaries
+    # elevator floor links
+    for ifc_elevator in OMA_Class.m_elevator_list:
+        if 'SpaceIndexList' in ifc_elevator:
+            SpaceIDs = []
+            for index in ifc_elevator['SpaceIndexList']:
+                if index > -1:
+                    ifc_space = OMA_Class.m_space_list[index]
+                    if 'enz_node_id' in ifc_space:
+                        SpaceIDs.append(ifc_space['enz_node_id'])
+            if len(SpaceIDs)>1:
+                for index in range(0,len(SpaceIDs)-1):
+                    print("Elevator link", ifc_elevator['Name'])
+                    net.add_edge(SpaceIDs[index], SpaceIDs[index+1], title=ifc_elevator['Name'], color='#CCCCCC', weight=20.0)
+                    linkcount += 1
 
+    # virtual boundaries
     print("virtual boundaries")
     for ifc_space in OMA_Class.m_space_list:
         if 'elemIDs' in ifc_space:
