@@ -416,6 +416,15 @@ def find_landings(GlobalID, landings_list):
     return (-1)
 
 
+def find_elevator(GlobalID, elevator_list):
+    iPos = 0
+    for elevator in elevator_list:
+        if elevator['GlobalId'] == GlobalID:
+            return iPos
+        iPos+=1
+    return (-1)
+
+
 def find_stairflight(GlobalID, stairflight_list):
     iPos = 0
     for stair_flight in stairflight_list:

@@ -276,6 +276,7 @@ def get_basic_movingwalkway_info(movingwalkway_dict, ifc_transport):
 def get_basic_elevator_info(elevator_dict, ifc_transport):
     transport_info = ifc_transport.get_info()
     elevator_dict['Name'] = get_property(transport_info, 'Name')
+    elevator_dict['GlobalId'] = get_property(transport_info, 'GlobalId')
     print('ELEVATOR ', elevator_dict['Name'])
     psetdata = ifcopenshell.util.element.get_psets(ifc_transport)
     if "Pset_TransportElementCommon" in psetdata:

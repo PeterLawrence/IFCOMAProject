@@ -9,6 +9,7 @@ import sys
 import os
 import ifcopenshell
 from ifcopenshell import geom
+import ifcopenshell.util.element as Element
 import numpy as np
 import math
 from operator import itemgetter
@@ -875,7 +876,7 @@ def get_elevator_data(transport_info, settings, ifc_transport, Elevation):
     elevator_dict = {'id': g_StairNodeID }
     elevator_dict['Elevation'] = Elevation
     exogetifcparam.get_basic_elevator_info(elevator_dict, ifc_transport)
-
+    
     entity_shape = ifcopenshell.geom.create_shape(settings, ifc_transport)
     lx, ly, NdeHeight, Direction, width, HorizontalLength = level_geom(entity_shape.geometry, Elevation)
     boundary_points = boundary_element_tri_gen_h(entity_shape.geometry, Elevation, 0.1)
@@ -899,8 +900,9 @@ def get_elevator_data(transport_info, settings, ifc_transport, Elevation):
     elevator_dict['nodeid'] = g_StairNodeID
     g_StairNodeID += 1
     
+    print("Elevator data:",elevator_dict['Name'],elevator_dict['GlobalId'])
     g_OMA_Class.m_elevator_list.append(elevator_dict)
-    print("Elevator data ", elevator_dict)
+    print("Elevator data: ", elevator_dict)
 
 
 def get_movingwalkway_data(transport_info, settings, ifc_transport, Elevation):
@@ -958,6 +960,41 @@ def transport_data(ifc_file, settings):
         elif transport.PredefinedType == 'MOVINGWALKWAY':
             get_movingwalkway_data(transport_info, settings, transport, Elevation)
 
+
+def extract_elevator_data(ifc_file):
+    global g_OMA_Class
+    zones = ifc_file.by_type("IfcZone")
+    for zone in zones:
+        if zone.ObjectType=='ElevatorShaft':
+            print("elevator zone found:", zone.Name)
+            IfcRelAssignsToGroups = zone.IsGroupedBy
+            the_elevator = -1
+            spaceIndexList = []
+            
+            if IfcRelAssignsToGroups is not None:
+                for groups in IfcRelAssignsToGroups:
+                    for aRelatingSpace in groups.RelatedObjects:
+                        if aRelatingSpace.is_a("IfcSpace"):
+                            print("IfcSpace ",aRelatingSpace.Name)
+                            spaceIndex = g_OMA_Class.SpaceDefined(aRelatingSpace.GlobalId)
+                            if spaceIndex > -1:
+                                spaceIndexList.append(spaceIndex)
+                        elif aRelatingSpace.is_a("IfcTransportElement"):
+                            print("IfcTransportElement ",aRelatingSpace.Name)
+                            print(len(g_OMA_Class.m_escalator_list))
+                            print(g_OMA_Class.m_escalator_list[0])
+                            theElevatorPos = exoifcutils.find_elevator(aRelatingSpace.GlobalId, g_OMA_Class.m_elevator_list)
+            if theElevatorPos > -1:
+                theElevator = g_OMA_Class.m_elevator_list[theElevatorPos]
+                if theElevator is not None:
+                    if len(spaceIndexList)>0:
+                        theElevator['SpaceIndexList'] = spaceIndexList
+                        for space_index in spaceIndexList:
+                            a_space = g_OMA_Class.m_space_list[space_index]
+                            if a_space is not None:
+                                a_space['elevator']=theElevatorPos
+                
+                        
 
 def CalcAngle(upper_points, lower_points):
     '''
@@ -1102,7 +1139,7 @@ def build_door_list(ifc_file):
     
     ifc_doors = ifc_file.by_type("IfcDoor")
     for ifc_door in ifc_doors:
-        a_story = ifcopenshell.util.element.get_container(ifc_door)
+        a_story = Element.get_container(ifc_door)
         element_info = a_story.get_info()
         Elevation = exogetifcparam.get_property(element_info, 'Elevation')
         floor_longname = exogetifcparam.get_property(element_info, 'LongName')
@@ -1314,6 +1351,7 @@ def generate_data(IFC_filename, output_file, output_type):
         sign['FloorIndex'] = exoifcutils.find_floor(sign['Elevation'], g_OMA_Class.m_floor_list)
     
     scan_spaces(ifc_file, settings)
+    extract_elevator_data(ifc_file)
     connect_rooms_doors(ifc_file)
 
     print("===================== door data ====================")

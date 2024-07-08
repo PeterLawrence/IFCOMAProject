@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Created on Tue Dec 19 09:59:58 2023
-
+@brief Plots the IFC building data using pyvis
 @author: P.J.Lawrence
 """
 
@@ -45,11 +45,15 @@ def graph_view(OMA_Class, ifc_file, filename):
             space_area = 1
             if 'area' in ifc_space:
                 space_area = ifc_space['area']
+            if 'elevator' in ifc_space:
+                colour = '#FF00FF'
+            else:
+                colour = '#97c2fc'
             if 'Reference' in ifc_space:
                 net.add_node(enz_node_id, label=ifc_space['Name'], title=ifc_space['Reference'], value=space_area,
-                             shape="square")
+                             shape="square",color = colour)
             else:
-                net.add_node(enz_node_id, label=ifc_space['Name'], value=space_area, shape="square")
+                net.add_node(enz_node_id, label=ifc_space['Name'], value=space_area, shape="square",color = colour)
 
     for ifc_door in OMA_Class.m_door_list:
         if ifc_door['IsExternal']:
