@@ -1026,6 +1026,10 @@ def exodus_ouput(OMA_Class, ifc_file, settings, plotter_class, MTAFile):
                 exooutput.OutputLiftData(elevator, LiftBankID, LiftNodeList, exodusmtafile)
                 LiftBankID += 1
 
+    for a_space_index in range(len(g_space_node_list)):
+        exooutput.output_zones_room(OMA_Class.m_space_list[a_space_index],a_space_index+1,g_space_node_list[a_space_index], exodusmtafile)
+
+
 
     exodusmtafile.close()
 

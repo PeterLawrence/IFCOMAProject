@@ -228,6 +228,7 @@ def OutputExternalDoor(aDoor, aWinID, exodusmtafile):
         title_str = aDoor['Name'].replace(" ", "_")
         print("Title:", title_str, file=exodusmtafile)
     print("WinID:", aWinID, file=exodusmtafile)
+    print("IfcGuID:", aDoor['GlobalId'], file=exodusmtafile)
     print("PosMetresX:", aDoor['Location'][0], file=exodusmtafile)
     print("PosMetresY:", aDoor['Location'][1], file=exodusmtafile)
     print("NodeHeight:0", file=exodusmtafile)
@@ -304,6 +305,11 @@ def OutputLineData(line, height, exodusegxfile):
         print("Line:", line[0], " ", line[1], " ", line[2], " ", line[3], " ", height, " ", 16777216,
               file=exodusegxfile)
 
+def OutputLineBoundaryData(line, height, exodusegxfile):
+    # X1,Y1,X2,Y2,Height,32bitColour
+    print("Line:", line[0][0], " ", line[0][1], " ", line[1][0], " ", line[1][1], " ", height, " ", 16777216,
+          file=exodusegxfile)
+
 
 def OutputLineSectionEnd(exodusegxfile):
     print("Boundary Polygons:0", file=exodusegxfile)
@@ -321,6 +327,14 @@ def AdjustLineLoc(RangeX, RangeY, offsetX, offsetY, lines):
         line[1] = offsetY + ((RangeY[1] - RangeY[0]) - line[1])
         line[2] = offsetX + line[2]
         line[3] = offsetY + ((RangeY[1] - RangeY[0]) - line[3])
+
+
+def AdjustLineBoundaryLoc(RangeX, RangeY, offsetX, offsetY, lines):
+    for line in lines:
+        line[0][0] = offsetX + line[0][0]
+        line[0][1] = offsetY + ((RangeY[1] - RangeY[0]) - line[0][1])
+        line[1][0] = offsetX + line[1][0]
+        line[1][1] = offsetY + ((RangeY[1] - RangeY[0]) - line[1][1])
 
 
 def AdjustSignLoc(RangeX, RangeY, offsetX, offsetY, signs):
@@ -433,6 +447,47 @@ def output_room_nodes(room_node_list, WinID, nodal_door_connections, node_stairf
                     print("", file=exodusmtafile)
             aColID += 1
         aRowID += 1
+
+
+def output_zones_room(ifcspace, ZoneId, ifcspace_node_list, exodusmtafile):
+    """
+    Outputs the nodes in a given room
+    :param room_node_list: list of nodes in room
+    :param nodal_door_connections: nodal connections between doors
+    :param WinID: - floor ID
+    :param exodusmtafile: MTA file
+    """
+    node_list = []
+    aRowID = 0
+    # print("New node set ============================",node_count)
+    for aRow in ifcspace_node_list:
+        row_length = len(aRow)
+        # print("New row ============================",row_length)
+        aColID = 0
+        for aNode in aRow:
+            if aNode[0] > -1:
+                node_list.append(aNode[0])
+
+            aColID += 1
+        aRowID += 1
+
+    if len(node_list)>0:
+        print("Zone",ZoneId, file=exodusmtafile)
+        print("Label:",file=exodusmtafile)
+        if 'Name' in ifcspace:
+            print("ZoneName:",ifcspace['Name'], file=exodusmtafile)
+        print("ZoneType:3",file=exodusmtafile)
+        print("IfcGuID:", ifcspace['GlobalId'], file=exodusmtafile)
+        print("NodeList:", file=exodusmtafile, end=' ')
+        line_count=0
+        for i in range(len(node_list)):
+            line_count+=1
+            if line_count>10:
+                print("", file=exodusmtafile)
+                print("NodeList:", file=exodusmtafile, end=' ')
+                line_count = 0
+            print(node_list[i], file=exodusmtafile, end=' ')
+        print("", file=exodusmtafile)
 
 
 def OutputTransitNodeConnections(stairflight, exodusmtafile):
