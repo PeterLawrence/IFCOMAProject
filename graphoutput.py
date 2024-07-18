@@ -138,18 +138,33 @@ def graph_view(OMA_Class, ifc_file, filename):
 
     # elevator floor links
     for ifc_elevator in OMA_Class.m_elevator_list:
+        spaceIDs = []
         if 'SpaceIndexList' in ifc_elevator:
-            SpaceIDs = []
             for index in ifc_elevator['SpaceIndexList']:
                 if index > -1:
                     ifc_space = OMA_Class.m_space_list[index]
                     if 'enz_node_id' in ifc_space:
                         SpaceIDs.append(ifc_space['enz_node_id'])
-            if len(SpaceIDs)>1:
-                for index in range(0,len(SpaceIDs)-1):
-                    print("Elevator link", ifc_elevator['Name'])
-                    net.add_edge(SpaceIDs[index], SpaceIDs[index+1], title=ifc_elevator['Name'], color='#CCCCCC', weight=20.0)
-                    linkcount += 1
+            
+        if 'DoorIndexList' in ifc_elevator:
+            for index in ifc_elevator['DoorIndexList']:
+                if index > -1:
+                    ifc_door = OMA_Class.m_door_list[index]
+                    if 'Spaces' in ifc_door:
+                        for spaceid in ifc_door['Spaces']:
+                            space_index = OMA_Class.SpaceDefined(spaceid)
+                            if space_index > -1:
+                                ifc_space = OMA_Class.m_space_list[space_index]
+                                if 'enz_node_id' in ifc_space:
+                                    SpaceIDs.append(ifc_space['enz_node_id'])
+                                
+        if len(SpaceIDs)>1:
+            for index in range(0,len(SpaceIDs)-1):
+                print("Elevator link", ifc_elevator['Name'])
+                net.add_edge(SpaceIDs[index], SpaceIDs[index+1], title=ifc_elevator['Name'], color='#CCCCCC', weight=20.0)
+                linkcount += 1
+                        
+                    
 
     # virtual boundaries
     print("virtual boundaries")

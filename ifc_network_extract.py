@@ -961,47 +961,75 @@ def transport_data(ifc_file, settings):
             get_movingwalkway_data(transport_info, settings, transport, Elevation)
 
 
-def extract_elevator_data(ifc_file):
+def extract_evelvator_data_from_group(IfcRelAssignsToGroups):
     global g_OMA_Class
+    theElevatorPos = -1
+    spaceIndexList = []
+    doorIndexList = []
+    if IfcRelAssignsToGroups is not None:
+        for groups in IfcRelAssignsToGroups:
+            for aRelatingSpace in groups.RelatedObjects:
+                if aRelatingSpace.is_a("IfcSpace"):
+                    print("IfcSpace ",aRelatingSpace.Name)
+                    spaceIndex = g_OMA_Class.SpaceDefined(aRelatingSpace.GlobalId)
+                    if spaceIndex > -1:
+                        spaceIndexList.append(spaceIndex)
+                        if aRelatingSpace.ContainsElements is not None:
+                            for contained_element in aRelatingSpace.ContainsElements:
+                                if contained_element.is_a("IfcRelContainedInSpatialStructure"):
+                                    for element in contained_element.RelatedElements:
+                                        if element.is_a("IfcTransportElement"):
+                                            aElevatorPos = exoifcutils.find_elevator(element.GlobalId, g_OMA_Class.m_elevator_list)
+                                            if aElevatorPos>-1:
+                                                theElevatorPos = aElevatorPos
+                                
+                elif aRelatingSpace.is_a("IfcTransportElement"):
+                    print("IfcTransportElement ",aRelatingSpace.Name)
+                    aElevatorPos = exoifcutils.find_elevator(aRelatingSpace.GlobalId, g_OMA_Class.m_elevator_list)
+                    if aElevatorPos>-1:
+                        theElevatorPos = aElevatorPos
+                elif aRelatingSpace.is_a("IfcDoor"):
+                    doorIndex = exoifcutils.DoorDefined(aRelatingSpace.GlobalId, g_OMA_Class.m_door_list)
+                    doorIndexList.append(doorIndex)
+                            
+    if theElevatorPos > -1:
+        theElevator = g_OMA_Class.m_elevator_list[theElevatorPos]
+        if theElevator is not None:
+            if len(spaceIndexList)>0:
+                theElevator['SpaceIndexList'] = spaceIndexList
+                for space_index in spaceIndexList:
+                    a_space = g_OMA_Class.m_space_list[space_index]
+                    if a_space is not None:
+                        a_space['elevator']=theElevatorPos
+            if len(doorIndexList)>0:
+                theElevator['DoorIndexList'] = doorIndexList
+                        
+
+def extract_elevator_data(ifc_file):
     zones = ifc_file.by_type("IfcZone")
     for zone in zones:
         if zone.ObjectType=='ElevatorShaft':
             print("elevator zone found:", zone.Name)
             IfcRelAssignsToGroups = zone.IsGroupedBy
-            theElevatorPos = -1
-            spaceIndexList = []
-            
             if IfcRelAssignsToGroups is not None:
-                for groups in IfcRelAssignsToGroups:
-                    for aRelatingSpace in groups.RelatedObjects:
-                        if aRelatingSpace.is_a("IfcSpace"):
-                            print("IfcSpace ",aRelatingSpace.Name)
-                            spaceIndex = g_OMA_Class.SpaceDefined(aRelatingSpace.GlobalId)
-                            if spaceIndex > -1:
-                                spaceIndexList.append(spaceIndex)
-                                if aRelatingSpace.ContainsElements is not None:
-                                    for contained_element in aRelatingSpace.ContainsElements:
-                                        if contained_element.is_a("IfcRelContainedInSpatialStructure"):
-                                            for element in contained_element.RelatedElements:
-                                                if element.is_a("IfcTransportElement"):
-                                                    aElevatorPos = exoifcutils.find_elevator(element.GlobalId, g_OMA_Class.m_elevator_list)
-                                                    if aElevatorPos>-1:
-                                                        theElevatorPos = aElevatorPos
-                                
-                        elif aRelatingSpace.is_a("IfcTransportElement"):
-                            print("IfcTransportElement ",aRelatingSpace.Name)
-                            aElevatorPos = exoifcutils.find_elevator(aRelatingSpace.GlobalId, g_OMA_Class.m_elevator_list)
-                            if aElevatorPos>-1:
-                                theElevatorPos = aElevatorPos
-            if theElevatorPos > -1:
-                theElevator = g_OMA_Class.m_elevator_list[theElevatorPos]
-                if theElevator is not None:
-                    if len(spaceIndexList)>0:
-                        theElevator['SpaceIndexList'] = spaceIndexList
-                        for space_index in spaceIndexList:
-                            a_space = g_OMA_Class.m_space_list[space_index]
-                            if a_space is not None:
-                                a_space['elevator']=theElevatorPos
+                extract_evelvator_data_from_group(IfcRelAssignsToGroups)
+
+    built_systems = ifc_file.by_type("IfcBuiltSystem")
+    for built_system in built_systems:
+        if built_system.PredefinedType=='TRANSPORT':
+            print("elevator zone found:", built_system.Name)
+            IfcRelAssignsToGroups = built_system.IsGroupedBy
+            if IfcRelAssignsToGroups is not None:
+                extract_evelvator_data_from_group(IfcRelAssignsToGroups)
+
+    building_systems = ifc_file.by_type("IfcBuildingSystem")
+    for building_system in building_systems:
+        if building_system.PredefinedType=='TRANSPORT':
+            print("elevator zone found:", building_system.Name)
+            IfcRelAssignsToGroups = building_system.IsGroupedBy
+            if IfcRelAssignsToGroups is not None:
+                extract_evelvator_data_from_group(IfcRelAssignsToGroups)
+            
                 
                         
 
