@@ -469,7 +469,7 @@ def get_list_of_stair(stairflight_list):
     for stairflight_index in stairflight_list:
         astairflight = g_OMA_Class.m_stair_flights_list[stairflight_index]
         parent_GlobalID = astairflight['parent']
-        stair_index = exoifcutils.find_stairs(parent_GlobalID, g_OMA_Class.m_stair_list)
+        stair_index = exoifcutils.StairsDefined(parent_GlobalID, g_OMA_Class.m_stair_list)
         if stair_index>-1:
             if stair_index not in stair_list:
                 stair_list.append(stair_index)
@@ -979,13 +979,13 @@ def extract_evelvator_data_from_group(IfcRelAssignsToGroups):
                                 if contained_element.is_a("IfcRelContainedInSpatialStructure"):
                                     for element in contained_element.RelatedElements:
                                         if element.is_a("IfcTransportElement"):
-                                            aElevatorPos = exoifcutils.find_elevator(element.GlobalId, g_OMA_Class.m_elevator_list)
+                                            aElevatorPos = exoifcutils.ElevatorDefined(element.GlobalId, g_OMA_Class.m_elevator_list)
                                             if aElevatorPos>-1:
                                                 theElevatorPos = aElevatorPos
                                 
                 elif aRelatingSpace.is_a("IfcTransportElement"):
                     print("IfcTransportElement ",aRelatingSpace.Name)
-                    aElevatorPos = exoifcutils.find_elevator(aRelatingSpace.GlobalId, g_OMA_Class.m_elevator_list)
+                    aElevatorPos = exoifcutils.ElevatorDefined(aRelatingSpace.GlobalId, g_OMA_Class.m_elevator_list)
                     if aElevatorPos>-1:
                         theElevatorPos = aElevatorPos
                 elif aRelatingSpace.is_a("IfcDoor"):
@@ -1301,14 +1301,14 @@ def calc_stair_travel_distance():
         for part in stair['elemIDs']:
             GlobalId = part[1]
             if part[0] == 'IfcStairFlight':
-                stair_flight_index = exoifcutils.find_stairflight(GlobalId, g_OMA_Class.m_stair_flights_list)
+                stair_flight_index = exoifcutils.StairflightDefined(GlobalId, g_OMA_Class.m_stair_flights_list)
                 if stair_flight_index > -1:
                     stair_flight = g_OMA_Class.m_stair_flights_list[stair_flight_index]
                     aWidth = max(aWidth, stair_flight['Width'])
                     travel_distance = math.sqrt(stair_flight['TotalRun']*stair_flight['TotalRun']+stair_flight['Height']*stair_flight['Height'])
                     aLength += travel_distance
             elif part[0] == 'IfcSlab':
-                landing_index = exoifcutils.find_landings(GlobalId, g_OMA_Class.m_landings_list)
+                landing_index = exoifcutils.LandingDefined(GlobalId, g_OMA_Class.m_landings_list)
                 if landing_index > -1:
                     landing = g_OMA_Class.m_landings_list[landing_index]
                     # TO DO

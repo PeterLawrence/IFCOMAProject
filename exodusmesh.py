@@ -554,13 +554,13 @@ def order_stair_data(ifc_stair, space_list, stair_flights_list, landings_list):
     
     for element in ifc_stair['elemIDs']:
         if element[0] == 'IfcStairFlight':
-            flightIndex = exoifcutils.find_stairflight(element[1], stair_flights_list)
+            flightIndex = exoifcutils.StairflightDefined(element[1], stair_flights_list)
             if flightIndex > -1:
                 stair_flight = stair_flights_list[flightIndex]
                 elevation = get_mid_elevation_stair_flight(stair_flight)
                 level_data.append([elevation, element[0], flightIndex])
         elif element[0] == 'IfcSlab':
-            landingIndex = exoifcutils.find_landings(element[1], landings_list)
+            landingIndex = exoifcutils.LandingDefined(element[1], landings_list)
             if landingIndex > -1:
                 landing = landings_list[landingIndex]
                 level_data.append([landing['Elevation'], element[0], landingIndex])

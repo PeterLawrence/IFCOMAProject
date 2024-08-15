@@ -407,7 +407,7 @@ def are_adjacent(boundary_points1, boundary_points2):
                 return True
 
 
-def find_landings(GlobalID, landings_list):
+def LandingDefined(GlobalID, landings_list):
     iPos = 0
     for landing in landings_list:
         if landing['GlobalId'] == GlobalID:
@@ -416,7 +416,7 @@ def find_landings(GlobalID, landings_list):
     return (-1)
 
 
-def find_elevator(GlobalID, elevator_list):
+def ElevatorDefined(GlobalID, elevator_list):
     iPos = 0
     for elevator in elevator_list:
         if elevator['GlobalId'] == GlobalID:
@@ -425,7 +425,7 @@ def find_elevator(GlobalID, elevator_list):
     return (-1)
 
 
-def find_stairflight(GlobalID, stairflight_list):
+def StairflightDefined(GlobalID, stairflight_list):
     iPos = 0
     for stair_flight in stairflight_list:
         if stair_flight['GlobalId'] == GlobalID:
@@ -434,7 +434,7 @@ def find_stairflight(GlobalID, stairflight_list):
     return (-1)
 
 
-def find_stairs(GlobalID, stair_list):
+def StairsDefined(GlobalID, stair_list):
     iPos = 0
     for stair in stair_list:
         if stair['GlobalId'] == GlobalID:
@@ -449,16 +449,6 @@ def SpaceDefined(GlobalID, space_list):
         if space['GlobalId'] == GlobalID:
             return iPos
         iPos+=1
-    return -1
-
-
-def find_floor(Elevation, floor_list):
-    floor_index = 0
-    for floor in floor_list:
-        if floor['Elevation'] == Elevation:
-            return floor_index
-        floor_index+=1
-                  
     return -1
 
 
@@ -489,6 +479,16 @@ def find_floor_above_elevation(Elevation, floor_list):
                 return floor['Elevation']
         last_floor = floor           
     return None
+
+
+def find_floor(Elevation, floor_list):
+    floor_index = 0
+    for floor in floor_list:
+        if floor['Elevation'] == Elevation:
+            return floor_index
+        floor_index+=1
+                  
+    return -1
 
 
 def get_subfloor_list(min_elev, max_elev, floor_list):
