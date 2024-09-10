@@ -3,6 +3,8 @@
 Created on Tue Dec 19 09:59:58 2023
 
 @author: P.J.Lawrence
+
+packages used ifcopenshell, scipy, matplotlib,pyvis
 """
 
 import sys
@@ -219,6 +221,8 @@ def add_step_level(levels, tri_idx, height, Tol):
     levels.append((height, [tri_idx]))
     return True
 
+def cross2d(x, y):
+    return x[..., 0] * y[..., 1] - x[..., 1] * y[..., 0]
 
 def extract_flight_geom(shape, Tol):
     '''
@@ -293,7 +297,8 @@ def extract_flight_geom(shape, Tol):
                 #az = zp[ip[i]]
                 p3 = np.array([ax, ay])
                 #print("Step Data is ", p1,p2,p3)
-                d = np.cross(p2-p1, p3-p1)/np.linalg.norm(p2-p1)
+                #d = np.cross(p2-p1, p3-p1)/np.linalg.norm(p2-p1)
+                d = cross2d(p2-p1, p3-p1)/np.linalg.norm(p2-p1)
                 max_d = max(d, max_d)
                 min_d = min(d, min_d)
         width = max_d-min_d
