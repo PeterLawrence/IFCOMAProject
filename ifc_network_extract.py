@@ -1151,7 +1151,6 @@ def scan_spaces(ifc_file, settings):
                     floor_longname = exogetifcparam.get_storey_Longname_spaceboundary(boundary)
                     # now load and add spacce data, returns location in g_space_data
                     space_loc = get_space_data(ifc_space, Elevation, floor_longname, settings)
-                    
                 valid_item = True
                 if valid_item:
                     if not output_name:
@@ -1161,20 +1160,31 @@ def scan_spaces(ifc_file, settings):
                     if elem:
                         if elem.is_a("IfcDoor"):
                             door_info = elem.get_info()
-                            exogetifcparam.outputElement(door_info, "Name", 2)
-                        elif elem.is_a("IfcStair"):
-                            print(elem)
-                        elif elem.is_a("IfcStairFlight"):
-                            print(elem)
-                        elif elem.is_a("IfcSpace"):
-                            print(elem)
+                            print("RelatedBuildingElement:",elem.Name)
                         elif elem.is_a("IfcSlab") or elem.is_a("IfcCovering"):
                             pass
                         elif elem.is_a("IfcWall") or elem.is_a("IfcColumn") or elem.is_a("IfcWindow"):
                             pass
                         else:
                             print(elem)
-
+        if space_loc>-1:
+            if ifc_space.ContainsElements and len(ifc_space.ContainsElements)>0:
+                furnitureList = []
+                objectList = []
+                for ContainsElement in ifc_space.ContainsElements:
+                    if ContainsElement.RelatedElements is not None:
+                        for elem in ContainsElement.RelatedElements:
+                            if elem:
+                                if elem.is_a("IfcFurniture"):
+                                    furnitureList.append(elem.Name)
+                                    objectList.append(elem.ObjectType)
+                                elif elem.is_a("IfcTransportElement"):
+                                    print("ContainsElement: Transport ",elem.Name)
+                if len(furnitureList)>0:
+                    g_OMA_Class.m_space_list[space_loc]['furniture'] = furnitureList
+                if len(objectList)>0:
+                    g_OMA_Class.m_space_list[space_loc]['objects'] = objectList
+                           
 
 def build_door_list(ifc_file):
     global g_OMA_Class
@@ -1418,7 +1428,7 @@ def generate_data(IFC_filename, output_file, output_type):
         exodusmesh.exodus_ouput(g_OMA_Class, ifc_file, settings, g_plotter_class, output_file)
     elif output_type == "EvacutionZ":
         calc_stair_travel_distance()
-        enzoutput.enz_output(output_file, g_OMA_Class.m_space_list, g_OMA_Class.m_door_list, g_OMA_Class.m_stair_list)
+        enzoutput.enz_output(output_file, ifc_config.EZPopFile, g_OMA_Class)
     elif output_type == "Graph":
         graphoutput.graph_view(g_OMA_Class, ifc_file, output_file)
     elif output_type == "CFAST":
@@ -1472,7 +1482,7 @@ def main(argv):
         if output_type == "Exodus":
             output_file = ifc_config.MTAFile
         elif output_type == "EvacutionZ":
-             output_file = ifc_config.EZFile
+             output_file = ifc_config.EZMapFile
         elif output_type == "Graph":
             output_file = ifc_config.GraphFile
         elif output_type == "CFAST":

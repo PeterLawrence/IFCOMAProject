@@ -15,7 +15,8 @@ IFCFile = Folder + os.sep + FileName
 
 # the default output file names if no command line parameters  are provided
 OutputFolder = "Outputs"
-EZFile = OutputFolder + os.sep + "EZtest2.xml"
+EZMapFile = OutputFolder + os.sep + "map.xml"
+EZPopFile = OutputFolder + os.sep + "population.xml"
 MTAFile = OutputFolder + os.sep + "IFCMeshLevels2.mta"
 GraphFile = OutputFolder + os.sep + "BuildingGraph.html"
 CFastFile = OutputFolder + os.sep + "Building.in"
