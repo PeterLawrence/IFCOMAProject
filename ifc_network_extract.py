@@ -45,8 +45,6 @@ def plot_geom(shape):
     if VertexCount < 3:
         return None
     
-    # extract face area on floor
-
     iPoint = 0
     xp = []
     yp = []
@@ -235,8 +233,6 @@ def extract_flight_geom(shape, Tol):
     VertexCount = len(verts)
     if VertexCount < 3:
         return None
-    
-    # extract face area on floor
 
     iPoint = 0
     xp = []
@@ -323,7 +319,7 @@ def get_element_top_bottom(shape):
     return lmaxZ, lminZ
 
 
-def add_element_tri_gen_h(shape, Elev, aTol):
+def get_floor_area(shape, Elev, aTol):
     faces = shape.faces  # Indices of vertices per triangle face e.g. [f1v1, f1v2, f1v3, f2v1, f2v2, f2v3,
     verts = shape.verts  # X Y Z of vertices in flattened list e.g. [v1x, v1y, v1z, v2x, v2y, v2z, ...]
     global g_plotter_class
@@ -373,9 +369,10 @@ def add_element_tri_gen_h(shape, Elev, aTol):
     return area
 
 
-def boundary_element_tri_gen_h(shape, Elev, aTol):
+def generate_boundary(shape, Elev, aTol):
     """
-      Generate a list of boundary points of the shape
+      Generate a list of boundary points from a shape at given elevation
+      Note entries in edge_list_pt come in groups of 2, so 0,1 is an edge, 2,3 is an edge and so on
     """
     global g_plotter_class
     faces = shape.faces # Indices of vertices per triangle face e.g. [f1v1, f1v2, f1v3, f2v1, f2v2, f2v3,
@@ -437,12 +434,13 @@ def find_boundary(tri_idx):
       Generate a list edges from a set of triangles 
     """
     edge_list = []
-    
+    # Convert to a list of edges
     for itri in tri_idx:
         for i1 in range(3):
             i2 = (i1+1) % 3
             edge_list.append([itri[i1], itri[i2]])
 
+    # Find edges which are defined twice, i.e. defined in two triangles
     edge_count = len(edge_list)
     removelist = []
     for ib in range(edge_count-1):
@@ -454,6 +452,8 @@ def find_boundary(tri_idx):
                         removelist.append(ib)
                         removelist.append(jb)
                         break
+						
+    # The edges which are not defined twice must be on the boundary
     boundary_list = []
     for ib in range(edge_count):
         if not(ib in removelist):
@@ -683,9 +683,9 @@ def get_space_data(ifc_space, Elevation, floor_longname, settings):
         space_data['Elevation'] = Elevation
         space_data['Floor'] = floor_longname
         space_data['FloorIndex'] = exoifcutils.find_floor(Elevation, g_OMA_Class.m_floor_list)
-        area = add_element_tri_gen_h(ifc_space_shape.geometry, Elevation, 0.1)
+        area = get_floor_area(ifc_space_shape.geometry, Elevation, 0.1)
         space_data['area'] = area
-        boundary_points = boundary_element_tri_gen_h(ifc_space_shape.geometry, Elevation, 0.1)
+        boundary_points = generate_boundary(ifc_space_shape.geometry, Elevation, 0.1)
         space_data['boundarylist'] = boundary_points
 
         # find stairs associated with this space
@@ -789,10 +789,10 @@ def stairs_data(ifc_file, settings):
                         #    g_plotter_class.add_element_tri(entity_shape.geometry)
                         maxheight, minheight = get_element_top_bottom(entity_shape.geometry)
                         ifcslab_dict['Elevation'] = Elevation
-                        area = add_element_tri_gen_h(entity_shape.geometry, maxheight, 0.02)
+                        area = get_floor_area(entity_shape.geometry, maxheight, 0.02)
                         ifcslab_dict['Height'] = maxheight
                         ifcslab_dict['area'] = area
-                        boundary_points = boundary_element_tri_gen_h(entity_shape.geometry, maxheight, 0.02)
+                        boundary_points = generate_boundary(entity_shape.geometry, maxheight, 0.02)
                         ifcslab_dict['boundarylist'] = boundary_points
                         
                         g_OMA_Class.m_landings_list.append(ifcslab_dict)
@@ -884,7 +884,7 @@ def get_elevator_data(transport_info, settings, ifc_transport, Elevation):
     
     entity_shape = ifcopenshell.geom.create_shape(settings, ifc_transport)
     lx, ly, NdeHeight, Direction, width, HorizontalLength = level_geom(entity_shape.geometry, Elevation)
-    boundary_points = boundary_element_tri_gen_h(entity_shape.geometry, Elevation, 0.1)
+    boundary_points = generate_boundary(entity_shape.geometry, Elevation, 0.1)
     maxheight, minheight = get_element_top_bottom(entity_shape.geometry)
      
     #elevator_dict['Direction'] = Direction
