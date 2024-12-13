@@ -34,10 +34,6 @@ g_OMA_Class = OMAClass()
 g_plotter_class = None
 
 def plot_geom(shape):
-    '''
-    Extract path and step data for stairs
-    :return: number of levels (steps) found, step level data and mid point path data
-    '''
     global g_plotter_class
     faces = shape.faces  # Indices of vertices per triangle face e.g. [f1v1, f1v2, f1v3, f2v1, f2v2, f2v3,
     verts = shape.verts  # X Y Z of vertices in flattened list e.g. [v1x, v1y, v1z, v2x, v2y, v2z, ...]
@@ -166,9 +162,6 @@ def get_min_max_values(verts):
 
 
 def level_flight_geom(shape, LevelElevation, Tolerance):
-    """
-    Calculates mid point(mid_x,mid_y) and upper and lower point lists
-    """
     verts = shape.verts # X Y Z of vertices in flattened list e.g. [v1x, v1y, v1z, v2x, v2y, v2z, ...]
 
     VertexCount = len(verts)
@@ -219,8 +212,10 @@ def add_step_level(levels, tri_idx, height, Tol):
     levels.append((height, [tri_idx]))
     return True
 
+
 def cross2d(x, y):
     return x[..., 0] * y[..., 1] - x[..., 1] * y[..., 0]
+
 
 def extract_flight_geom(shape, Tol):
     '''
@@ -286,17 +281,18 @@ def extract_flight_geom(shape, Tol):
         aStepData = levels[1][1]
         max_d = -1.0
         min_d = 1.0
+        # calculate stair width based on maximum distance of step points from path line
         for ip in aStepData:
             for i in range(3):
                 ax = xp[ip[i]]
                 ay = yp[ip[i]]
-                #az = zp[ip[i]]
                 p3 = np.array([ax, ay])
-                #print("Step Data is ", p1,p2,p3)
-                #d = np.cross(p2-p1, p3-p1)/np.linalg.norm(p2-p1)
+                # calculate maximum distance from path line (p1,p2)
+                # -ve or +ve depends on which side of the line the point is on
                 d = cross2d(p2-p1, p3-p1)/np.linalg.norm(p2-p1)
                 max_d = max(d, max_d)
                 min_d = min(d, min_d)
+        # width is the max distance minus the max -ve (i.e. min) distance
         width = max_d-min_d
         print("Step Max Data is ", min_d, max_d, width)
 
