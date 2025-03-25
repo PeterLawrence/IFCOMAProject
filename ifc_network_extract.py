@@ -124,7 +124,10 @@ def level_geom(shape, LevelElevation):
     stair_box.append([xmax, ymin])
     stair_box.append([xmin, ymin])
 
-    NdeHeight = zmin - LevelElevation
+    if LevelElevation!=None:
+        NdeHeight = zmin - LevelElevation
+    else:
+        NdeHeight = zmin
     lx = (xmax+xmin)/2.0
     ly = (ymax+ymin)/2.0
 
@@ -643,7 +646,7 @@ def find_escalators_in(xp, yp, zp, tri_idx, lminX, lmaxX, lminY, lmaxY, Elevatio
     return escalatorlist
 
 
-def get_space_data(ifc_space, Elevation, floor_longname, settings):
+def get_space_data(ifc_file, ifc_space, Elevation, floor_longname, settings):
     """
     Loads and adds ifc_space data to m_space_list
     
@@ -662,17 +665,34 @@ def get_space_data(ifc_space, Elevation, floor_longname, settings):
     # space relationship to doors etc
     boundary_elem = exogetifcparam.get_space_boundary_elem(ifc_space)
     space_data['elemIDs'] = boundary_elem
+    ifc_space_shape = ifcopenshell.geom.create_shape(settings, ifc_space)
+    #plot_geom(ifc_space_shape.geometry)
     # add door relationships to this space
+    
     for item in boundary_elem:
         if item[0] == "IfcDoor":
             doorIndex = exoifcutils.DoorDefined(item[1], g_OMA_Class.m_door_list)
+            
+            if doorIndex > -1:
+                # test if the door is in the correct ifc_space:
+                if True:
+                    # confirm the door is near the space
+                    ifc_door = ifc_file.by_id(g_OMA_Class.m_door_list[doorIndex]['GlobalId'])
+                    door_shape = ifcopenshell.geom.create_shape(settings, ifc_door)
+                    aPoint = exoifcutils.get_centre(door_shape.geometry)
+                    aDist = exoifcutils.CentreDistOfNearestFaceToPointTriangle(ifc_space_shape.geometry, aPoint)
+                    if aDist>0.2:
+                        # 
+                        print("Looks like this door ",ifc_door.Name, " is associated with the wrong space",ifc_space.Name)
+                        doorIndex = -1 # reject door
+               
             if doorIndex > -1:
                 g_OMA_Class.m_door_list[doorIndex]['Spaces'].append(space_data['GlobalId'])
 
     space_data['subspaces'] = []
     g_OMA_Class.m_space_list.append(space_data)
     space_loc = len(g_OMA_Class.m_space_list)-1
-    ifc_space_shape = ifcopenshell.geom.create_shape(settings, ifc_space)
+
                             
     if ifc_space_shape:
         #print("Checking IFC Space",ifc_space)
@@ -1029,10 +1049,8 @@ def extract_elevator_data(ifc_file):
             print("elevator zone found:", building_system.Name)
             IfcRelAssignsToGroups = building_system.IsGroupedBy
             if IfcRelAssignsToGroups is not None:
-                extract_evelvator_data_from_group(IfcRelAssignsToGroups)
-            
-                
-                        
+                extract_evelvator_data_from_group(IfcRelAssignsToGroups)       
+      
 
 def CalcAngle(upper_points, lower_points):
     '''
@@ -1061,7 +1079,6 @@ def CalcAngle(upper_points, lower_points):
     lineA = [Lower,Upper]
     lineB = [Lower,[Upper[0],1]]
     return exoifcutils.calcAngle(lineA,lineB)
-        
 
 
 def ramp_data(ifc_file, settings):
@@ -1131,7 +1148,79 @@ def sign_data(ifc_file, settings):
         sign_dict['EndLoc'] = endloc
 
         g_OMA_Class.m_sign_list.append(sign_dict)
+
+
+def road_data(ifc_file, settings):
+    global g_OMA_Class
+    
+    roads = ifc_file.by_type("IfcRoad")
+    road_count = 0
+    for ifcroad in roads:
+        road_count+=1
+        road_info = ifcroad.get_info()
+        road_dict = {'id': road_count}
+        print(ifcroad.PredefinedType, road_info['Name'])
         
+        Elevation = exogetifcparam.get_entity_storey_elevation(ifcroad)
+        road_dict['Elevation'] = Elevation
+        if ifcroad.Representation is not None:
+            entity_shape = ifcopenshell.geom.create_shape(settings, ifcroad)
+            plot_geom(entity_shape.geometry)
+            
+        if ifcroad.IsDecomposedBy:
+            Elevation = exogetifcparam.get_storey_Elevation(ifcroad)
+            
+            road_components = ifcroad.IsDecomposedBy[0].RelatedObjects
+            for road_element in road_components:
+                if road_element.Representation is not None:
+                    entity_shape = ifcopenshell.geom.create_shape(settings, road_element)
+                    plot_geom(entity_shape.geometry)
+                print(road_element.Name)
+                if road_element.IsDecomposedBy:
+                    roadpart_components = road_element.IsDecomposedBy[0].RelatedObjects
+                    for roadpart_element in roadpart_components:
+                        print(road_element.Name, "Subpart ", roadpart_element.Name)
+                        if roadpart_element.Representation is not None:
+                            entity_shape = ifcopenshell.geom.create_shape(settings, roadpart_element)
+                            plot_geom(entity_shape.geometry)
+                            startloc, endloc = sign_locations_xy(entity_shape.geometry)
+                            print(startloc,endloc)
+                        if roadpart_element.ContainsElements is not None:
+                            for contained_element in roadpart_element.ContainsElements:
+                                if contained_element.is_a("IfcRelContainedInSpatialStructure"):
+                                    for element in contained_element.RelatedElements:
+                                        if element.is_a("IfcCourse"):
+                                            print(element.Name, "Subpart ", roadpart_element.Name," IfcCourse ",element.Name)
+                                            entity_shape = ifcopenshell.geom.create_shape(settings, element)
+                                            plot_geom(entity_shape.geometry)
+                                            startloc, endloc = sign_locations_xy(entity_shape.geometry)
+                                            print(startloc,endloc)  
+
+
+def bridge_data(ifc_file, settings):
+    global g_OMA_Class
+    
+    bridges = ifc_file.by_type("IfcBridge")
+    bridge_count = 0
+    for ifcbridge in bridges:
+        bridge_count+=1
+        bridge_info = ifcbridge.get_info()
+        bridge_dict = {'id': bridge_count}
+        print(ifcbridge.PredefinedType, bridge_info['Name'])
+        
+        Elevation = exogetifcparam.get_entity_storey_elevation(ifcbridge)
+        bridge_dict['Elevation'] = Elevation
+        if ifcbridge.Representation is not None:
+            entity_shape = ifcopenshell.geom.create_shape(settings, ifcbridge)
+            lx, ly, NdeHeight, Direction, width, HorizontalLength = level_geom(entity_shape.geometry, Elevation)
+            startloc, endloc = sign_locations_xy(entity_shape.geometry)
+            plot_geom(entity_shape.geometry)
+            bridge_dict['HeightFromTheGroundCalc'] = NdeHeight
+            bridge_dict['Direction'] = Direction
+            bridge_dict['StartLoc'] = startloc
+            bridge_dict['EndLoc'] = endloc
+
+        #g_OMA_Class.m_sign_list.append(sign_dict)
 
 
 def scan_spaces(ifc_file, settings):
@@ -1141,28 +1230,13 @@ def scan_spaces(ifc_file, settings):
         output_name = False
         space_loc = -1
         for boundary in ifc_space.BoundedBy:
-            if boundary.is_a("IfcRelSpaceBoundary"):
+            if boundary.is_a("IfcRelSpaceBoundary"): # Should check name, which shoule be 2ndLevel
                 if space_loc == -1:
                     Elevation = exogetifcparam.get_storey_Elevation_spaceboundary_quiet(boundary)
                     floor_longname = exogetifcparam.get_storey_Longname_spaceboundary(boundary)
-                    # now load and add spacce data, returns location in g_space_data
-                    space_loc = get_space_data(ifc_space, Elevation, floor_longname, settings)
-                valid_item = True
-                if valid_item:
-                    if not output_name:
-                        output_name = True
-                        print('Room', ifc_space.Name, ' is at floor:', ifc_space.Decomposes[0][4][2])
-                    elem = boundary.RelatedBuildingElement
-                    if elem:
-                        if elem.is_a("IfcDoor"):
-                            door_info = elem.get_info()
-                            print("RelatedBuildingElement:",elem.Name)
-                        elif elem.is_a("IfcSlab") or elem.is_a("IfcCovering"):
-                            pass
-                        elif elem.is_a("IfcWall") or elem.is_a("IfcColumn") or elem.is_a("IfcWindow"):
-                            pass
-                        else:
-                            print(elem)
+                    # now load and add space data, returns location in g_space_data
+                    space_loc = get_space_data(ifc_file, ifc_space, Elevation, floor_longname, settings)
+                    
         if space_loc>-1:
             if ifc_space.ContainsElements and len(ifc_space.ContainsElements)>0:
                 furnitureList = []
@@ -1180,7 +1254,7 @@ def scan_spaces(ifc_file, settings):
                     g_OMA_Class.m_space_list[space_loc]['furniture'] = furnitureList
                 if len(objectList)>0:
                     g_OMA_Class.m_space_list[space_loc]['objects'] = objectList
-                           
+
 
 def build_door_list(ifc_file):
     global g_OMA_Class
@@ -1259,7 +1333,6 @@ def build_conections_between_spaces():
                         ifc_stair['space_connecting'] = [GlobalID]
             
         if 'stairflightsUp' in space or 'stairflightsDown' in space:
-            
             if 'stairflightsUp' in space:
                 for stairID in space['stairflightsUp']:
                     ifc_stair_flight = g_OMA_Class.m_stair_flights_list[stairID]
@@ -1367,6 +1440,10 @@ def generate_data(IFC_filename, output_file, output_type):
     ramp_data(ifc_file, settings)
 
     sign_data(ifc_file, settings)
+
+    road_data(ifc_file, settings)
+
+    bridge_data(ifc_file, settings)
 
     # sorts floors before finding spaces - as we require an ordered list for linking levels
     ordered_floor_list = sorted(g_OMA_Class.m_floor_list, key=itemgetter('Elevation'))

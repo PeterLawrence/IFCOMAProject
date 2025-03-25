@@ -402,6 +402,8 @@ def get_storey_Elevation_spaceboundary_quiet(ifc_element):
         a_storey = aRelatingSpace.Decomposes[0].RelatingObject
         element_info = a_storey.get_info()
         Elevation = get_property(element_info,'Elevation')  # moving to ElevationOfFFLRelative, under Pset_BuildingStoreyCommon
+        if Elevation>1000:
+            Elevation = Elevation/1000
     return Elevation
 
 
@@ -452,7 +454,7 @@ def get_storey_GlobalId(ifc_element):
 
 def get_storey_Elevation(ifc_element):
     """
-   Get element building storey
+   Get element building storey elevation
    to be replaced by get_entity_storey_elevation
    :param ifc_element if element to find building storey for
    """
@@ -467,7 +469,7 @@ def get_storey_Elevation(ifc_element):
 
 def get_entity_storey_elevation(ifc_element):
     """
-    Get element building storey
+    Get element building storey elevation
     Replaces function get_storey_Elevation
     :param ifc_element if element to find building storey for
     """
@@ -481,6 +483,22 @@ def get_entity_storey_elevation(ifc_element):
         aRelatingSpace = parent(aRelatingSpace)
 
     return Elevation
+
+def get_entity_storey_long_name(ifc_element):
+    """
+    Get element building storey
+    """
+    aRelatingSpace = parent(ifc_element)
+    LongName = None
+    Elevation = None
+    while aRelatingSpace is not None:
+        if 'IfcBuildingStorey' == aRelatingSpace.is_a():
+            element_info = aRelatingSpace.get_info()
+            LongName = get_property(element_info, 'LongName')
+            break
+        aRelatingSpace = parent(aRelatingSpace)
+
+    return LongName
 
 
 def get_storey_LongName(ifc_element):
@@ -512,39 +530,49 @@ def get_storey_Description(ifc_element):
 
 def get_space_boundary_elem(ifc_space):
     boundary_elem = []
-    print("Scanning Boundaries================================")
+    print("Scanning Boundaries ", ifc_space.Name, "================================")
+    Element_list = [] # used to identify repeated elements
+    
     for boundary in ifc_space.BoundedBy:
         if boundary.is_a("IfcRelSpaceBoundary"):
+            boundary_story = get_storey_Longname_spaceboundary(boundary)
             if boundary.PhysicalOrVirtualBoundary == "VIRTUAL":
-                relspace_info = boundary.get_info()
-                aGlobalId = get_property(relspace_info, 'GlobalId')
+                aGlobalId = boundary.GlobalId 
                 boundary_elem.append(["IfcRelSpaceBoundaryV", aGlobalId])
-            elem = boundary.RelatedBuildingElement
-            if elem:
-                if elem.is_a("IfcDoor"):
-                    door_info = elem.get_info()
-                    aGlobalId = get_property(door_info, 'GlobalId')
-                    boundary_elem.append(["IfcDoor", aGlobalId])
-                elif elem.is_a("IfcStair"):
-                    stair_info = elem.get_info()
-                    aGlobalId = get_property(stair_info, 'GlobalId')
-                    boundary_elem.append(["IfcStair", aGlobalId])
-                elif elem.is_a("IfcStairFlight"):
-                    stairflight_info = elem.get_info()
-                    aGlobalId = get_property(stairflight_info, 'GlobalId')
-                    boundary_elem.append(["IfcStairFlight", aGlobalId])
-                elif elem.is_a("IfcSpace"):
-                    space_info = elem.get_info()
-                    aGlobalId = get_property(space_info, 'GlobalId')
-                    boundary_elem.append(["IfcSpace", aGlobalId])
-                elif elem.is_a("IfcRelSpaceBoundary"):
-                    relspace_info = elem.get_info()
-                    aGlobalId = get_property(relspace_info, 'GlobalId')
-                    boundary_elem.append(["IfcRelSpaceBoundary", aGlobalId])
-                elif elem.is_a("IfcVirtualElement"):
-                    relspace_info = elem.get_info()
-                    aGlobalId = get_property(relspace_info, 'GlobalId')
-                    boundary_elem.append(["IfcVirtualElement", aGlobalId])
+                print("IfcRelSpaceBoundaryV ",aGlobalId)
+            if boundary.Name == '2ndLevel': # boundary.InternalOrExternalBoundary=='INTERNAL'
+                elem = boundary.RelatedBuildingElement
+                if elem:
+                    item_repeated=False
+                    if elem.GlobalId in Element_list:
+                        item_repeated=True
+                    else:
+                        Element_list.append(elem.GlobalId)
+                    wrong_story = False
+                    if item_repeated==False:
+                        elem_story = get_entity_storey_long_name(elem)
+                        if elem_story!=boundary_story:
+                            wrong_story = False
+                            
+                    if item_repeated==False and wrong_story==False:  
+                        if elem.is_a("IfcDoor"):
+                            aGlobalId = elem.GlobalId
+                            boundary_elem.append(["IfcDoor", aGlobalId])
+                        elif elem.is_a("IfcStair"):
+                            aGlobalId = elem.GlobalId
+                            boundary_elem.append(["IfcStair", aGlobalId])
+                        elif elem.is_a("IfcStairFlight"):
+                            aGlobalId = elem.GlobalId
+                            boundary_elem.append(["IfcStairFlight", aGlobalId])
+                        elif elem.is_a("IfcSpace"):
+                            aGlobalId = elem.GlobalId
+                            boundary_elem.append(["IfcSpace", aGlobalId])
+                        elif elem.is_a("IfcRelSpaceBoundary"):
+                            aGlobalId = elem.GlobalId
+                            boundary_elem.append(["IfcRelSpaceBoundary", aGlobalId])
+                        elif elem.is_a("IfcVirtualElement"):
+                            aGlobalId = elem.GlobalId
+                            boundary_elem.append(["IfcVirtualElement", aGlobalId])
 
     return boundary_elem
 

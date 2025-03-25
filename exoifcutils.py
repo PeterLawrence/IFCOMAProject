@@ -6,6 +6,7 @@ Created on Thu Dec 8 09:10:58 2023
 """
 import math
 from typing import Any
+import numpy as np
 
 
 def TriangleOrientation(Xa, Ya, Xb, Yb, Xc, Yc):
@@ -397,6 +398,8 @@ def are_adjacent(boundary_points1, boundary_points2):
         for point2 in range(0, count2, 2):
             # pn2, next point in edge (point2,pn2)
             pn2 = (point2 + 1) % count2
+            if len(boundary_points1[point1])<3 or len(boundary_points2[point2])<3:
+                return False
             if boundary_points1[point1][2] != boundary_points2[point2][2]:
                 return False
             if (SameValue(boundary_points1[point1][0],boundary_points2[point2][0]) and SameValue(boundary_points1[pn1][0],boundary_points2[pn2][0]) and
@@ -405,6 +408,7 @@ def are_adjacent(boundary_points1, boundary_points2):
             if (SameValue(boundary_points1[pn1][0],boundary_points2[point2][0]) and SameValue(boundary_points1[point1][0],boundary_points2[pn2][0]) and
                 SameValue(boundary_points1[pn1][1],boundary_points2[point2][1]) and SameValue(boundary_points1[point1][1],boundary_points2[pn2][1])):
                 return True
+    return False
 
 
 def LandingDefined(GlobalID, landings_list):
@@ -575,3 +579,272 @@ def remove_virtual_lines(lines, spaces, subspaces):
                             lines[iLine][4]=False
                             lines[jLine][4]=False
                             print("Remove Anticlockwise",iLine,jLine)
+                            
+
+def NormalDistace(shape, aPoint):
+    faces = shape.faces  # Indices of vertices per triangle face e.g. [f1v1, f1v2, f1v3, f2v1, f2v2, f2v3,
+    verts = shape.verts  # X Y Z of vertices in flattened list e.g. [v1x, v1y, v1z, v2x, v2y, v2z, ...]    iPoint = 0
+
+    VertexCount = len(verts)
+    if VertexCount < 3:
+        return -1.0
+    
+    iPoint = 0
+    xp = []
+    yp = []
+    zp = []
+    VertexCount = len(verts)
+    while iPoint < VertexCount:
+        xp.append(verts[iPoint])
+        iPoint += 1
+        yp.append(verts[iPoint])
+        iPoint += 1
+        zp.append(verts[iPoint])
+        iPoint += 1
+        
+    while iPoint < FaceCount:
+        ip0 = int(faces[iPoint])
+        iPoint += 1
+        ip1 = int(faces[iPoint])
+        iPoint += 1
+        ip2 = int(faces[iPoint])
+
+        Ux=xp[ip1]- xp[ip0] # basis vectors on the plane
+        Vx=xp[ip2]- xp[ip0] 
+        Uy=yp[ip1]- yp[ip0]
+        Vy=yp[ip2]- yp[ip0]
+        Uz=zp[ip1]- zp[ip0]
+        Vz=zp[ip2]- zp[ip0]
+        nx=(Uy*Vz)-(Uz*Vy)   # plane normal
+        ny=(Uz*Vx)-(Ux*Vz)
+        nz=(Ux*Vy)-(Uy*Vx)
+        dist = math.sqrt( (nx*nx) + (ny*ny) + (nz*nz) ) # normalized
+        nx /= dist;
+        ny /= dist;
+        nz /= dist;
+        dist = abs( (aPoint[0]-xp[ip0])*nx + (aPoint[1]-yp[ip0])*ny + (aPoint[2]-zp[ip0])*nz )
+    return dist
+
+
+def CentreDistOfNearestFaceToPoint(shape, aPoint):
+    """ find the distance of a given point to the nearest face on the triangulation """
+    faces = shape.faces  # Indices of vertices per triangle face e.g. [f1v1, f1v2, f1v3, f2v1, f2v2, f2v3,
+    verts = shape.verts  # X Y Z of vertices in flattened list e.g. [v1x, v1y, v1z, v2x, v2y, v2z, ...]    iPoint = 0
+
+    VertexCount = len(verts)
+    if VertexCount < 3:
+        return -1.0
+    
+    iPoint = 0
+    xp = []
+    yp = []
+    zp = []
+    VertexCount = len(verts)
+    while iPoint < VertexCount:
+        xp.append(verts[iPoint])
+        iPoint += 1
+        yp.append(verts[iPoint])
+        iPoint += 1
+        zp.append(verts[iPoint])
+        iPoint += 1
+
+    dist  = -1.0
+    FaceCount = len(faces)
+    iPoint = 0
+    while iPoint < FaceCount:
+        xl = 0.0
+        yl = 0.0
+        zl = 0.0
+        
+        for iFace in range(0,3):
+            ip = int(faces[iPoint])
+            iPoint += 1
+
+            xl += xp[ip]
+            yl += yp[ip]
+            zl += zp[ip]
+        
+        distX = ((xl/3.0)-aPoint[0])
+        distY = ((yl/3.0)-aPoint[1])
+        distZ = ((zl/3.0)-aPoint[2])
+        point_dist = distX*distX + distY*distY + distZ*distZ
+        if dist<0.0 or point_dist < dist:
+            dist = point_dist
+
+    if dist>0.0:
+        dist = math.sqrt(dist)
+          
+    return dist
+
+
+def get_centre(shape):
+    verts = shape.verts  # X Y Z of vertices in flattened list e.g. [v1x, v1y, v1z, v2x, v2y, v2z, ...]
+    aPoint = [0.0,0.0,0.0]
+
+    VertexCount = len(verts)
+    iPoint = 0
+    while iPoint < VertexCount:
+        aPoint[0] += verts[iPoint]
+        iPoint += 1
+        aPoint[1] += verts[iPoint]
+        iPoint += 1
+        aPoint[2] += verts[iPoint]
+        iPoint += 1
+
+    VertexCount = int(VertexCount / 3)
+    if VertexCount>0:
+        aPoint[0] = aPoint[0]/VertexCount
+        aPoint[1] = aPoint[1]/VertexCount
+        aPoint[2] = aPoint[2]/VertexCount
+
+    return aPoint
+    
+
+def distance_point_to_triangle(point, triangle_vertices):
+    """
+    Calculates the shortest distance between a point and a triangle in 3D space.
+
+    Args:
+        point: A numpy array representing the point (x, y, z).
+        triangle_vertices: A numpy array of shape (3, 3) representing the triangle vertices.
+                           Each row represents a vertex (x, y, z).
+
+    Returns:
+        The shortest distance between the point and the triangle.
+    """
+
+    p = np.array(point)
+    v0, v1, v2 = triangle_vertices
+
+    # Calculate edges
+    e0 = v1 - v0
+    e1 = v2 - v0
+    n = np.cross(e0, e1)
+    a = np.dot(p - v0, n)
+
+    if abs(a) < 1e-9: # tolerance for coplanarity.
+      #Point is coplanar with the triangle
+        u, v, w = barycentric_coordinates(p, v0, v1, v2)
+        if 0 <= u <= 1 and 0 <= v <= 1 and 0 <= w <= 1:
+          return 0 # point is inside the triangle
+    # Calculate distance to the plane
+    d = abs(a) / np.linalg.norm(n)
+
+    # Project the point onto the plane
+    proj = p - (a / np.linalg.norm(n)**2) * n
+
+    # Check if the projected point is inside the triangle using barycentric coordinates
+    u, v, w = barycentric_coordinates(proj, v0, v1, v2)
+
+    if 0 <= u <= 1 and 0 <= v <= 1 and 0 <= w <= 1:
+        return d # projected point is inside, so plane distance is the shortest.
+    else:
+        # Calculate distances to the edges
+        dist_e0 = distance_point_to_segment(p, v0, v1)
+        dist_e1 = distance_point_to_segment(p, v1, v2)
+        dist_e2 = distance_point_to_segment(p, v2, v0)
+
+        return min(dist_e0, dist_e1, dist_e2)
+def barycentric_coordinates(p, a, b, c):
+    """
+    Calculates barycentric coordinates of point p with respect to triangle abc.
+    """
+    v0 = b - a
+    v1 = c - a
+    v2 = p - a
+
+    d00 = np.dot(v0, v0)
+    d01 = np.dot(v0, v1)
+    d11 = np.dot(v1, v1)
+    d20 = np.dot(v2, v0)
+    d21 = np.dot(v2, v1)
+    denom = d00 * d11 - d01 * d01
+
+    v = (d11 * d20 - d01 * d21) / denom
+    w = (d00 * d21 - d01 * d20) / denom
+    u = 1.0 - v - w
+
+    return u, v, w
+
+def distance_point_to_segment(point, seg_start, seg_end):
+    # ... (same as before) ...
+    p = np.array(point)
+    s = np.array(seg_start)
+    e = np.array(seg_end)
+
+    seg = e - s
+    seg_len_sq = np.dot(seg, seg)
+
+    if seg_len_sq == 0.0:
+        return np.linalg.norm(p - s)
+
+    t = np.dot(p - s, seg) / seg_len_sq
+    t = max(0, min(1, t))
+
+    proj = s + t * seg
+    return np.linalg.norm(p - proj)
+
+
+def CentreDistOfNearestFaceToPointTriangle(shape, aPoint):
+    """ find the distance of a given point to the nearest face on the triangulation """
+    faces = shape.faces  # Indices of vertices per triangle face e.g. [f1v1, f1v2, f1v3, f2v1, f2v2, f2v3,
+    verts = shape.verts  # X Y Z of vertices in flattened list e.g. [v1x, v1y, v1z, v2x, v2y, v2z, ...]    iPoint = 0
+
+    VertexCount = len(verts)
+    if VertexCount < 3:
+        return -1.0
+    
+    iPoint = 0
+    xp = []
+    yp = []
+    zp = []
+    VertexCount = len(verts)
+    while iPoint < VertexCount:
+        xp.append(verts[iPoint])
+        iPoint += 1
+        yp.append(verts[iPoint])
+        iPoint += 1
+        zp.append(verts[iPoint])
+        iPoint += 1
+
+    best_face = None
+    dist  = -1.0
+    FaceCount = len(faces)
+    iPoint = 0
+    point = np.array([aPoint[0], aPoint[1], aPoint[2]])
+    while iPoint < FaceCount:
+        triangle = np.array
+        for iFace in range(0,3):
+            ip = int(faces[iPoint])
+            iPoint += 1
+            e = np.array((xp[ip],yp[ip],zp[ip]))
+            if iFace==0:
+                triangle = e
+            else:
+                triangle = np.append(triangle,e)
+
+        triangle = triangle.reshape(3, 3)
+        point_dist = distance_point_to_triangle(point, triangle)
+        if dist<0.0 or point_dist < dist:
+            dist = point_dist
+            best_face = triangle
+    '''
+    if dist>0.2:
+        print("dist ",dist)
+        print("Point ",aPoint)
+        print("np Point ",point)
+        print("face ",best_face)
+        iPoint = 0
+        idFace = 0
+        while iPoint < FaceCount:
+            print(idFace,end=",")
+            for iFace in range(0,3):
+                ip = int(faces[iPoint])
+                iPoint += 1
+                print(xp[ip],yp[ip],zp[ip],end=",")
+            print()
+                
+            idFace+=1
+    '''            
+          
+    return dist

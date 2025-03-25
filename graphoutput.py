@@ -14,6 +14,7 @@ def graph_view(OMA_Class, ifc_file, filename):
     print("===================== output network ====================")
     space_free_links = []  # list of direct connections between spaces
     space_count = len(OMA_Class.m_space_list)
+    
     for iSpace in range(space_count - 1):
         if 'boundarylist' in OMA_Class.m_space_list[iSpace]:
             for jSpace in range(iSpace + 1, space_count):
