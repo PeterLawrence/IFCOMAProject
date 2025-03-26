@@ -682,8 +682,8 @@ def get_space_data(ifc_file, ifc_space, Elevation, floor_longname, settings):
                     aPoint = exoifcutils.get_centre(door_shape.geometry)
                     aDist = exoifcutils.CentreDistOfNearestFaceToPointTriangle(ifc_space_shape.geometry, aPoint)
                     if aDist>0.2:
-                        # 
-                        print("Looks like this door ",ifc_door.Name, " is associated with the wrong space",ifc_space.Name)
+                        # Not on the edge of the IfcSpace
+                        print("Warning: Looks like this door ",ifc_door.Name, " is associated with the wrong space",ifc_space.Name)
                         doorIndex = -1 # reject door
                
             if doorIndex > -1:
@@ -1298,11 +1298,16 @@ def connect_rooms_doors(ifc_file):
                 if spaceIndex > -1:
                     spaceIndexList.append(spaceIndex)
 
-            # next lines are a fix for the hotel model
-            if len(spaceIndexList) == 2 or len(spaceIndexList) == 4:
+            # check doors are assign correctly
+            if len(spaceIndexList) % 2 == 0:
                 pass
             else:
+                if len(spaceIndexList)>2:
+                    print("Warning: Door ", ifc_door.Name,", has odd number of connections,", len(spaceIndexList)," greater than 1")
+                # door has an odd number of connections
                 if door_data['IsExternal'] == False:
+                    # not marked as external
+                    print("Warning: Door ", ifc_door.Name,", has odd number of connections and not marked as external")
                     door_data['IsExternal'] = True
 
 

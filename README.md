@@ -9,3 +9,5 @@ This project is part of the [OpenBIM for Occupant Movement Analysis project](htt
 * python ifc_network_extract.py hotel.ifc exodus.mta
 * python ifc_network_extract.py hotel.ifc evacuationz.xml
 * python ifc_network_extract.py hotel.ifc network.html
+
+*Note checkL2regions.py is a utility to check IfcRelSpaceBoundary relating objects of  IfcSpaces level information
