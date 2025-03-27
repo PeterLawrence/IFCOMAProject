@@ -327,7 +327,8 @@ def calcDistance2D(Point1, Point2):
 
 
 def SameValue(v1, v2):
-    return abs(v1-v2)<0.06
+    #return abs(v1-v2)<0.06
+    return abs(v1-v2)<0.02
 
 
 def order_boundary_list(boundary_points):

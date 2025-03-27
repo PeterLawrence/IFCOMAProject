@@ -1430,7 +1430,11 @@ def generate_data(IFC_filename, output_file, output_type):
     global g_plotter_class
     
     print("Loading IFC file ", IFC_filename)
-    ifc_file = ifcopenshell.open(IFC_filename)
+    try:
+        ifc_file = ifcopenshell.open(IFC_filename)
+    except:
+        print("failed to load file ",IFC_filename)
+        return
     print("Load complete")
 
     settings = geom.settings()
