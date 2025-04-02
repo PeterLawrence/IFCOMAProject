@@ -379,6 +379,108 @@ def order_boundary_list(boundary_points):
             # loop found
             break;
     return boundary_ordered_poly
+
+
+def are_lines_parallel_and_overlapping_2d(line1_start, line1_end, line2_start, line2_end, min_overlap=0.25, max_distance=0.02, tolerance=1e-9):
+    """
+    Checks if two lines in 2D space are parallel, overlap by at least min_overlap units,
+    and have a maximum distance between them of max_distance.
+
+    Args:
+        line1_start: NumPy array representing the start point of line 1 (x, y).
+        line1_end: NumPy array representing the end point of line 1 (x, y).
+        line2_start: NumPy array representing the start point of line 2 (x, y).
+        line2_end: NumPy array representing the end point of line 2 (x, y).
+        min_overlap: The minimum overlap required for the lines to be considered overlapping.
+        max_distance: The maximum distance allowed between the lines.
+        tolerance: Tolerance for numerical comparisons.
+
+    Returns:
+        True if the lines meet all conditions, False otherwise.
+    """
+
+    line1_vector = np.array(line1_end) - np.array(line1_start)
+    line2_vector = np.array(line2_end) - np.array(line2_start)
+
+    # Check for parallelism
+    cross_product = line1_vector[0] * line2_vector[1] - line1_vector[1] * line2_vector[0]
+    if abs(cross_product) > tolerance:
+        return False  # Lines are not parallel
+
+    # Project the endpoints of line 2 onto line 1
+    def project_point_onto_line(point, line_start, line_vector):
+        point_vector = np.array(point) - np.array(line_start)
+        t = np.dot(point_vector, line_vector) / np.dot(line_vector, line_vector)
+        return np.array(line_start) + t * line_vector, t
+
+    proj_start, t_start = project_point_onto_line(line2_start, line1_start, line1_vector)
+    proj_end, t_end = project_point_onto_line(line2_end, line1_start, line1_vector)
+
+    # Calculate the overlap length
+    line1_length = np.linalg.norm(line1_vector)
+
+    # Calculate the range of t values for line 1
+    t_min_line1 = 0
+    t_max_line1 = 1
+
+    # Calculate the range of t values for line 2
+    t_min_line2 = min(t_start, t_end)
+    t_max_line2 = max(t_start, t_end)
+
+    # Calculate the overlap range
+    overlap_min = max(t_min_line1, t_min_line2)
+    overlap_max = min(t_max_line1, t_max_line2)
+
+    # Check if there is overlap and if it's long enough
+    if overlap_min <= overlap_max:
+        overlap_length = (overlap_max - overlap_min) * line1_length
+        if overlap_length < min_overlap:
+          return False
+    else:
+        return False
+
+    # Check maximum distance between lines
+    def distance_point_to_line(point, line_start, line_vector):
+        point_vector = np.array(point) - np.array(line_start)
+        return np.linalg.norm(np.cross(line_vector, point_vector)) / np.linalg.norm(line_vector)
+
+    dist1 = distance_point_to_line(line2_start, line1_start, line1_vector)
+    dist2 = distance_point_to_line(line2_end, line1_start, line1_vector)
+
+    if max(dist1, dist2) > max_distance:
+        return False
+
+    return True
+
+def are_adjacent_parallel(boundary_points1, boundary_points2):
+    """
+        returns true if to boundary lists are adjacent(edge groups)
+        :param boundary_points1 : list of points on boundary 1
+        :param boundary_points2 : list of points on boundary 2
+    """
+    if boundary_points1 is None or boundary_points2 is None:
+        return False
+    count1 = len(boundary_points1)
+    count2 = len(boundary_points2)
+    # note the steps size of two (each edge if in groups of two
+    for point1 in range(0, count1, 2):
+        # pn1, next point in edge (point1,pn1)
+        pn1 = (point1 + 1) % count1
+        # note the steps size of two
+        for point2 in range(0, count2, 2):
+            # pn2, next point in edge (point2,pn2)
+            pn2 = (point2 + 1) % count2
+            if len(boundary_points1[point1])<3 or len(boundary_points2[point2])<3:
+                return False
+            if boundary_points1[point1][2] != boundary_points2[point2][2]:
+                return False
+            line1_start = np.array([boundary_points1[point1][0], boundary_points1[point1][1]])
+            line1_end = np.array([boundary_points1[pn1][0], boundary_points1[pn1][1]])
+            line2_start = np.array([boundary_points2[point2][0], boundary_points2[point2][1]])
+            line2_end = np.array([boundary_points2[pn2][0], boundary_points2[pn2][1]])
+            if are_lines_parallel_and_overlapping_2d(line1_start, line1_end, line2_start, line2_end):
+                return True
+    return False
             
 
 def are_adjacent(boundary_points1, boundary_points2):

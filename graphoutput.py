@@ -19,12 +19,27 @@ def graph_view(OMA_Class, ifc_file, filename):
         if 'boundarylist' in OMA_Class.m_space_list[iSpace]:
             for jSpace in range(iSpace + 1, space_count):
                 if 'boundarylist' in OMA_Class.m_space_list[jSpace]:
-                    # print('graph_view:',OMA_Class.m_space_list[iSpace]['Name'],OMA_Class.m_space_list[jSpace]['Name'])
-                    if exoifcutils.are_adjacent(OMA_Class.m_space_list[iSpace]['boundarylist'], OMA_Class.m_space_list[jSpace]['boundarylist']):
-                        print("Adjacent:", OMA_Class.m_space_list[iSpace]['Name'], OMA_Class.m_space_list[jSpace]['Name'])
-                        OMA_Class.m_space_list[iSpace]['elemIDs'].append(["IfcSpace", OMA_Class.m_space_list[jSpace]['GlobalId']])
-                        OMA_Class.m_space_list[jSpace]['elemIDs'].append(["IfcSpace", OMA_Class.m_space_list[iSpace]['GlobalId']])
-                        space_free_links.append([OMA_Class.m_space_list[iSpace]['GlobalId'], OMA_Class.m_space_list[jSpace]['GlobalId']])
+                    AreAlreadyAdj = False
+                    if 'elemIDs' in OMA_Class.m_space_list[jSpace]:
+                        for item in OMA_Class.m_space_list[jSpace]['elemIDs']:
+                           if item[0] == "IfcDoor":
+                               doorIndex = exoifcutils.DoorDefined(item[1], OMA_Class.m_door_list)
+                               if doorIndex > -1:
+                                   ifcDoor = OMA_Class.m_door_list[doorIndex]
+                                   for adjGUID in ifcDoor['Spaces']:
+                                       if adjGUID == OMA_Class.m_space_list[iSpace]['GlobalId']:
+                                           AreAlreadyAdj=True
+                                           break
+                                   
+                               
+                    if AreAlreadyAdj==False: 
+                        # print('graph_view:',OMA_Class.m_space_list[iSpace]['Name'],OMA_Class.m_space_list[jSpace]['Name'])
+                        #if exoifcutils.are_adjacent(OMA_Class.m_space_list[iSpace]['boundarylist'], OMA_Class.m_space_list[jSpace]['boundarylist']):
+                        if exoifcutils.are_adjacent_parallel(OMA_Class.m_space_list[iSpace]['boundarylist'], OMA_Class.m_space_list[jSpace]['boundarylist']):
+                            print("Adjacent:", OMA_Class.m_space_list[iSpace]['Name'], OMA_Class.m_space_list[jSpace]['Name'])
+                            OMA_Class.m_space_list[iSpace]['elemIDs'].append(["IfcSpace", OMA_Class.m_space_list[jSpace]['GlobalId']])
+                            OMA_Class.m_space_list[jSpace]['elemIDs'].append(["IfcSpace", OMA_Class.m_space_list[iSpace]['GlobalId']])
+                            space_free_links.append([OMA_Class.m_space_list[iSpace]['GlobalId'], OMA_Class.m_space_list[jSpace]['GlobalId']])
 
     net = Network()
 

@@ -1,0 +1,265 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 600px;
+                 background-color: #ffffff;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+             #loadingBar {
+                 position:absolute;
+                 top:0px;
+                 left:0px;
+                 width: 100%;
+                 height: 600px;
+                 background-color:rgba(200,200,200,0.8);
+                 -webkit-transition: all 0.5s ease;
+                 -moz-transition: all 0.5s ease;
+                 -ms-transition: all 0.5s ease;
+                 -o-transition: all 0.5s ease;
+                 transition: all 0.5s ease;
+                 opacity:1;
+             }
+
+             #bar {
+                 position:absolute;
+                 top:0px;
+                 left:0px;
+                 width:20px;
+                 height:20px;
+                 margin:auto auto auto auto;
+                 border-radius:11px;
+                 border:2px solid rgba(30,30,30,0.05);
+                 background: rgb(0, 173, 246); /* Old browsers */
+                 box-shadow: 2px 0px 4px rgba(0,0,0,0.4);
+             }
+
+             #border {
+                 position:absolute;
+                 top:10px;
+                 left:10px;
+                 width:500px;
+                 height:23px;
+                 margin:auto auto auto auto;
+                 box-shadow: 0px 0px 4px rgba(0,0,0,0.2);
+                 border-radius:10px;
+             }
+
+             #text {
+                 position:absolute;
+                 top:8px;
+                 left:530px;
+                 width:30px;
+                 height:50px;
+                 margin:auto auto auto auto;
+                 font-size:22px;
+                 color: #000000;
+             }
+
+             div.outerBorder {
+                 position:relative;
+                 top:400px;
+                 width:600px;
+                 height:44px;
+                 margin:auto auto auto auto;
+                 border:8px solid rgba(0,0,0,0.1);
+                 background: rgb(252,252,252); /* Old browsers */
+                 background: -moz-linear-gradient(top,  rgba(252,252,252,1) 0%, rgba(237,237,237,1) 100%); /* FF3.6+ */
+                 background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(252,252,252,1)), color-stop(100%,rgba(237,237,237,1))); /* Chrome,Safari4+ */
+                 background: -webkit-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Chrome10+,Safari5.1+ */
+                 background: -o-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Opera 11.10+ */
+                 background: -ms-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* IE10+ */
+                 background: linear-gradient(to bottom,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* W3C */
+                 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
+                 border-radius:72px;
+                 box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+             }
+             
+
+             
+             #config {
+                 float: left;
+                 width: 400px;
+                 height: 600px;
+             }
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+            <div id="loadingBar">
+              <div class="outerBorder">
+                <div id="text">0%</div>
+                <div id="border">
+                  <div id="bar"></div>
+                </div>
+              </div>
+            </div>
+        
+        
+            <div id="config"></div>
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#FF00FF", "id": 1, "label": "0", "shape": "square", "title": "Lift 1 F0 0", "value": 5.934139999999992}, {"color": "#FF00FF", "id": 2, "label": "1", "shape": "square", "title": "Lift 1 F1 1", "value": 5.934398293799898}, {"color": "#FF00FF", "id": 3, "label": "2", "shape": "square", "title": "Lift 1 F2 2", "value": 5.9343982937998945}, {"color": "#97c2fc", "id": 4, "label": "002", "shape": "square", "title": "Lounge 002", "value": 26.044279218200167}, {"color": "#FF00FF", "id": 5, "label": "3", "shape": "square", "title": "Lift 1 F3 3", "value": 5.9343982937998945}, {"color": "#97c2fc", "id": 6, "label": "003", "shape": "square", "title": "Women 003", "value": 4.036582437999998}, {"color": "#97c2fc", "id": 7, "label": "005", "shape": "square", "title": "Daycare 005", "value": 19.94700000000003}, {"color": "#97c2fc", "id": 8, "label": "007", "shape": "square", "title": "Conference 007", "value": 29.280000000000143}, {"color": "#97c2fc", "id": 9, "label": "008", "shape": "square", "title": "Dining 008", "value": 32.818}, {"color": "#97c2fc", "id": 10, "label": "009", "shape": "square", "title": "Dining 009", "value": 28.419999999999668}, {"color": "#97c2fc", "id": 11, "label": "010", "shape": "square", "title": "W/C 010", "value": 4.001800882488473}, {"color": "#97c2fc", "id": 12, "label": "011", "shape": "square", "title": "Kitchen 011", "value": 11.059999999999928}, {"color": "#97c2fc", "id": 13, "label": "012", "shape": "square", "title": "Store 012", "value": 3.11046}, {"color": "#97c2fc", "id": 14, "label": "013", "shape": "square", "title": "Store 013", "value": 3.1105953881999575}, {"color": "#97c2fc", "id": 15, "label": "014", "shape": "square", "title": "Storage 014", "value": 16.909000000000077}, {"color": "#97c2fc", "id": 16, "label": "015", "shape": "square", "title": "Store 015", "value": 3.110595388199961}, {"color": "#97c2fc", "id": 17, "label": "016", "shape": "square", "title": "Store 016", "value": 3.110595388199961}, {"color": "#97c2fc", "id": 18, "label": "0022", "shape": "square", "title": "Corridor 0022", "value": 62.138359927311306}, {"color": "#97c2fc", "id": 19, "label": "0023", "shape": "square", "title": "Side lobby 0023", "value": 25.865999999999147}, {"color": "#97c2fc", "id": 20, "label": "025", "shape": "square", "title": "Stair 025", "value": 7.8925499662500584}, {"color": "#97c2fc", "id": 21, "label": "026", "shape": "square", "title": "Stair 026", "value": 7.87750004950002}, {"color": "#97c2fc", "id": 22, "label": "027", "shape": "square", "title": "Main Lobby 027", "value": 31.210499999999588}, {"color": "#97c2fc", "id": 23, "label": "028", "shape": "square", "title": "Open Office 028", "value": 35.8715}, {"color": "#97c2fc", "id": 24, "label": "029", "shape": "square", "title": "Office 029", "value": 15.724799999999913}, {"color": "#97c2fc", "id": 25, "label": "113", "shape": "square", "title": "Room 113", "value": 15.902198357999922}, {"color": "#97c2fc", "id": 26, "label": "114", "shape": "square", "title": "Room 114", "value": 14.614216519699772}, {"color": "#97c2fc", "id": 27, "label": "115", "shape": "square", "title": "Room 115", "value": 14.436771636599843}, {"color": "#97c2fc", "id": 28, "label": "116", "shape": "square", "title": "Room 116", "value": 15.858198358000093}, {"color": "#97c2fc", "id": 29, "label": "117", "shape": "square", "title": "Room 117", "value": 14.612466519699879}, {"color": "#97c2fc", "id": 30, "label": "119", "shape": "square", "title": "Room 119", "value": 14.42677163659984}, {"color": "#97c2fc", "id": 31, "label": "120", "shape": "square", "title": "Room 120", "value": 14.610966519699756}, {"color": "#97c2fc", "id": 32, "label": "121", "shape": "square", "title": "Room 121", "value": 15.846198357999942}, {"color": "#97c2fc", "id": 33, "label": "122", "shape": "square", "title": "Room 122", "value": 14.416271636599932}, {"color": "#97c2fc", "id": 34, "label": "123", "shape": "square", "title": "Room 123", "value": 14.610966519699815}, {"color": "#97c2fc", "id": 35, "label": "124", "shape": "square", "title": "Room 124", "value": 16.075698358000437}, {"color": "#97c2fc", "id": 36, "label": "125", "shape": "square", "title": "Corridor 125", "value": 54.34053679456238}, {"color": "#97c2fc", "id": 37, "label": "126", "shape": "square", "title": "Stair 126", "value": 7.79612500000036}, {"color": "#97c2fc", "id": 38, "label": "127", "shape": "square", "title": "Stair 127", "value": 7.852499907750118}, {"color": "#97c2fc", "id": 39, "label": "129", "shape": "square", "title": "Room 129", "value": 14.686771636599929}, {"color": "#97c2fc", "id": 40, "label": "130", "shape": "square", "title": "Bath 130", "value": 4.092192039999735}, {"color": "#97c2fc", "id": 41, "label": "131", "shape": "square", "title": "Bath 131", "value": 4.084631079799701}, {"color": "#97c2fc", "id": 42, "label": "132", "shape": "square", "title": "Bath 132", "value": 4.8914115598996215}, {"color": "#97c2fc", "id": 43, "label": "134", "shape": "square", "title": "Bath 134", "value": 4.082911559899743}, {"color": "#97c2fc", "id": 44, "label": "135", "shape": "square", "title": "Bath 135", "value": 4.084631079799783}, {"color": "#97c2fc", "id": 45, "label": "136", "shape": "square", "title": "Bath 136", "value": 4.092192039999851}, {"color": "#97c2fc", "id": 46, "label": "137", "shape": "square", "title": "Bath 137", "value": 4.09219203999991}, {"color": "#97c2fc", "id": 47, "label": "138", "shape": "square", "title": "Bath 138", "value": 4.084631079799858}, {"color": "#97c2fc", "id": 48, "label": "139", "shape": "square", "title": "Bath 139", "value": 4.082911559899877}, {"color": "#97c2fc", "id": 49, "label": "140", "shape": "square", "title": "Bath 140", "value": 4.082911559899917}, {"color": "#97c2fc", "id": 50, "label": "141", "shape": "square", "title": "Bath 141", "value": 4.08463107979996}, {"color": "#97c2fc", "id": 51, "label": "142", "shape": "square", "title": "Bath 142", "value": 4.09219204000002}, {"color": "#97c2fc", "id": 52, "label": "228", "shape": "square", "title": "Room 228", "value": 15.902198357999922}, {"color": "#97c2fc", "id": 53, "label": "229", "shape": "square", "title": "Room 229", "value": 14.614216519699772}, {"color": "#97c2fc", "id": 54, "label": "230", "shape": "square", "title": "Room 230", "value": 14.436771636599843}, {"color": "#97c2fc", "id": 55, "label": "231", "shape": "square", "title": "Room 231", "value": 14.42677163659984}, {"color": "#97c2fc", "id": 56, "label": "232", "shape": "square", "title": "Room 232", "value": 14.610966519699756}, {"color": "#97c2fc", "id": 57, "label": "233", "shape": "square", "title": "Room 233", "value": 15.846198357999942}, {"color": "#97c2fc", "id": 58, "label": "234", "shape": "square", "title": "Room 234", "value": 16.075698358000437}, {"color": "#97c2fc", "id": 59, "label": "235", "shape": "square", "title": "Room 235", "value": 14.610966519699815}, {"color": "#97c2fc", "id": 60, "label": "236", "shape": "square", "title": "Room 236", "value": 14.416271636599932}, {"color": "#97c2fc", "id": 61, "label": "237", "shape": "square", "title": "Room 237", "value": 14.686771636599929}, {"color": "#97c2fc", "id": 62, "label": "239", "shape": "square", "title": "Room 239", "value": 15.858198358000093}, {"color": "#97c2fc", "id": 63, "label": "240", "shape": "square", "title": "Corridor 240", "value": 54.87187503375389}, {"color": "#97c2fc", "id": 64, "label": "241", "shape": "square", "title": "Stair 241", "value": 7.852499907750118}, {"color": "#97c2fc", "id": 65, "label": "242", "shape": "square", "title": "Stair 242", "value": 7.948125000000361}, {"color": "#97c2fc", "id": 66, "label": "244", "shape": "square", "title": "Room 244", "value": 14.612466519699879}, {"color": "#97c2fc", "id": 67, "label": "245", "shape": "square", "title": "Bath 245", "value": 4.092192039999735}, {"color": "#97c2fc", "id": 68, "label": "246", "shape": "square", "title": "Bath 246", "value": 4.084631079799701}, {"color": "#97c2fc", "id": 69, "label": "247", "shape": "square", "title": "Bath 247", "value": 4.8914115598996215}, {"color": "#97c2fc", "id": 70, "label": "248", "shape": "square", "title": "Bath 248", "value": 4.082911559899743}, {"color": "#97c2fc", "id": 71, "label": "249", "shape": "square", "title": "Bath 249", "value": 4.084631079799783}, {"color": "#97c2fc", "id": 72, "label": "250", "shape": "square", "title": "Bath 250", "value": 4.092192039999851}, {"color": "#97c2fc", "id": 73, "label": "251", "shape": "square", "title": "Bath 251", "value": 4.09219203999991}, {"color": "#97c2fc", "id": 74, "label": "252", "shape": "square", "title": "Bath 252", "value": 4.084631079799858}, {"color": "#97c2fc", "id": 75, "label": "253", "shape": "square", "title": "Bath 253", "value": 4.082911559899877}, {"color": "#97c2fc", "id": 76, "label": "254", "shape": "square", "title": "Bath 254", "value": 4.082911559899917}, {"color": "#97c2fc", "id": 77, "label": "255", "shape": "square", "title": "Bath 255", "value": 4.08463107979996}, {"color": "#97c2fc", "id": 78, "label": "256", "shape": "square", "title": "Bath 256", "value": 4.09219204000002}, {"color": "#97c2fc", "id": 79, "label": "343", "shape": "square", "title": "Room 343", "value": 15.902198357999922}, {"color": "#97c2fc", "id": 80, "label": "344", "shape": "square", "title": "Room 344", "value": 14.614216519699779}, {"color": "#97c2fc", "id": 81, "label": "345", "shape": "square", "title": "Room 345", "value": 14.436771636599843}, {"color": "#97c2fc", "id": 82, "label": "346", "shape": "square", "title": "Room 346", "value": 14.426771636599854}, {"color": "#97c2fc", "id": 83, "label": "347", "shape": "square", "title": "Room 347", "value": 14.610966519699776}, {"color": "#97c2fc", "id": 84, "label": "348", "shape": "square", "title": "Room 348", "value": 15.84619835799996}, {"color": "#97c2fc", "id": 85, "label": "349", "shape": "square", "title": "Room 349", "value": 15.858198358000095}, {"color": "#97c2fc", "id": 86, "label": "350", "shape": "square", "title": "Room 350", "value": 14.612466519699879}, {"color": "#97c2fc", "id": 87, "label": "352", "shape": "square", "title": "Room 352", "value": 14.416271636599932}, {"color": "#97c2fc", "id": 88, "label": "353", "shape": "square", "title": "Room 353", "value": 14.610966519699812}, {"color": "#97c2fc", "id": 89, "label": "354", "shape": "square", "title": "Room 354", "value": 16.075698358000416}, {"color": "#97c2fc", "id": 90, "label": "355", "shape": "square", "title": "Corridor 355", "value": 54.8718750337539}, {"color": "#97c2fc", "id": 91, "label": "356", "shape": "square", "title": "Stair 356", "value": 7.94812500000036}, {"color": "#97c2fc", "id": 92, "label": "357", "shape": "square", "title": "Stair 357", "value": 7.852499907750111}, {"color": "#97c2fc", "id": 93, "label": "359", "shape": "square", "title": "Room 359", "value": 14.686771636599932}, {"color": "#97c2fc", "id": 94, "label": "360", "shape": "square", "title": "Bath 360", "value": 4.092192039999734}, {"color": "#97c2fc", "id": 95, "label": "361", "shape": "square", "title": "Bath 361", "value": 4.084631079799699}, {"color": "#97c2fc", "id": 96, "label": "362", "shape": "square", "title": "Bath 362", "value": 4.891411559899621}, {"color": "#97c2fc", "id": 97, "label": "363", "shape": "square", "title": "Bath 363", "value": 4.082911559899744}, {"color": "#97c2fc", "id": 98, "label": "364", "shape": "square", "title": "Bath 364", "value": 4.084631079799784}, {"color": "#97c2fc", "id": 99, "label": "365", "shape": "square", "title": "Bath 365", "value": 4.092192039999855}, {"color": "#97c2fc", "id": 100, "label": "366", "shape": "square", "title": "Bath 366", "value": 4.0921920399999046}, {"color": "#97c2fc", "id": 101, "label": "367", "shape": "square", "title": "Bath 367", "value": 4.084631079799857}, {"color": "#97c2fc", "id": 102, "label": "368", "shape": "square", "title": "Bath 368", "value": 4.0829115598998715}, {"color": "#97c2fc", "id": 103, "label": "369", "shape": "square", "title": "Bath 369", "value": 4.082911559899917}, {"color": "#97c2fc", "id": 104, "label": "370", "shape": "square", "title": "Bath 370", "value": 4.084631079799961}, {"color": "#97c2fc", "id": 105, "label": "371", "shape": "square", "title": "Bath 371", "value": 4.092192040000021}, {"color": "#00ff1e", "id": 106, "label": "M_Single-Flush:Hotel Emergency Door 120:354752", "shape": "dot"}, {"color": "#00ff1e", "id": 107, "label": "M_Door-Double-Flush_Panel:Hotel Double Door:371610", "shape": "dot"}, {"color": "#00ff1e", "id": 108, "label": "M_Single-Flush:Hotel Emergency Door 120:436034", "shape": "dot"}]);
+                  edges = new vis.DataSet([{"from": 6, "title": "M_Single-Flush:Hotel Door:353089", "to": 18}, {"from": 11, "title": "M_Single-Flush:Hotel Door:353198", "to": 18}, {"from": 4, "title": "M_Single-Flush:Hotel Door:353244", "to": 18}, {"from": 7, "title": "M_Single-Flush:Hotel Door:353415", "to": 18}, {"from": 8, "title": "M_Single-Flush:Hotel Door:353479", "to": 24}, {"from": 8, "title": "M_Single-Flush:Hotel Door:353623", "to": 18}, {"from": 9, "title": "M_Single-Flush:Single Gate:353683", "to": 18}, {"from": 18, "title": "M_Single-Flush:Hotel Emergency Door:354032", "to": 21}, {"from": 18, "title": "M_Single-Flush:Hotel Emergency Door:354160", "to": 20}, {"from": 21, "title": "M_Single-Flush:Hotel Emergency Door 120:354752", "to": 106}, {"from": 15, "title": "M_Single-Flush:Hotel Door Bar:355044", "to": 18}, {"from": 12, "title": "M_Single-Flush:Hotel Door Bar:355123", "to": 15}, {"from": 22, "title": "M_Door-Double-Flush_Panel:Hotel Double Door:371610", "to": 107}, {"from": 25, "title": "M_Single-Flush:Hotel Door Room:375629", "to": 36}, {"from": 25, "title": "M_Single-Flush:Hotel Door Room Bath:376030", "to": 40}, {"from": 26, "title": "M_Single-Flush:Hotel Door Room Bath:377471", "to": 41}, {"from": 27, "title": "M_Single-Flush:Hotel Door Room Bath:377524", "to": 42}, {"from": 26, "title": "M_Single-Flush:Hotel Door Room:377543", "to": 36}, {"from": 27, "title": "M_Single-Flush:Hotel Door Room:377783", "to": 36}, {"from": 28, "title": "M_Single-Flush:Hotel Door Room:396468", "to": 36}, {"from": 28, "title": "M_Single-Flush:Hotel Door Room Bath:396469", "to": 51}, {"from": 29, "title": "M_Single-Flush:Hotel Door Room Bath:396473", "to": 50}, {"from": 39, "title": "M_Single-Flush:Hotel Door Room Bath:396474", "to": 49}, {"from": 29, "title": "M_Single-Flush:Hotel Door Room:396475", "to": 36}, {"from": 36, "title": "M_Single-Flush:Hotel Door Room:396476", "to": 39}, {"from": 32, "title": "M_Single-Flush:Hotel Door Room:396948", "to": 36}, {"from": 32, "title": "M_Single-Flush:Hotel Door Room Bath:396949", "to": 45}, {"from": 31, "title": "M_Single-Flush:Hotel Door Room Bath:396953", "to": 44}, {"from": 30, "title": "M_Single-Flush:Hotel Door Room Bath:396954", "to": 43}, {"from": 31, "title": "M_Single-Flush:Hotel Door Room:396955", "to": 36}, {"from": 30, "title": "M_Single-Flush:Hotel Door Room:396956", "to": 36}, {"from": 35, "title": "M_Single-Flush:Hotel Door Room:397367", "to": 36}, {"from": 35, "title": "M_Single-Flush:Hotel Door Room Bath:397368", "to": 46}, {"from": 34, "title": "M_Single-Flush:Hotel Door Room Bath:397372", "to": 47}, {"from": 33, "title": "M_Single-Flush:Hotel Door Room Bath:397373", "to": 48}, {"from": 34, "title": "M_Single-Flush:Hotel Door Room:397374", "to": 36}, {"from": 33, "title": "M_Single-Flush:Hotel Door Room:397375", "to": 36}, {"from": 36, "title": "M_Single-Flush:Hotel Emergency Door:400674", "to": 37}, {"from": 36, "title": "M_Single-Flush:Hotel Emergency Door:400899", "to": 38}, {"from": 52, "title": "M_Single-Flush:Hotel Door Room:428557", "to": 63}, {"from": 52, "title": "M_Single-Flush:Hotel Door Room Bath:428558", "to": 67}, {"from": 53, "title": "M_Single-Flush:Hotel Door Room Bath:428562", "to": 68}, {"from": 54, "title": "M_Single-Flush:Hotel Door Room Bath:428563", "to": 69}, {"from": 53, "title": "M_Single-Flush:Hotel Door Room:428564", "to": 63}, {"from": 54, "title": "M_Single-Flush:Hotel Door Room:428565", "to": 63}, {"from": 62, "title": "M_Single-Flush:Hotel Door Room:428952", "to": 63}, {"from": 62, "title": "M_Single-Flush:Hotel Door Room Bath:428953", "to": 78}, {"from": 66, "title": "M_Single-Flush:Hotel Door Room Bath:428957", "to": 77}, {"from": 61, "title": "M_Single-Flush:Hotel Door Room Bath:428958", "to": 76}, {"from": 63, "title": "M_Single-Flush:Hotel Door Room:428959", "to": 66}, {"from": 61, "title": "M_Single-Flush:Hotel Door Room:428960", "to": 63}, {"from": 57, "title": "M_Single-Flush:Hotel Door Room:429332", "to": 63}, {"from": 57, "title": "M_Single-Flush:Hotel Door Room Bath:429333", "to": 72}, {"from": 56, "title": "M_Single-Flush:Hotel Door Room Bath:429337", "to": 71}, {"from": 55, "title": "M_Single-Flush:Hotel Door Room Bath:429338", "to": 70}, {"from": 56, "title": "M_Single-Flush:Hotel Door Room:429339", "to": 63}, {"from": 55, "title": "M_Single-Flush:Hotel Door Room:429340", "to": 63}, {"from": 58, "title": "M_Single-Flush:Hotel Door Room:429712", "to": 63}, {"from": 58, "title": "M_Single-Flush:Hotel Door Room Bath:429713", "to": 73}, {"from": 59, "title": "M_Single-Flush:Hotel Door Room Bath:429717", "to": 74}, {"from": 60, "title": "M_Single-Flush:Hotel Door Room Bath:429718", "to": 75}, {"from": 59, "title": "M_Single-Flush:Hotel Door Room:429719", "to": 63}, {"from": 60, "title": "M_Single-Flush:Hotel Door Room:429720", "to": 63}, {"from": 63, "title": "M_Single-Flush:Hotel Emergency Door:430090", "to": 65}, {"from": 63, "title": "M_Single-Flush:Hotel Emergency Door:430091", "to": 64}, {"from": 79, "title": "M_Single-Flush:Hotel Door Room:430580", "to": 90}, {"from": 79, "title": "M_Single-Flush:Hotel Door Room Bath:430581", "to": 94}, {"from": 80, "title": "M_Single-Flush:Hotel Door Room Bath:430585", "to": 95}, {"from": 81, "title": "M_Single-Flush:Hotel Door Room Bath:430586", "to": 96}, {"from": 80, "title": "M_Single-Flush:Hotel Door Room:430587", "to": 90}, {"from": 81, "title": "M_Single-Flush:Hotel Door Room:430588", "to": 90}, {"from": 85, "title": "M_Single-Flush:Hotel Door Room:430853", "to": 90}, {"from": 85, "title": "M_Single-Flush:Hotel Door Room Bath:430854", "to": 105}, {"from": 86, "title": "M_Single-Flush:Hotel Door Room Bath:430858", "to": 104}, {"from": 93, "title": "M_Single-Flush:Hotel Door Room Bath:430859", "to": 103}, {"from": 86, "title": "M_Single-Flush:Hotel Door Room:430860", "to": 90}, {"from": 90, "title": "M_Single-Flush:Hotel Door Room:430861", "to": 93}, {"from": 84, "title": "M_Single-Flush:Hotel Door Room:431126", "to": 90}, {"from": 84, "title": "M_Single-Flush:Hotel Door Room Bath:431127", "to": 99}, {"from": 83, "title": "M_Single-Flush:Hotel Door Room Bath:431131", "to": 98}, {"from": 82, "title": "M_Single-Flush:Hotel Door Room Bath:431132", "to": 97}, {"from": 83, "title": "M_Single-Flush:Hotel Door Room:431133", "to": 90}, {"from": 82, "title": "M_Single-Flush:Hotel Door Room:431134", "to": 90}, {"from": 89, "title": "M_Single-Flush:Hotel Door Room:431429", "to": 90}, {"from": 89, "title": "M_Single-Flush:Hotel Door Room Bath:431430", "to": 100}, {"from": 88, "title": "M_Single-Flush:Hotel Door Room Bath:431434", "to": 101}, {"from": 87, "title": "M_Single-Flush:Hotel Door Room Bath:431435", "to": 102}, {"from": 88, "title": "M_Single-Flush:Hotel Door Room:431436", "to": 90}, {"from": 87, "title": "M_Single-Flush:Hotel Door Room:431437", "to": 90}, {"from": 90, "title": "M_Single-Flush:Hotel Emergency Door:431732", "to": 91}, {"from": 90, "title": "M_Single-Flush:Hotel Emergency Door:431733", "to": 92}, {"from": 20, "title": "M_Single-Flush:Hotel Emergency Door 120:436034", "to": 108}, {"from": 10, "title": "M_Single-Flush:Hotel Door:505098", "to": 18}, {"from": 14, "title": "M_Single-Flush:Hotel Door:647399", "to": 36}, {"from": 13, "title": "M_Single-Flush:Hotel Door:647825", "to": 18}, {"from": 16, "title": "M_Single-Flush:Hotel Door:648033", "to": 63}, {"from": 17, "title": "M_Single-Flush:Hotel Door:648127", "to": 90}, {"from": 22, "title": "M_Single-Flush:Hotel Door:782754", "to": 23}, {"from": 1, "title": "LiftDoor:LiftDoor:1098903", "to": 18}, {"from": 2, "title": "LiftDoor:LiftDoor:1099151", "to": 36}, {"from": 3, "title": "LiftDoor:LiftDoor:1099473", "to": 63}, {"from": 5, "title": "LiftDoor:LiftDoor:1099605", "to": 90}, {"color": "#FF0000", "from": 20, "title": "Assembled Stair:Stair:420483", "to": 37, "weight": 20.0}, {"color": "#FF0000", "from": 37, "title": "Assembled Stair:Stair:423635", "to": 65, "weight": 20.0}, {"color": "#FF0000", "from": 38, "title": "Assembled Stair:Stair:425127", "to": 64, "weight": 20.0}, {"color": "#FF0000", "from": 21, "title": "Assembled Stair:Stair:425859", "to": 38, "weight": 20.0}, {"color": "#FF0000", "from": 65, "title": "Assembled Stair:Stair:432512", "to": 91, "weight": 20.0}, {"color": "#FF0000", "from": 64, "title": "Assembled Stair:Stair:432708", "to": 92, "weight": 20.0}, {"color": "#FF00FF", "from": 18, "title": "Specialty_Equipment_Escalator_w-Steps:700mm_Width-4000mm_Rise:673359", "to": 36, "weight": 20.0}, {"color": "#00FF00", "from": 18, "title": "0022 to 027", "to": 22}, {"color": "#00FF00", "from": 19, "title": "0023 to 027", "to": 22}, {"color": "#CCCCCC", "from": 36, "title": "Otis_G2S_11152023161138:Otis_G2S_11152023161138:646712", "to": 1, "weight": 20.0}, {"color": "#CCCCCC", "from": 1, "title": "Otis_G2S_11152023161138:Otis_G2S_11152023161138:646712", "to": 2, "weight": 20.0}, {"color": "#CCCCCC", "from": 2, "title": "Otis_G2S_11152023161138:Otis_G2S_11152023161138:646712", "to": 3, "weight": 20.0}, {"color": "#CCCCCC", "from": 3, "title": "Otis_G2S_11152023161138:Otis_G2S_11152023161138:646712", "to": 5, "weight": 20.0}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": true,
+        "filter": [
+            "physics"
+        ]
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+                  // if this network requires displaying the configure window,
+                  // put it in its div
+                  options.configure["container"] = document.getElementById("config");
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+                      network.on("stabilizationProgress", function(params) {
+                          document.getElementById('loadingBar').removeAttribute("style");
+                          var maxWidth = 496;
+                          var minWidth = 20;
+                          var widthFactor = params.iterations/params.total;
+                          var width = Math.max(minWidth,maxWidth * widthFactor);
+                          document.getElementById('bar').style.width = width + 'px';
+                          document.getElementById('text').innerHTML = Math.round(widthFactor*100) + '%';
+                      });
+                      network.once("stabilizationIterationsDone", function() {
+                          document.getElementById('text').innerHTML = '100%';
+                          document.getElementById('bar').style.width = '496px';
+                          document.getElementById('loadingBar').style.opacity = 0;
+                          // really clean the dom element
+                          setTimeout(function () {document.getElementById('loadingBar').style.display = 'none';}, 500);
+                      });
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>

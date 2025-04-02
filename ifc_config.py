@@ -10,6 +10,9 @@ import os
 
 Folder = "TestCases"
 FileName = "hotel-v12.ifc"
+#FileName = "HM-NoPass4.ifc"
+#InfaFileName = "Infra-Road.ifc"
+#FileName = InfaFileName
 
 IFCFile = Folder + os.sep + FileName
 
