@@ -1,0 +1,1826 @@
+<ENZ_Map>
+		<Description>IFC Export file</Description>
+		<Node>
+			<Name>Lift 1 F0 0</Name>
+			<Ref>1</Ref>
+			<Area>5.934139999999992</Area>
+		</Node>
+		<Node>
+			<Name>Lift 1 F1 1</Name>
+			<Ref>2</Ref>
+			<Area>5.934398293799898</Area>
+		</Node>
+		<Node>
+			<Name>Lift 1 F2 2</Name>
+			<Ref>3</Ref>
+			<Area>5.9343982937998945</Area>
+		</Node>
+		<Node>
+			<Name>Lounge 002</Name>
+			<Ref>4</Ref>
+			<Area>26.044279218200167</Area>
+			<Furniture>
+				<Object>M_Chair-Corbu:Chair</Object>
+				<Object>M_Chair-Corbu:Chair</Object>
+				<Object>M_Table-Night Stand:0610 x 0610 x 0762mm</Object>
+				<Object>M_Chair-Corbu:Chair</Object>
+				<Object>M_Chair-Corbu:Chair</Object>
+				<Object>M_Table-Night Stand:0610 x 0610 x 0762mm</Object>
+				<Object>M_TV Stand:M_TV Stand</Object>
+				<Object>M_TV - Flat Screen:1270mm</Object>
+			</Furniture>
+		</Node>
+		<Node>
+			<Name>Lift 1 F3 3</Name>
+			<Ref>5</Ref>
+			<Area>5.9343982937998945</Area>
+		</Node>
+		<Node>
+			<Name>Women 003</Name>
+			<Ref>6</Ref>
+			<Area>4.036582437999998</Area>
+		</Node>
+		<Node>
+			<Name>Daycare 005</Name>
+			<Ref>7</Ref>
+			<Area>19.94700000000003</Area>
+			<Furniture>
+				<Object>M_Chair-Task:M_Chair-Task</Object>
+				<Object>M_Desk:1830 x 915mm</Object>
+				<Object>M_Table-Dining Round w Chairs:0915mm Diameter</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Cabinet-File 2 Drawer:0380 x 0457mm</Object>
+				<Object>M_Cabinet-File 2 Drawer:0380 x 0457mm</Object>
+				<Object>M_Cabinet-File 2 Drawer:0380 x 0457mm</Object>
+				<Object>M_Cabinet-File 2 Drawer:0380 x 0457mm</Object>
+			</Furniture>
+		</Node>
+		<Node>
+			<Name>Conference 007</Name>
+			<Ref>8</Ref>
+			<Area>29.280000000000143</Area>
+			<Furniture>
+				<Object>M_Table-Dining Round w Chairs:2134mm Diameter</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+			</Furniture>
+		</Node>
+		<Node>
+			<Name>Dining 008</Name>
+			<Ref>9</Ref>
+			<Area>32.818</Area>
+			<Furniture>
+				<Object>M_Table-Dining Round w Chairs:1525mm Diameter</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Table-Dining Round w Chairs:1525mm Diameter</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Table-Dining Round w Chairs:0915mm Diameter</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+			</Furniture>
+		</Node>
+		<Node>
+			<Name>Dining 009</Name>
+			<Ref>10</Ref>
+			<Area>28.419999999999668</Area>
+			<Furniture>
+				<Object>M_Table-Dining Round w Chairs:0915mm Diameter</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Table-Dining Round w Chairs:0915mm Diameter</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Table-Dining Round w Chairs:0915mm Diameter</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Table-Dining Round w Chairs:0915mm Diameter</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+			</Furniture>
+		</Node>
+		<Node>
+			<Name>W/C 010</Name>
+			<Ref>11</Ref>
+			<Area>4.001800882488473</Area>
+		</Node>
+		<Node>
+			<Name>Kitchen 011</Name>
+			<Ref>12</Ref>
+			<Area>11.059999999999928</Area>
+			<Furniture>
+				<Object>M_Table-Rectangular:1830 x 0762mm</Object>
+			</Furniture>
+		</Node>
+		<Node>
+			<Name>Store 012</Name>
+			<Ref>13</Ref>
+			<Area>3.11046</Area>
+		</Node>
+		<Node>
+			<Name>Store 013</Name>
+			<Ref>14</Ref>
+			<Area>3.1105953881999575</Area>
+		</Node>
+		<Node>
+			<Name>Storage 014</Name>
+			<Ref>15</Ref>
+			<Area>16.909000000000077</Area>
+		</Node>
+		<Node>
+			<Name>Store 015</Name>
+			<Ref>16</Ref>
+			<Area>3.110595388199961</Area>
+		</Node>
+		<Node>
+			<Name>Store 016</Name>
+			<Ref>17</Ref>
+			<Area>3.110595388199961</Area>
+		</Node>
+		<Node>
+			<Name>Corridor 0022</Name>
+			<Ref>18</Ref>
+			<Area>62.138359927311306</Area>
+		</Node>
+		<Node>
+			<Name>Side lobby 0023</Name>
+			<Ref>19</Ref>
+			<Area>25.865999999999147</Area>
+			<Furniture>
+				<Object>M_Table-Dining Round w Chairs:0915mm Diameter</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+			</Furniture>
+		</Node>
+		<Node>
+			<Name>Stair 025</Name>
+			<Ref>20</Ref>
+			<Area>7.8925499662500584</Area>
+		</Node>
+		<Node>
+			<Name>Stair 026</Name>
+			<Ref>21</Ref>
+			<Area>7.87750004950002</Area>
+		</Node>
+		<Node>
+			<Name>Main Lobby 027</Name>
+			<Ref>22</Ref>
+			<Area>31.210499999999588</Area>
+			<Furniture>
+				<Object>M_Sofa-Corbu:Sofa</Object>
+				<Object>M_Table-Night Stand:0610 x 0610 x 0762mm</Object>
+				<Object>M_Sofa-Corbu:Sofa</Object>
+				<Object>M_Table-Night Stand:0610 x 0610 x 0762mm</Object>
+				<Object>M_Table-Night Stand:0610 x 0610 x 0762mm</Object>
+			</Furniture>
+		</Node>
+		<Node>
+			<Name>Open Office 028</Name>
+			<Ref>23</Ref>
+			<Area>35.8715</Area>
+			<Furniture>
+				<Object>M_Chair-Task:M_Chair-Task</Object>
+				<Object>M_Credenza:Hotel Desk Credenza</Object>
+				<Object>M_Chair-Task:M_Chair-Task</Object>
+				<Object>M_Credenza:Hotel Desk Credenza</Object>
+				<Object>M_Chair-Task:M_Chair-Task</Object>
+				<Object>M_Credenza:Hotel Desk Credenza</Object>
+				<Object>M_Chair-Task:M_Chair-Task</Object>
+				<Object>M_Credenza:Hotel Desk Credenza</Object>
+				<Object>M_Table-Dining Round w Chairs:0915mm Diameter</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Table-Dining Round w Chairs:0915mm Diameter</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Chair-Breuer:M_Chair-Breuer</Object>
+				<Object>M_Chair-Task:M_Chair-Task</Object>
+				<Object>M_Credenza:Hotel Desk Credenza</Object>
+				<Object>M_Chair-Task:M_Chair-Task</Object>
+				<Object>M_Credenza:Hotel Desk Credenza</Object>
+			</Furniture>
+		</Node>
+		<Node>
+			<Name>Office 029</Name>
+			<Ref>24</Ref>
+			<Area>15.724799999999913</Area>
+			<Furniture>
+				<Object>M_Sofa-Corbu:Sofa</Object>
+				<Object>M_Chair-Task:M_Chair-Task</Object>
+				<Object>M_Desk:1830 x 915mm</Object>
+				<Object>M_Chair-Task:M_Chair-Task</Object>
+				<Object>M_Chair-Task:M_Chair-Task</Object>
+			</Furniture>
+		</Node>
+		<Node>
+			<Name>Room 113</Name>
+			<Ref>25</Ref>
+			<Area>15.902198357999922</Area>
+			<Furniture>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Chair-Task:M_Chair-Task</Object>
+				<Object>M_Credenza:1525 x 0610mm</Object>
+				<Object>M_Credenza:Hotel Desk Credenza</Object>
+			</Furniture>
+		</Node>
+		<Node>
+			<Name>Room 114</Name>
+			<Ref>26</Ref>
+			<Area>14.614216519699772</Area>
+			<Furniture>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Chair-Task:M_Chair-Task</Object>
+				<Object>M_Credenza:1525 x 0610mm</Object>
+				<Object>M_Credenza:Hotel Desk Credenza</Object>
+			</Furniture>
+		</Node>
+		<Node>
+			<Name>Room 115</Name>
+			<Ref>27</Ref>
+			<Area>14.436771636599843</Area>
+			<Furniture>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Chair-Task:M_Chair-Task</Object>
+				<Object>M_Credenza:1525 x 0610mm</Object>
+				<Object>M_Credenza:Hotel Desk Credenza</Object>
+			</Furniture>
+		</Node>
+		<Node>
+			<Name>Room 116</Name>
+			<Ref>28</Ref>
+			<Area>15.858198358000093</Area>
+			<Furniture>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Chair-Task:M_Chair-Task</Object>
+				<Object>M_Credenza:1525 x 0610mm</Object>
+				<Object>M_Credenza:Hotel Desk Credenza</Object>
+			</Furniture>
+		</Node>
+		<Node>
+			<Name>Room 117</Name>
+			<Ref>29</Ref>
+			<Area>14.612466519699879</Area>
+			<Furniture>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Chair-Task:M_Chair-Task</Object>
+				<Object>M_Credenza:1525 x 0610mm</Object>
+				<Object>M_Credenza:Hotel Desk Credenza</Object>
+			</Furniture>
+		</Node>
+		<Node>
+			<Name>Room 119</Name>
+			<Ref>30</Ref>
+			<Area>14.42677163659984</Area>
+			<Furniture>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Chair-Task:M_Chair-Task</Object>
+				<Object>M_Credenza:1525 x 0610mm</Object>
+				<Object>M_Credenza:Hotel Desk Credenza</Object>
+			</Furniture>
+		</Node>
+		<Node>
+			<Name>Room 120</Name>
+			<Ref>31</Ref>
+			<Area>14.610966519699756</Area>
+			<Furniture>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Chair-Task:M_Chair-Task</Object>
+				<Object>M_Credenza:1525 x 0610mm</Object>
+				<Object>M_Credenza:Hotel Desk Credenza</Object>
+			</Furniture>
+		</Node>
+		<Node>
+			<Name>Room 121</Name>
+			<Ref>32</Ref>
+			<Area>15.846198357999942</Area>
+			<Furniture>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Chair-Task:M_Chair-Task</Object>
+				<Object>M_Credenza:1525 x 0610mm</Object>
+				<Object>M_Credenza:Hotel Desk Credenza</Object>
+			</Furniture>
+		</Node>
+		<Node>
+			<Name>Room 122</Name>
+			<Ref>33</Ref>
+			<Area>14.416271636599932</Area>
+			<Furniture>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Chair-Task:M_Chair-Task</Object>
+				<Object>M_Credenza:1525 x 0610mm</Object>
+				<Object>M_Credenza:Hotel Desk Credenza</Object>
+			</Furniture>
+		</Node>
+		<Node>
+			<Name>Room 123</Name>
+			<Ref>34</Ref>
+			<Area>14.610966519699815</Area>
+			<Furniture>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Chair-Task:M_Chair-Task</Object>
+				<Object>M_Credenza:1525 x 0610mm</Object>
+				<Object>M_Credenza:Hotel Desk Credenza</Object>
+			</Furniture>
+		</Node>
+		<Node>
+			<Name>Room 124</Name>
+			<Ref>35</Ref>
+			<Area>16.075698358000437</Area>
+			<Furniture>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Chair-Task:M_Chair-Task</Object>
+				<Object>M_Credenza:1525 x 0610mm</Object>
+				<Object>M_Credenza:Hotel Desk Credenza</Object>
+			</Furniture>
+		</Node>
+		<Node>
+			<Name>Corridor 125</Name>
+			<Ref>36</Ref>
+			<Area>54.34053679456238</Area>
+		</Node>
+		<Node>
+			<Name>Stair 126</Name>
+			<Ref>37</Ref>
+			<Area>7.79612500000036</Area>
+		</Node>
+		<Node>
+			<Name>Stair 127</Name>
+			<Ref>38</Ref>
+			<Area>7.852499907750118</Area>
+		</Node>
+		<Node>
+			<Name>Room 129</Name>
+			<Ref>39</Ref>
+			<Area>14.686771636599929</Area>
+			<Furniture>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Chair-Task:M_Chair-Task</Object>
+				<Object>M_Credenza:1525 x 0610mm</Object>
+				<Object>M_Credenza:Hotel Desk Credenza</Object>
+			</Furniture>
+		</Node>
+		<Node>
+			<Name>Bath 130</Name>
+			<Ref>40</Ref>
+			<Area>4.092192039999735</Area>
+		</Node>
+		<Node>
+			<Name>Bath 131</Name>
+			<Ref>41</Ref>
+			<Area>4.084631079799701</Area>
+		</Node>
+		<Node>
+			<Name>Bath 132</Name>
+			<Ref>42</Ref>
+			<Area>4.8914115598996215</Area>
+		</Node>
+		<Node>
+			<Name>Bath 134</Name>
+			<Ref>43</Ref>
+			<Area>4.082911559899743</Area>
+		</Node>
+		<Node>
+			<Name>Bath 135</Name>
+			<Ref>44</Ref>
+			<Area>4.084631079799783</Area>
+		</Node>
+		<Node>
+			<Name>Bath 136</Name>
+			<Ref>45</Ref>
+			<Area>4.092192039999851</Area>
+		</Node>
+		<Node>
+			<Name>Bath 137</Name>
+			<Ref>46</Ref>
+			<Area>4.09219203999991</Area>
+		</Node>
+		<Node>
+			<Name>Bath 138</Name>
+			<Ref>47</Ref>
+			<Area>4.084631079799858</Area>
+		</Node>
+		<Node>
+			<Name>Bath 139</Name>
+			<Ref>48</Ref>
+			<Area>4.082911559899877</Area>
+		</Node>
+		<Node>
+			<Name>Bath 140</Name>
+			<Ref>49</Ref>
+			<Area>4.082911559899917</Area>
+		</Node>
+		<Node>
+			<Name>Bath 141</Name>
+			<Ref>50</Ref>
+			<Area>4.08463107979996</Area>
+		</Node>
+		<Node>
+			<Name>Bath 142</Name>
+			<Ref>51</Ref>
+			<Area>4.09219204000002</Area>
+		</Node>
+		<Node>
+			<Name>Room 228</Name>
+			<Ref>52</Ref>
+			<Area>15.902198357999922</Area>
+			<Furniture>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Chair-Task:M_Chair-Task</Object>
+				<Object>M_Credenza:1525 x 0610mm</Object>
+				<Object>M_Credenza:Hotel Desk Credenza</Object>
+			</Furniture>
+		</Node>
+		<Node>
+			<Name>Room 229</Name>
+			<Ref>53</Ref>
+			<Area>14.614216519699772</Area>
+			<Furniture>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Chair-Task:M_Chair-Task</Object>
+				<Object>M_Credenza:1525 x 0610mm</Object>
+				<Object>M_Credenza:Hotel Desk Credenza</Object>
+			</Furniture>
+		</Node>
+		<Node>
+			<Name>Room 230</Name>
+			<Ref>54</Ref>
+			<Area>14.436771636599843</Area>
+			<Furniture>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Chair-Task:M_Chair-Task</Object>
+				<Object>M_Credenza:1525 x 0610mm</Object>
+				<Object>M_Credenza:Hotel Desk Credenza</Object>
+			</Furniture>
+		</Node>
+		<Node>
+			<Name>Room 231</Name>
+			<Ref>55</Ref>
+			<Area>14.42677163659984</Area>
+			<Furniture>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Chair-Task:M_Chair-Task</Object>
+				<Object>M_Credenza:1525 x 0610mm</Object>
+				<Object>M_Credenza:Hotel Desk Credenza</Object>
+			</Furniture>
+		</Node>
+		<Node>
+			<Name>Room 232</Name>
+			<Ref>56</Ref>
+			<Area>14.610966519699756</Area>
+			<Furniture>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Chair-Task:M_Chair-Task</Object>
+				<Object>M_Credenza:1525 x 0610mm</Object>
+				<Object>M_Credenza:Hotel Desk Credenza</Object>
+			</Furniture>
+		</Node>
+		<Node>
+			<Name>Room 233</Name>
+			<Ref>57</Ref>
+			<Area>15.846198357999942</Area>
+			<Furniture>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Chair-Task:M_Chair-Task</Object>
+				<Object>M_Credenza:1525 x 0610mm</Object>
+				<Object>M_Credenza:Hotel Desk Credenza</Object>
+			</Furniture>
+		</Node>
+		<Node>
+			<Name>Room 234</Name>
+			<Ref>58</Ref>
+			<Area>16.075698358000437</Area>
+			<Furniture>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Chair-Task:M_Chair-Task</Object>
+				<Object>M_Credenza:1525 x 0610mm</Object>
+				<Object>M_Credenza:Hotel Desk Credenza</Object>
+			</Furniture>
+		</Node>
+		<Node>
+			<Name>Room 235</Name>
+			<Ref>59</Ref>
+			<Area>14.610966519699815</Area>
+			<Furniture>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Chair-Task:M_Chair-Task</Object>
+				<Object>M_Credenza:1525 x 0610mm</Object>
+				<Object>M_Credenza:Hotel Desk Credenza</Object>
+			</Furniture>
+		</Node>
+		<Node>
+			<Name>Room 236</Name>
+			<Ref>60</Ref>
+			<Area>14.416271636599932</Area>
+			<Furniture>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Chair-Task:M_Chair-Task</Object>
+				<Object>M_Credenza:1525 x 0610mm</Object>
+				<Object>M_Credenza:Hotel Desk Credenza</Object>
+			</Furniture>
+		</Node>
+		<Node>
+			<Name>Room 237</Name>
+			<Ref>61</Ref>
+			<Area>14.686771636599929</Area>
+			<Furniture>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Chair-Task:M_Chair-Task</Object>
+				<Object>M_Credenza:1525 x 0610mm</Object>
+				<Object>M_Credenza:Hotel Desk Credenza</Object>
+			</Furniture>
+		</Node>
+		<Node>
+			<Name>Room 239</Name>
+			<Ref>62</Ref>
+			<Area>15.858198358000093</Area>
+			<Furniture>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Chair-Task:M_Chair-Task</Object>
+				<Object>M_Credenza:1525 x 0610mm</Object>
+				<Object>M_Credenza:Hotel Desk Credenza</Object>
+			</Furniture>
+		</Node>
+		<Node>
+			<Name>Corridor 240</Name>
+			<Ref>63</Ref>
+			<Area>54.87187503375389</Area>
+		</Node>
+		<Node>
+			<Name>Stair 241</Name>
+			<Ref>64</Ref>
+			<Area>7.852499907750118</Area>
+		</Node>
+		<Node>
+			<Name>Stair 242</Name>
+			<Ref>65</Ref>
+			<Area>7.948125000000361</Area>
+		</Node>
+		<Node>
+			<Name>Room 244</Name>
+			<Ref>66</Ref>
+			<Area>14.612466519699879</Area>
+			<Furniture>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Chair-Task:M_Chair-Task</Object>
+				<Object>M_Credenza:1525 x 0610mm</Object>
+				<Object>M_Credenza:Hotel Desk Credenza</Object>
+			</Furniture>
+		</Node>
+		<Node>
+			<Name>Bath 245</Name>
+			<Ref>67</Ref>
+			<Area>4.092192039999735</Area>
+		</Node>
+		<Node>
+			<Name>Bath 246</Name>
+			<Ref>68</Ref>
+			<Area>4.084631079799701</Area>
+		</Node>
+		<Node>
+			<Name>Bath 247</Name>
+			<Ref>69</Ref>
+			<Area>4.8914115598996215</Area>
+		</Node>
+		<Node>
+			<Name>Bath 248</Name>
+			<Ref>70</Ref>
+			<Area>4.082911559899743</Area>
+		</Node>
+		<Node>
+			<Name>Bath 249</Name>
+			<Ref>71</Ref>
+			<Area>4.084631079799783</Area>
+		</Node>
+		<Node>
+			<Name>Bath 250</Name>
+			<Ref>72</Ref>
+			<Area>4.092192039999851</Area>
+		</Node>
+		<Node>
+			<Name>Bath 251</Name>
+			<Ref>73</Ref>
+			<Area>4.09219203999991</Area>
+		</Node>
+		<Node>
+			<Name>Bath 252</Name>
+			<Ref>74</Ref>
+			<Area>4.084631079799858</Area>
+		</Node>
+		<Node>
+			<Name>Bath 253</Name>
+			<Ref>75</Ref>
+			<Area>4.082911559899877</Area>
+		</Node>
+		<Node>
+			<Name>Bath 254</Name>
+			<Ref>76</Ref>
+			<Area>4.082911559899917</Area>
+		</Node>
+		<Node>
+			<Name>Bath 255</Name>
+			<Ref>77</Ref>
+			<Area>4.08463107979996</Area>
+		</Node>
+		<Node>
+			<Name>Bath 256</Name>
+			<Ref>78</Ref>
+			<Area>4.09219204000002</Area>
+		</Node>
+		<Node>
+			<Name>Room 343</Name>
+			<Ref>79</Ref>
+			<Area>15.902198357999922</Area>
+			<Furniture>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Chair-Task:M_Chair-Task</Object>
+				<Object>M_Credenza:1525 x 0610mm</Object>
+				<Object>M_Credenza:Hotel Desk Credenza</Object>
+			</Furniture>
+		</Node>
+		<Node>
+			<Name>Room 344</Name>
+			<Ref>80</Ref>
+			<Area>14.614216519699779</Area>
+			<Furniture>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Chair-Task:M_Chair-Task</Object>
+				<Object>M_Credenza:1525 x 0610mm</Object>
+				<Object>M_Credenza:Hotel Desk Credenza</Object>
+			</Furniture>
+		</Node>
+		<Node>
+			<Name>Room 345</Name>
+			<Ref>81</Ref>
+			<Area>14.436771636599843</Area>
+			<Furniture>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Chair-Task:M_Chair-Task</Object>
+				<Object>M_Credenza:1525 x 0610mm</Object>
+				<Object>M_Credenza:Hotel Desk Credenza</Object>
+			</Furniture>
+		</Node>
+		<Node>
+			<Name>Room 346</Name>
+			<Ref>82</Ref>
+			<Area>14.426771636599854</Area>
+			<Furniture>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Chair-Task:M_Chair-Task</Object>
+				<Object>M_Credenza:1525 x 0610mm</Object>
+				<Object>M_Credenza:Hotel Desk Credenza</Object>
+			</Furniture>
+		</Node>
+		<Node>
+			<Name>Room 347</Name>
+			<Ref>83</Ref>
+			<Area>14.610966519699776</Area>
+			<Furniture>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Chair-Task:M_Chair-Task</Object>
+				<Object>M_Credenza:1525 x 0610mm</Object>
+				<Object>M_Credenza:Hotel Desk Credenza</Object>
+			</Furniture>
+		</Node>
+		<Node>
+			<Name>Room 348</Name>
+			<Ref>84</Ref>
+			<Area>15.84619835799996</Area>
+			<Furniture>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Chair-Task:M_Chair-Task</Object>
+				<Object>M_Credenza:1525 x 0610mm</Object>
+				<Object>M_Credenza:Hotel Desk Credenza</Object>
+			</Furniture>
+		</Node>
+		<Node>
+			<Name>Room 349</Name>
+			<Ref>85</Ref>
+			<Area>15.858198358000095</Area>
+			<Furniture>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Chair-Task:M_Chair-Task</Object>
+				<Object>M_Credenza:1525 x 0610mm</Object>
+				<Object>M_Credenza:Hotel Desk Credenza</Object>
+			</Furniture>
+		</Node>
+		<Node>
+			<Name>Room 350</Name>
+			<Ref>86</Ref>
+			<Area>14.612466519699879</Area>
+			<Furniture>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Chair-Task:M_Chair-Task</Object>
+				<Object>M_Credenza:1525 x 0610mm</Object>
+				<Object>M_Credenza:Hotel Desk Credenza</Object>
+			</Furniture>
+		</Node>
+		<Node>
+			<Name>Room 352</Name>
+			<Ref>87</Ref>
+			<Area>14.416271636599932</Area>
+			<Furniture>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Chair-Task:M_Chair-Task</Object>
+				<Object>M_Credenza:1525 x 0610mm</Object>
+				<Object>M_Credenza:Hotel Desk Credenza</Object>
+			</Furniture>
+		</Node>
+		<Node>
+			<Name>Room 353</Name>
+			<Ref>88</Ref>
+			<Area>14.610966519699812</Area>
+			<Furniture>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Chair-Task:M_Chair-Task</Object>
+				<Object>M_Credenza:1525 x 0610mm</Object>
+				<Object>M_Credenza:Hotel Desk Credenza</Object>
+			</Furniture>
+		</Node>
+		<Node>
+			<Name>Room 354</Name>
+			<Ref>89</Ref>
+			<Area>16.075698358000416</Area>
+			<Furniture>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Chair-Task:M_Chair-Task</Object>
+				<Object>M_Credenza:1525 x 0610mm</Object>
+				<Object>M_Credenza:Hotel Desk Credenza</Object>
+			</Furniture>
+		</Node>
+		<Node>
+			<Name>Corridor 355</Name>
+			<Ref>90</Ref>
+			<Area>54.8718750337539</Area>
+		</Node>
+		<Node>
+			<Name>Stair 356</Name>
+			<Ref>91</Ref>
+			<Area>7.94812500000036</Area>
+		</Node>
+		<Node>
+			<Name>Stair 357</Name>
+			<Ref>92</Ref>
+			<Area>7.852499907750111</Area>
+		</Node>
+		<Node>
+			<Name>Room 359</Name>
+			<Ref>93</Ref>
+			<Area>14.686771636599932</Area>
+			<Furniture>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Bed-Standard:1372 x 1905mm - Double</Object>
+				<Object>M_Chair-Task:M_Chair-Task</Object>
+				<Object>M_Credenza:1525 x 0610mm</Object>
+				<Object>M_Credenza:Hotel Desk Credenza</Object>
+			</Furniture>
+		</Node>
+		<Node>
+			<Name>Bath 360</Name>
+			<Ref>94</Ref>
+			<Area>4.092192039999734</Area>
+		</Node>
+		<Node>
+			<Name>Bath 361</Name>
+			<Ref>95</Ref>
+			<Area>4.084631079799699</Area>
+		</Node>
+		<Node>
+			<Name>Bath 362</Name>
+			<Ref>96</Ref>
+			<Area>4.891411559899621</Area>
+		</Node>
+		<Node>
+			<Name>Bath 363</Name>
+			<Ref>97</Ref>
+			<Area>4.082911559899744</Area>
+		</Node>
+		<Node>
+			<Name>Bath 364</Name>
+			<Ref>98</Ref>
+			<Area>4.084631079799784</Area>
+		</Node>
+		<Node>
+			<Name>Bath 365</Name>
+			<Ref>99</Ref>
+			<Area>4.092192039999855</Area>
+		</Node>
+		<Node>
+			<Name>Bath 366</Name>
+			<Ref>100</Ref>
+			<Area>4.0921920399999046</Area>
+		</Node>
+		<Node>
+			<Name>Bath 367</Name>
+			<Ref>101</Ref>
+			<Area>4.084631079799857</Area>
+		</Node>
+		<Node>
+			<Name>Bath 368</Name>
+			<Ref>102</Ref>
+			<Area>4.0829115598998715</Area>
+		</Node>
+		<Node>
+			<Name>Bath 369</Name>
+			<Ref>103</Ref>
+			<Area>4.082911559899917</Area>
+		</Node>
+		<Node>
+			<Name>Bath 370</Name>
+			<Ref>104</Ref>
+			<Area>4.084631079799961</Area>
+		</Node>
+		<Node>
+			<Name>Bath 371</Name>
+			<Ref>105</Ref>
+			<Area>4.092192040000021</Area>
+		</Node>
+		<Node type="enz_safe">
+			<Name>M_Single-Flush:Hotel Emergency Door 120:354752</Name>
+			<Ref>106</Ref>
+		</Node>
+		<Node type="enz_safe">
+			<Name>M_Door-Double-Flush_Panel:Hotel Double Door:371610</Name>
+			<Ref>107</Ref>
+		</Node>
+		<Node type="enz_safe">
+			<Name>M_Single-Flush:Hotel Emergency Door 120:436034</Name>
+			<Ref>108</Ref>
+		</Node>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door:353089</Name>
+			<NodeRef refstyle="enz_ref">6</NodeRef>
+			<NodeRef refstyle="enz_ref">18</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.7299999999999998</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door:353198</Name>
+			<NodeRef refstyle="enz_ref">11</NodeRef>
+			<NodeRef refstyle="enz_ref">18</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.7300000000000009</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door:353244</Name>
+			<NodeRef refstyle="enz_ref">4</NodeRef>
+			<NodeRef refstyle="enz_ref">18</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.7300000000000009</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door:353415</Name>
+			<NodeRef refstyle="enz_ref">7</NodeRef>
+			<NodeRef refstyle="enz_ref">18</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.7300000000000009</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door:353479</Name>
+			<NodeRef refstyle="enz_ref">8</NodeRef>
+			<NodeRef refstyle="enz_ref">24</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.7300000000000009</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door:353623</Name>
+			<NodeRef refstyle="enz_ref">8</NodeRef>
+			<NodeRef refstyle="enz_ref">18</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.7299999999999986</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Single Gate:353683</Name>
+			<NodeRef refstyle="enz_ref">9</NodeRef>
+			<NodeRef refstyle="enz_ref">18</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.7299999999999986</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Emergency Door:354032</Name>
+			<NodeRef refstyle="enz_ref">18</NodeRef>
+			<NodeRef refstyle="enz_ref">21</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.9</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Emergency Door:354160</Name>
+			<NodeRef refstyle="enz_ref">18</NodeRef>
+			<NodeRef refstyle="enz_ref">20</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.9</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Emergency Door 120:354752</Name>
+			<NodeRef refstyle="enz_ref">21</NodeRef>
+			<NodeRef refstyle="enz_ref">106</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">1.199999999999999</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Bar:355044</Name>
+			<NodeRef refstyle="enz_ref">15</NodeRef>
+			<NodeRef refstyle="enz_ref">18</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.8260999999999985</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Bar:355123</Name>
+			<NodeRef refstyle="enz_ref">12</NodeRef>
+			<NodeRef refstyle="enz_ref">15</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.8260999999999985</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Door-Double-Flush_Panel:Hotel Double Door:371610</Name>
+			<NodeRef refstyle="enz_ref">22</NodeRef>
+			<NodeRef refstyle="enz_ref">107</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">2.8559000000000005</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room:375629</Name>
+			<NodeRef refstyle="enz_ref">25</NodeRef>
+			<NodeRef refstyle="enz_ref">36</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.8000000000000006</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room Bath:376030</Name>
+			<NodeRef refstyle="enz_ref">25</NodeRef>
+			<NodeRef refstyle="enz_ref">40</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.6438999999999987</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room Bath:377471</Name>
+			<NodeRef refstyle="enz_ref">26</NodeRef>
+			<NodeRef refstyle="enz_ref">41</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.6438999999999987</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room Bath:377524</Name>
+			<NodeRef refstyle="enz_ref">27</NodeRef>
+			<NodeRef refstyle="enz_ref">42</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.6438999999999987</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room:377543</Name>
+			<NodeRef refstyle="enz_ref">26</NodeRef>
+			<NodeRef refstyle="enz_ref">36</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.8</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room:377783</Name>
+			<NodeRef refstyle="enz_ref">27</NodeRef>
+			<NodeRef refstyle="enz_ref">36</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.8</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room:396468</Name>
+			<NodeRef refstyle="enz_ref">28</NodeRef>
+			<NodeRef refstyle="enz_ref">36</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.8000000000000006</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room Bath:396469</Name>
+			<NodeRef refstyle="enz_ref">28</NodeRef>
+			<NodeRef refstyle="enz_ref">51</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.6438999999999998</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room Bath:396473</Name>
+			<NodeRef refstyle="enz_ref">29</NodeRef>
+			<NodeRef refstyle="enz_ref">50</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.6438999999999998</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room Bath:396474</Name>
+			<NodeRef refstyle="enz_ref">39</NodeRef>
+			<NodeRef refstyle="enz_ref">49</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.6438999999999998</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room:396475</Name>
+			<NodeRef refstyle="enz_ref">29</NodeRef>
+			<NodeRef refstyle="enz_ref">36</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.8</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room:396476</Name>
+			<NodeRef refstyle="enz_ref">36</NodeRef>
+			<NodeRef refstyle="enz_ref">39</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.8</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room:396948</Name>
+			<NodeRef refstyle="enz_ref">32</NodeRef>
+			<NodeRef refstyle="enz_ref">36</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.8</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room Bath:396949</Name>
+			<NodeRef refstyle="enz_ref">32</NodeRef>
+			<NodeRef refstyle="enz_ref">45</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.6438999999999987</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room Bath:396953</Name>
+			<NodeRef refstyle="enz_ref">31</NodeRef>
+			<NodeRef refstyle="enz_ref">44</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.6438999999999987</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room Bath:396954</Name>
+			<NodeRef refstyle="enz_ref">30</NodeRef>
+			<NodeRef refstyle="enz_ref">43</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.6438999999999987</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room:396955</Name>
+			<NodeRef refstyle="enz_ref">31</NodeRef>
+			<NodeRef refstyle="enz_ref">36</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.8</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room:396956</Name>
+			<NodeRef refstyle="enz_ref">30</NodeRef>
+			<NodeRef refstyle="enz_ref">36</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.8</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room:397367</Name>
+			<NodeRef refstyle="enz_ref">35</NodeRef>
+			<NodeRef refstyle="enz_ref">36</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.8</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room Bath:397368</Name>
+			<NodeRef refstyle="enz_ref">35</NodeRef>
+			<NodeRef refstyle="enz_ref">46</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.6438999999999998</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room Bath:397372</Name>
+			<NodeRef refstyle="enz_ref">34</NodeRef>
+			<NodeRef refstyle="enz_ref">47</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.6438999999999998</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room Bath:397373</Name>
+			<NodeRef refstyle="enz_ref">33</NodeRef>
+			<NodeRef refstyle="enz_ref">48</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.6438999999999998</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room:397374</Name>
+			<NodeRef refstyle="enz_ref">34</NodeRef>
+			<NodeRef refstyle="enz_ref">36</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.8</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room:397375</Name>
+			<NodeRef refstyle="enz_ref">33</NodeRef>
+			<NodeRef refstyle="enz_ref">36</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.8</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Emergency Door:400674</Name>
+			<NodeRef refstyle="enz_ref">36</NodeRef>
+			<NodeRef refstyle="enz_ref">37</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.9</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Emergency Door:400899</Name>
+			<NodeRef refstyle="enz_ref">36</NodeRef>
+			<NodeRef refstyle="enz_ref">38</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.9</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room:428557</Name>
+			<NodeRef refstyle="enz_ref">52</NodeRef>
+			<NodeRef refstyle="enz_ref">63</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.8000000000000006</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room Bath:428558</Name>
+			<NodeRef refstyle="enz_ref">52</NodeRef>
+			<NodeRef refstyle="enz_ref">67</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.6438999999999987</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room Bath:428562</Name>
+			<NodeRef refstyle="enz_ref">53</NodeRef>
+			<NodeRef refstyle="enz_ref">68</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.6438999999999987</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room Bath:428563</Name>
+			<NodeRef refstyle="enz_ref">54</NodeRef>
+			<NodeRef refstyle="enz_ref">69</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.6438999999999987</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room:428564</Name>
+			<NodeRef refstyle="enz_ref">53</NodeRef>
+			<NodeRef refstyle="enz_ref">63</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.8</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room:428565</Name>
+			<NodeRef refstyle="enz_ref">54</NodeRef>
+			<NodeRef refstyle="enz_ref">63</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.8</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room:428952</Name>
+			<NodeRef refstyle="enz_ref">62</NodeRef>
+			<NodeRef refstyle="enz_ref">63</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.8000000000000006</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room Bath:428953</Name>
+			<NodeRef refstyle="enz_ref">62</NodeRef>
+			<NodeRef refstyle="enz_ref">78</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.6438999999999998</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room Bath:428957</Name>
+			<NodeRef refstyle="enz_ref">66</NodeRef>
+			<NodeRef refstyle="enz_ref">77</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.6438999999999998</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room Bath:428958</Name>
+			<NodeRef refstyle="enz_ref">61</NodeRef>
+			<NodeRef refstyle="enz_ref">76</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.6438999999999998</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room:428959</Name>
+			<NodeRef refstyle="enz_ref">63</NodeRef>
+			<NodeRef refstyle="enz_ref">66</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.8</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room:428960</Name>
+			<NodeRef refstyle="enz_ref">61</NodeRef>
+			<NodeRef refstyle="enz_ref">63</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.8</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room:429332</Name>
+			<NodeRef refstyle="enz_ref">57</NodeRef>
+			<NodeRef refstyle="enz_ref">63</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.8</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room Bath:429333</Name>
+			<NodeRef refstyle="enz_ref">57</NodeRef>
+			<NodeRef refstyle="enz_ref">72</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.6438999999999987</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room Bath:429337</Name>
+			<NodeRef refstyle="enz_ref">56</NodeRef>
+			<NodeRef refstyle="enz_ref">71</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.6438999999999987</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room Bath:429338</Name>
+			<NodeRef refstyle="enz_ref">55</NodeRef>
+			<NodeRef refstyle="enz_ref">70</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.6438999999999987</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room:429339</Name>
+			<NodeRef refstyle="enz_ref">56</NodeRef>
+			<NodeRef refstyle="enz_ref">63</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.8</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room:429340</Name>
+			<NodeRef refstyle="enz_ref">55</NodeRef>
+			<NodeRef refstyle="enz_ref">63</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.8</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room:429712</Name>
+			<NodeRef refstyle="enz_ref">58</NodeRef>
+			<NodeRef refstyle="enz_ref">63</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.8</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room Bath:429713</Name>
+			<NodeRef refstyle="enz_ref">58</NodeRef>
+			<NodeRef refstyle="enz_ref">73</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.6438999999999998</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room Bath:429717</Name>
+			<NodeRef refstyle="enz_ref">59</NodeRef>
+			<NodeRef refstyle="enz_ref">74</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.6438999999999998</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room Bath:429718</Name>
+			<NodeRef refstyle="enz_ref">60</NodeRef>
+			<NodeRef refstyle="enz_ref">75</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.6438999999999998</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room:429719</Name>
+			<NodeRef refstyle="enz_ref">59</NodeRef>
+			<NodeRef refstyle="enz_ref">63</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.8</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room:429720</Name>
+			<NodeRef refstyle="enz_ref">60</NodeRef>
+			<NodeRef refstyle="enz_ref">63</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.8</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Emergency Door:430090</Name>
+			<NodeRef refstyle="enz_ref">63</NodeRef>
+			<NodeRef refstyle="enz_ref">65</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.9</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Emergency Door:430091</Name>
+			<NodeRef refstyle="enz_ref">63</NodeRef>
+			<NodeRef refstyle="enz_ref">64</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.9</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room:430580</Name>
+			<NodeRef refstyle="enz_ref">79</NodeRef>
+			<NodeRef refstyle="enz_ref">90</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.8000000000000006</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room Bath:430581</Name>
+			<NodeRef refstyle="enz_ref">79</NodeRef>
+			<NodeRef refstyle="enz_ref">94</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.6438999999999987</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room Bath:430585</Name>
+			<NodeRef refstyle="enz_ref">80</NodeRef>
+			<NodeRef refstyle="enz_ref">95</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.6438999999999987</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room Bath:430586</Name>
+			<NodeRef refstyle="enz_ref">81</NodeRef>
+			<NodeRef refstyle="enz_ref">96</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.6438999999999987</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room:430587</Name>
+			<NodeRef refstyle="enz_ref">80</NodeRef>
+			<NodeRef refstyle="enz_ref">90</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.8</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room:430588</Name>
+			<NodeRef refstyle="enz_ref">81</NodeRef>
+			<NodeRef refstyle="enz_ref">90</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.8</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room:430853</Name>
+			<NodeRef refstyle="enz_ref">85</NodeRef>
+			<NodeRef refstyle="enz_ref">90</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.8000000000000006</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room Bath:430854</Name>
+			<NodeRef refstyle="enz_ref">85</NodeRef>
+			<NodeRef refstyle="enz_ref">105</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.6438999999999998</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room Bath:430858</Name>
+			<NodeRef refstyle="enz_ref">86</NodeRef>
+			<NodeRef refstyle="enz_ref">104</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.6438999999999998</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room Bath:430859</Name>
+			<NodeRef refstyle="enz_ref">93</NodeRef>
+			<NodeRef refstyle="enz_ref">103</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.6438999999999998</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room:430860</Name>
+			<NodeRef refstyle="enz_ref">86</NodeRef>
+			<NodeRef refstyle="enz_ref">90</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.8</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room:430861</Name>
+			<NodeRef refstyle="enz_ref">90</NodeRef>
+			<NodeRef refstyle="enz_ref">93</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.8</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room:431126</Name>
+			<NodeRef refstyle="enz_ref">84</NodeRef>
+			<NodeRef refstyle="enz_ref">90</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.8</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room Bath:431127</Name>
+			<NodeRef refstyle="enz_ref">84</NodeRef>
+			<NodeRef refstyle="enz_ref">99</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.6438999999999987</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room Bath:431131</Name>
+			<NodeRef refstyle="enz_ref">83</NodeRef>
+			<NodeRef refstyle="enz_ref">98</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.6438999999999987</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room Bath:431132</Name>
+			<NodeRef refstyle="enz_ref">82</NodeRef>
+			<NodeRef refstyle="enz_ref">97</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.6438999999999987</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room:431133</Name>
+			<NodeRef refstyle="enz_ref">83</NodeRef>
+			<NodeRef refstyle="enz_ref">90</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.8</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room:431134</Name>
+			<NodeRef refstyle="enz_ref">82</NodeRef>
+			<NodeRef refstyle="enz_ref">90</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.8</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room:431429</Name>
+			<NodeRef refstyle="enz_ref">89</NodeRef>
+			<NodeRef refstyle="enz_ref">90</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.8</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room Bath:431430</Name>
+			<NodeRef refstyle="enz_ref">89</NodeRef>
+			<NodeRef refstyle="enz_ref">100</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.6438999999999998</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room Bath:431434</Name>
+			<NodeRef refstyle="enz_ref">88</NodeRef>
+			<NodeRef refstyle="enz_ref">101</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.6438999999999998</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room Bath:431435</Name>
+			<NodeRef refstyle="enz_ref">87</NodeRef>
+			<NodeRef refstyle="enz_ref">102</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.6438999999999998</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room:431436</Name>
+			<NodeRef refstyle="enz_ref">88</NodeRef>
+			<NodeRef refstyle="enz_ref">90</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.8</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door Room:431437</Name>
+			<NodeRef refstyle="enz_ref">87</NodeRef>
+			<NodeRef refstyle="enz_ref">90</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.8</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Emergency Door:431732</Name>
+			<NodeRef refstyle="enz_ref">90</NodeRef>
+			<NodeRef refstyle="enz_ref">91</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.9</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Emergency Door:431733</Name>
+			<NodeRef refstyle="enz_ref">90</NodeRef>
+			<NodeRef refstyle="enz_ref">92</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.9</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Emergency Door 120:436034</Name>
+			<NodeRef refstyle="enz_ref">20</NodeRef>
+			<NodeRef refstyle="enz_ref">108</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">1.199999999999999</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door:505098</Name>
+			<NodeRef refstyle="enz_ref">10</NodeRef>
+			<NodeRef refstyle="enz_ref">18</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.7299999999999986</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door:647399</Name>
+			<NodeRef refstyle="enz_ref">14</NodeRef>
+			<NodeRef refstyle="enz_ref">36</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.7300000000000009</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door:647825</Name>
+			<NodeRef refstyle="enz_ref">13</NodeRef>
+			<NodeRef refstyle="enz_ref">18</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.7299999999999986</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door:648033</Name>
+			<NodeRef refstyle="enz_ref">16</NodeRef>
+			<NodeRef refstyle="enz_ref">63</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.7299999999999986</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door:648127</Name>
+			<NodeRef refstyle="enz_ref">17</NodeRef>
+			<NodeRef refstyle="enz_ref">90</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.7299999999999986</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>M_Single-Flush:Hotel Door:782754</Name>
+			<NodeRef refstyle="enz_ref">22</NodeRef>
+			<NodeRef refstyle="enz_ref">23</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">0.7299999999999998</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>LiftDoor:LiftDoor:1098903</Name>
+			<NodeRef refstyle="enz_ref">1</NodeRef>
+			<NodeRef refstyle="enz_ref">18</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">1.0699999999999994</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>LiftDoor:LiftDoor:1099151</Name>
+			<NodeRef refstyle="enz_ref">2</NodeRef>
+			<NodeRef refstyle="enz_ref">36</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">1.0699999999999994</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>LiftDoor:LiftDoor:1099473</Name>
+			<NodeRef refstyle="enz_ref">3</NodeRef>
+			<NodeRef refstyle="enz_ref">63</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">1.0699999999999994</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>LiftDoor:LiftDoor:1099605</Name>
+			<NodeRef refstyle="enz_ref">5</NodeRef>
+			<NodeRef refstyle="enz_ref">90</NodeRef>
+			<ConnectionType type="enz_door">
+				<Width units="m">1.0699999999999994</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>Assembled Stair:Stair:420483</Name>
+			<NodeRef>20</NodeRef>
+			<NodeRef>37</NodeRef>
+			<Length>5.0</Length>
+			<ConnectionType type="enz_stairs">
+				<Tread units="m">0.24999999999999997</Tread>
+				<Riser units="m">0.17647058823529413</Riser>
+				<Width units="m">1.0750000000000064</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>Assembled Stair:Stair:423635</Name>
+			<NodeRef>37</NodeRef>
+			<NodeRef>65</NodeRef>
+			<Length>5.0</Length>
+			<ConnectionType type="enz_stairs">
+				<Tread units="m">0.24999999999999997</Tread>
+				<Riser units="m">0.17647058823529413</Riser>
+				<Width units="m">1.0750000000000117</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>Assembled Stair:Stair:425127</Name>
+			<NodeRef>38</NodeRef>
+			<NodeRef>64</NodeRef>
+			<Length>5.0</Length>
+			<ConnectionType type="enz_stairs">
+				<Tread units="m">0.24999999999999997</Tread>
+				<Riser units="m">0.17647058823529413</Riser>
+				<Width units="m">1.0750000000000028</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>Assembled Stair:Stair:425859</Name>
+			<NodeRef>21</NodeRef>
+			<NodeRef>38</NodeRef>
+			<Length>5.0</Length>
+			<ConnectionType type="enz_stairs">
+				<Tread units="m">0.24999999999999997</Tread>
+				<Riser units="m">0.17647058823529413</Riser>
+				<Width units="m">1.0750000000000037</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>Assembled Stair:Stair:432512</Name>
+			<NodeRef>65</NodeRef>
+			<NodeRef>91</NodeRef>
+			<Length>5.0</Length>
+			<ConnectionType type="enz_stairs">
+				<Tread units="m">0.24999999999999997</Tread>
+				<Riser units="m">0.17647058823529413</Riser>
+				<Width units="m">1.0750000000000117</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>Assembled Stair:Stair:432708</Name>
+			<NodeRef>64</NodeRef>
+			<NodeRef>92</NodeRef>
+			<Length>5.0</Length>
+			<ConnectionType type="enz_stairs">
+				<Tread units="m">0.24999999999999997</Tread>
+				<Riser units="m">0.17647058823529413</Riser>
+				<Width units="m">1.0750000000000028</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>Specialty_Equipment_Escalator_w-Steps:700mm_Width-4000mm_Rise:673359</Name>
+			<NodeRef>18</NodeRef>
+			<NodeRef>36</NodeRef>
+			<Length>9.196</Length>
+			<ConnectionType type="enz_stairs">
+				<Tread units="m">0.31</Tread>
+				<Riser units="m">0.17</Riser>
+				<Width units="m">1.23352956763393</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>Opening1</Name>
+			<NodeRef refstyle="enz_ref">18</NodeRef>
+			<NodeRef refstyle="enz_ref">22</NodeRef>
+			<ConnectionType type="enz_opening">
+				<Width units="m">4.289999999999994</Width>
+			</ConnectionType>
+		</Connection>
+		<Connection>
+			<Name>Opening2</Name>
+			<NodeRef refstyle="enz_ref">19</NodeRef>
+			<NodeRef refstyle="enz_ref">22</NodeRef>
+			<ConnectionType type="enz_opening"><Width units="m">2.5499999999999114</Width></ConnectionType>
+		</Connection>
+	</ENZ_Map>

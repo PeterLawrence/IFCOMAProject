@@ -28,7 +28,6 @@ def output_node_enz(root, ifc_space):
             ET.SubElement(furniture, "Object").text = object
         
 
-
 def output_external_exit_enz(root, ifc_door):
     Node = ET.SubElement(root, "Node", type='enz_safe')
     ET.indent(root, space="\t", level=1)
@@ -37,7 +36,22 @@ def output_external_exit_enz(root, ifc_door):
     ET.SubElement(Node, "Ref").text = str(ifc_door['enz_node_id'])
 
 
-def output_connection_link_enz(root, connectlist, width, name):
+def output_connection_opening_enz(root, SpaceID1, SpaceID2 , width, name):
+    Connection = ET.SubElement(root, "Connection")
+    ET.indent(root, space="\t", level=1)
+
+    ET.SubElement(Connection, "Name").text = name
+    ET.SubElement(Connection, "NodeRef", refstyle="enz_ref").text = str(SpaceID1)
+    ET.SubElement(Connection, "NodeRef", refstyle="enz_ref").text = str(SpaceID2)
+
+    ConnectionType = ET.SubElement(Connection, "ConnectionType", type = 'enz_opening')
+    ET.indent(Connection, space="\t", level=2)
+
+    if width>0:
+        ET.SubElement(ConnectionType, "Width", units = 'm').text = str(width)
+
+
+def output_connection_door_enz(root, connectlist, width, name):
     Connection = ET.SubElement(root, "Connection")
     ET.indent(root, space="\t", level=1)
 
@@ -152,9 +166,12 @@ def enz_population(XMLFile, OMA_Class):
 
     tree = ET.ElementTree(root)
     tree.write(XMLFile)
-            
+
 
 def enz_output(XMLFileMap,XMLFilePop, OMA_Class):
+    # list of direct connections between spaces
+    space_free_links = exoifcutils.get_list_of_directly_connected_spaces(OMA_Class)  
+    
     root = ET.Element("ENZ_Map")
 
     Description = ET.SubElement(root, "Description").text = "IFC Export file"
@@ -202,11 +219,10 @@ def enz_output(XMLFileMap,XMLFilePop, OMA_Class):
                 if ifc_door['IsExternal'] and 'enz_node_id' in ifc_door:
                     connectlist.append(ifc_door['enz_node_id'])
             if len(connectlist)==2:
-                output_connection_link_enz(root,connectlist,OverallWidth,ifc_door['Name'])
+                output_connection_door_enz(root,connectlist,OverallWidth,ifc_door['Name'])
                 linkcount+=1
             else:
                 print(f"Rejected: door connnect {ifc_door['Name']} ID:{ifc_door['GlobalId']} spaces {ifc_door['Spaces']} connections {connectlist}")
-
 
     for ifc_stair in OMA_Class.m_stair_list:
         if 'space_connecting' in ifc_stair:
@@ -219,6 +235,21 @@ def enz_output(XMLFileMap,XMLFilePop, OMA_Class):
             if len(ifc_escalator['space_connecting']) == 2:
                 output_connection_escalator_enz(root,ifc_escalator,OMA_Class.m_space_list)
                 linkcount+=1
+
+    open_link_count = 0
+    for space_link in space_free_links:
+        index1 = OMA_Class.SpaceDefined(space_link[0])
+        index2 = OMA_Class.SpaceDefined(space_link[1])
+        width=-1
+        if len(space_link)>2:
+            width = space_link[2]
+        if index1 > -1 and index2 > -1:
+            ifc_space1 = OMA_Class.m_space_list[index1]
+            ifc_space2 = OMA_Class.m_space_list[index2]
+            open_link_count+=1
+            name = "Opening" + str(open_link_count)
+            output_connection_opening_enz(root, ifc_space1['enz_node_id'], ifc_space2['enz_node_id'], width, name)
+            linkcount += 1
 
     print("Max Enz links",linkcount);
 

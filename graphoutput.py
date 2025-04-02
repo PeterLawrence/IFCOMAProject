@@ -11,36 +11,10 @@ from oma_class import OMAClass
 
 
 def graph_view(OMA_Class, ifc_file, filename):
+    # list of direct connections between spaces
+    space_free_links = exoifcutils.get_list_of_directly_connected_spaces(OMA_Class)  
     print("===================== output network ====================")
-    space_free_links = []  # list of direct connections between spaces
-    space_count = len(OMA_Class.m_space_list)
-    
-    for iSpace in range(space_count - 1):
-        if 'boundarylist' in OMA_Class.m_space_list[iSpace]:
-            for jSpace in range(iSpace + 1, space_count):
-                if 'boundarylist' in OMA_Class.m_space_list[jSpace]:
-                    AreAlreadyAdj = False
-                    if 'elemIDs' in OMA_Class.m_space_list[jSpace]:
-                        for item in OMA_Class.m_space_list[jSpace]['elemIDs']:
-                           if item[0] == "IfcDoor":
-                               doorIndex = exoifcutils.DoorDefined(item[1], OMA_Class.m_door_list)
-                               if doorIndex > -1:
-                                   ifcDoor = OMA_Class.m_door_list[doorIndex]
-                                   for adjGUID in ifcDoor['Spaces']:
-                                       if adjGUID == OMA_Class.m_space_list[iSpace]['GlobalId']:
-                                           AreAlreadyAdj=True
-                                           break
-                                   
-                               
-                    if AreAlreadyAdj==False: 
-                        # print('graph_view:',OMA_Class.m_space_list[iSpace]['Name'],OMA_Class.m_space_list[jSpace]['Name'])
-                        #if exoifcutils.are_adjacent(OMA_Class.m_space_list[iSpace]['boundarylist'], OMA_Class.m_space_list[jSpace]['boundarylist']):
-                        if exoifcutils.are_adjacent_parallel(OMA_Class.m_space_list[iSpace]['boundarylist'], OMA_Class.m_space_list[jSpace]['boundarylist']):
-                            print("Adjacent:", OMA_Class.m_space_list[iSpace]['Name'], OMA_Class.m_space_list[jSpace]['Name'])
-                            OMA_Class.m_space_list[iSpace]['elemIDs'].append(["IfcSpace", OMA_Class.m_space_list[jSpace]['GlobalId']])
-                            OMA_Class.m_space_list[jSpace]['elemIDs'].append(["IfcSpace", OMA_Class.m_space_list[iSpace]['GlobalId']])
-                            space_free_links.append([OMA_Class.m_space_list[iSpace]['GlobalId'], OMA_Class.m_space_list[jSpace]['GlobalId']])
-
+                            
     net = Network()
 
     enz_node_id = 0
@@ -178,10 +152,8 @@ def graph_view(OMA_Class, ifc_file, filename):
             for index in range(0,len(SpaceIDs)-1):
                 print("Elevator link", ifc_elevator['Name'])
                 net.add_edge(SpaceIDs[index], SpaceIDs[index+1], title=ifc_elevator['Name'], color='#CCCCCC', weight=20.0)
-                linkcount += 1
-                        
-                    
-
+                linkcount += 1       
+    '''
     # virtual boundaries
     print("virtual boundaries")
     for ifc_space in OMA_Class.m_space_list:
@@ -194,7 +166,7 @@ def graph_view(OMA_Class, ifc_file, filename):
                     print("RelatedBuildingElement", vb.RelatedBuildingElement)
                 elif item[0] == "IfcVirtualElement":
                     print("IfcVirtualElement", item[0], item[1])
-
-    print("Max Enz links", linkcount)
+    '''
+    print("Graph links", linkcount)
     net.show_buttons(filter_=['physics'])
     net.show(filename, notebook=False)

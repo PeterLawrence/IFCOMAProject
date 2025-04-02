@@ -727,6 +727,39 @@ def get_space_data(ifc_file, ifc_space, Elevation, floor_longname, settings):
     return space_loc
 
 
+def check_and_update_directly_connected_spaces():
+    """
+    scan spaces to see if any are directly connected together, adjacent, but without a door, like a virtual boundary
+    """
+    global g_OMA_Class
+    print("===================== Update directly connected space ====================")
+    space_count = len(g_OMA_Class.m_space_list)
+    
+    for iSpace in range(space_count - 1):
+        if 'boundarylist' in g_OMA_Class.m_space_list[iSpace]:
+            for jSpace in range(iSpace + 1, space_count):
+                if 'boundarylist' in g_OMA_Class.m_space_list[jSpace]:
+                    AreAlreadyAdj = False
+                    if 'elemIDs' in g_OMA_Class.m_space_list[jSpace]:
+                        for item in g_OMA_Class.m_space_list[jSpace]['elemIDs']:
+                            if item[0] == "IfcDoor":
+                                doorIndex = exoifcutils.DoorDefined(item[1], g_OMA_Class.m_door_list)
+                                if doorIndex > -1:
+                                    ifcDoor = g_OMA_Class.m_door_list[doorIndex]
+                                    for adjGUID in ifcDoor['Spaces']:
+                                        if adjGUID == g_OMA_Class.m_space_list[iSpace]['GlobalId']:
+                                            AreAlreadyAdj=True
+                                            break
+                                   
+                               
+                    if AreAlreadyAdj==False:
+                        areAdj, Width = exoifcutils.are_adjacent_parallel(g_OMA_Class.m_space_list[iSpace]['boundarylist'], g_OMA_Class.m_space_list[jSpace]['boundarylist'])
+                        if areAdj:
+                            print('space directly connected:',g_OMA_Class.m_space_list[iSpace]['Name'],g_OMA_Class.m_space_list[jSpace]['Name'])
+                            g_OMA_Class.m_space_list[iSpace]['elemIDs'].append(["IfcSpace", g_OMA_Class.m_space_list[jSpace]['GlobalId'], Width])
+                            g_OMA_Class.m_space_list[jSpace]['elemIDs'].append(["IfcSpace", g_OMA_Class.m_space_list[iSpace]['GlobalId'], Width])
+
+
 def stairs_data(ifc_file, settings):
     global g_OMA_Class
     global g_StairNodeID
@@ -1378,7 +1411,7 @@ def build_conections_between_spaces():
 def calc_stair_travel_distance():
     """
     Calculates stair total length
-    Note Routine not complete - the calculation of length/travel distanc is incomplete 15/03/24
+    Note Routine not complete - the calculation of length/travel distance is incomplete 15/03/24
     Note Width is based on maximum stairflight width - maybe should be minimum 15/03/24
     
     """
@@ -1485,6 +1518,7 @@ def generate_data(IFC_filename, output_file, output_type):
         sign['FloorIndex'] = exoifcutils.find_floor(sign['Elevation'], g_OMA_Class.m_floor_list)
     
     scan_spaces(ifc_file, settings)
+    check_and_update_directly_connected_spaces()
     extract_elevator_data(ifc_file)
     connect_rooms_doors(ifc_file)
 

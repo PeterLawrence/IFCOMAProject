@@ -380,6 +380,11 @@ def order_boundary_list(boundary_points):
             break;
     return boundary_ordered_poly
 
+def calc_width(line_start,line_end):
+    diff = line_start-line_end
+    length = diff[0]*diff[0]+diff[1]*diff[1]
+    return math.sqrt(length)
+    
 
 def are_lines_parallel_and_overlapping_2d(line1_start, line1_end, line2_start, line2_end, min_overlap=0.25, max_distance=0.02, tolerance=1e-9):
     """
@@ -454,12 +459,13 @@ def are_lines_parallel_and_overlapping_2d(line1_start, line1_end, line2_start, l
 
 def are_adjacent_parallel(boundary_points1, boundary_points2):
     """
-        returns true if to boundary lists are adjacent(edge groups)
+        returns true if to boundary lists are adjacent(edge groups), plus width of connection between
         :param boundary_points1 : list of points on boundary 1
         :param boundary_points2 : list of points on boundary 2
     """
+    theWidth = -1
     if boundary_points1 is None or boundary_points2 is None:
-        return False
+        return False, theWidth
     count1 = len(boundary_points1)
     count2 = len(boundary_points2)
     # note the steps size of two (each edge if in groups of two
@@ -471,16 +477,22 @@ def are_adjacent_parallel(boundary_points1, boundary_points2):
             # pn2, next point in edge (point2,pn2)
             pn2 = (point2 + 1) % count2
             if len(boundary_points1[point1])<3 or len(boundary_points2[point2])<3:
-                return False
+                return False, theWidth
             if boundary_points1[point1][2] != boundary_points2[point2][2]:
-                return False
+                return False, theWidth
             line1_start = np.array([boundary_points1[point1][0], boundary_points1[point1][1]])
             line1_end = np.array([boundary_points1[pn1][0], boundary_points1[pn1][1]])
             line2_start = np.array([boundary_points2[point2][0], boundary_points2[point2][1]])
             line2_end = np.array([boundary_points2[pn2][0], boundary_points2[pn2][1]])
             if are_lines_parallel_and_overlapping_2d(line1_start, line1_end, line2_start, line2_end):
-                return True
-    return False
+                width1 = calc_width(line1_start,line1_end)
+                width2 = calc_width(line2_start,line2_end)
+                if width1<width2:
+                    theWidth = width1
+                else:
+                    theWidth = width2
+                return True, theWidth
+    return False, theWidth
             
 
 def are_adjacent(boundary_points1, boundary_points2):
@@ -949,5 +961,32 @@ def CentreDistOfNearestFaceToPointTriangle(shape, aPoint):
                 
             idFace+=1
     '''            
-          
     return dist
+
+
+def get_list_of_directly_connected_spaces(OMA_Class):
+    space_free_links = []  # list of direct connections between spaces
+    space_count = len(OMA_Class.m_space_list)
+    for iSpace in range(space_count):
+        theSpace = OMA_Class.m_space_list[iSpace]
+        if 'elemIDs' in theSpace:
+            for item in theSpace['elemIDs']:
+                if item[0] == "IfcSpace":
+                    spaceIndex = SpaceDefined(item[1], OMA_Class.m_space_list)
+                    if spaceIndex > -1:
+                        adjSpace = OMA_Class.m_space_list[spaceIndex]
+                        addConnection=True
+                        for space_link in space_free_links:
+                            if (space_link[0] == theSpace['GlobalId'] and space_link[1] == adjSpace['GlobalId']):
+                                addConnection = False
+                                break
+                            if (space_link[1] == theSpace['GlobalId'] and space_link[0] == adjSpace['GlobalId']):
+                                addConnection = False
+                                break
+
+                        if addConnection:
+                            aWidth = -1
+                            if len(item)>2:
+                                aWidth = item[2]
+                            space_free_links.append([theSpace['GlobalId'], adjSpace['GlobalId'], aWidth])
+    return space_free_links
