@@ -600,6 +600,16 @@ def find_floor_above_elevation(Elevation, floor_list):
     return None
 
 
+def find_floor_by_name(aName, floor_list):
+    floor_index = 0
+    for floor in floor_list:
+        if floor['Name'] == aName:
+            return floor_index
+        floor_index+=1
+                  
+    return -1
+
+
 def find_floor(Elevation, floor_list):
     floor_index = 0
     for floor in floor_list:
@@ -641,6 +651,9 @@ def get_subfloor_heights(min_elev, max_elev, floor_list):
     iPos = 0
     for floor in floor_list:
         anElevation = floor['Elevation']
+        print('Sub height ',anElevation)
+        if anElevation==None:
+            anElevation = 0.0
         if  anElevation >= min_elev and anElevation<max_elev:
             subfloorlistheights.append(anElevation)
         iPos+=1

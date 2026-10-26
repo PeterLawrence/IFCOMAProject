@@ -167,7 +167,11 @@ def calc_flightstair_box(ifc_stairflight):
             #print("PathData :",ifc_stairflight['PathData'])
             print("===========================================================")
             width = ifc_stairflight['Width']/2.0
-            expand_size = ifc_stairflight['TreadLength']/2.0
+            if 'TreadLength' in ifc_stairflight:
+                expand_size = ifc_stairflight['TreadLength']/2.0
+            else:
+                expand_size = 0.2
+            
             extra_size = 0.5
             path_data = ifc_stairflight['PathData']
             level_data = ifc_stairflight['AStepData']
@@ -418,7 +422,10 @@ def nodal_mesh_space_data(space_data, ifc_space, settings):
         if ifc_space_shape:
             Elevation = space_data['Elevation']
             print("Adding nodes for space ", space_data['Name'], Elevation, space_data['FloorIndex'])
-            NumNodes = add_element_tri_gen_exodus_nodes_h(ifc_space_shape.geometry, Elevation, space_data['Reference'])
+            if 'Reference' in space_data:
+                NumNodes = add_element_tri_gen_exodus_nodes_h(ifc_space_shape.geometry, Elevation, space_data['Reference'])
+            else:
+                NumNodes = add_element_tri_gen_exodus_nodes_h(ifc_space_shape.geometry, Elevation, None)
             space_data['NodeCount'] = NumNodes
             if NumNodes > 0:
                 space_data['NodeLocation'] = len(g_space_node_list)-1
@@ -704,9 +711,10 @@ def connect_stairflight(Space1, NodeList1, stair_box):
 def plot_transit_boxes(transit_object, plotter_class):
     if 'TopBox' in transit_object:
         if transit_object['TopBox'] is not None:
-            z = transit_object['Elevation']+transit_object['Height']-0.24
-            if plotter_class is not None:
-                plotter_class.add_tri_delaunay(transit_object['TopBox'], z)
+            if 'Height' in transit_object:
+                z = transit_object['Elevation']+transit_object['Height']-0.24
+                if plotter_class is not None:
+                    plotter_class.add_tri_delaunay(transit_object['TopBox'], z)
     if 'LowBox' in transit_object:
         if transit_object['LowBox'] is not None:
             z = transit_object['Elevation']+0.24
@@ -726,7 +734,8 @@ def assign_stairflight_id_direction(stairflight):
     stairflight['Direction'] = direction
     horizontal_length, travel_length = calc_flightstair_physical_param(stairflight)
     print("Stairflight width, horizontal_length, travel_length  ", stairflight['Width'], horizontal_length, travel_length)
-    print("Stairflight HorizontalLength", horizontal_length, stairflight['TotalRun'])
+    if 'TotalRun' in stairflight:
+        print("Stairflight HorizontalLength", horizontal_length, stairflight['TotalRun'])
 
 
 def connect_stairs(ifc_stair, space_list, landings_list, stair_flights_list, level_data, transit_node_offset):
@@ -1027,9 +1036,8 @@ def exodus_ouput(OMA_Class, ifc_file, settings, plotter_class, MTAFile):
                 LiftBankID += 1
 
     for a_space_index in range(len(g_space_node_list)):
-        exooutput.output_zones_room(OMA_Class.m_space_list[a_space_index],a_space_index+1,g_space_node_list[a_space_index], exodusmtafile)
-
-
+        if a_space_index < len(OMA_Class.m_space_list):
+            exooutput.output_zones_room(OMA_Class.m_space_list[a_space_index],a_space_index+1,g_space_node_list[a_space_index], exodusmtafile)
 
     exodusmtafile.close()
 

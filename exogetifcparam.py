@@ -402,6 +402,8 @@ def get_storey_Elevation_spaceboundary_quiet(ifc_element):
         a_storey = aRelatingSpace.Decomposes[0].RelatingObject
         element_info = a_storey.get_info()
         Elevation = get_property(element_info,'Elevation')  # moving to ElevationOfFFLRelative, under Pset_BuildingStoreyCommon
+        if Elevation==None:
+            Elevation = get_storey_Elevation_FFLRelative(a_storey);
         if Elevation>1000:
             Elevation = Elevation/1000
     return Elevation
@@ -464,6 +466,19 @@ def get_storey_Elevation(ifc_element):
         element_info = aRelatingSpace.get_info()
         Elevation = get_property(element_info, 'Elevation')
 
+    return Elevation
+
+
+def get_storey_Elevation_FFLRelative(ifc_element):
+    #aRelatingSpace = parent(ifc_element)
+    psetdata = ifcopenshell.util.element.get_psets(ifc_element)
+    if 'Pset_BuildingStoreyCommon' in psetdata:
+        print('  Pset_BuildingStoreyCommon')
+        entry = psetdata['Pset_BuildingStoreyCommon']
+        Elevation = get_property(entry, "ElevationOfFFLRelative")
+        
+        if Elevation>1000:
+            Elevation = Elevation/1000
     return Elevation
 
 

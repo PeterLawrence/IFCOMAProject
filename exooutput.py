@@ -82,7 +82,10 @@ def OutputTransitNodeData(transitNode, TransitID, aWinID, terrain, exodusmtafile
     if terrain == 0:
         NumberOfUnits = transitNode['risers'] - 1 # 'risers'-1
         print("NumberOfSubUnits:", transitNode['risers'] - 1, file=exodusmtafile)  # 'risers'-1
-        UnitLength = math.sqrt(math.pow(transitNode['RiserHeight'], 2) + math.pow(transitNode['TreadLength'], 2))
+        if 'TreadLength' in transitNode:
+            UnitLength = math.sqrt(math.pow(transitNode['RiserHeight'], 2) + math.pow(transitNode['TreadLength'], 2))
+        else:
+            UnitLength = 0.2
         print("UnitLengthSize:", UnitLength, file=exodusmtafile)  # diagonal tread distance 'riserheight' 'treadlength'
         #if 'ExoAngle' in transitNode:
         #    print("TheDirectionAngle:", transitNode['ExoAngle'], file=exodusmtafile)
@@ -153,8 +156,9 @@ def OutputTransitNodeData(transitNode, TransitID, aWinID, terrain, exodusmtafile
               file=exodusmtafile)  # 'Height' - 2*'riserheight' vertical Height, not including top and bottom risers
     elif 'RunHeight' in transitNode:
         print("Height:", transitNode['RunHeight'], file=exodusmtafile)
-    else:    
-        print("Height:", transitNode['Height'], file=exodusmtafile)
+    else:
+        if 'Height' in transitNode:
+            print("Height:", transitNode['Height'], file=exodusmtafile)
 
     if 'noising' in transitNode:
         print("NosingDepth:", transitNode['noising'], file=exodusmtafile)  # 'noising'

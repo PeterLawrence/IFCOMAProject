@@ -771,11 +771,19 @@ def stairs_data(ifc_file, settings):
         if stair.IsDecomposedBy:
             Elevation = exogetifcparam.get_storey_Elevation(stair)
             floor_longname = exogetifcparam.get_storey_LongName(stair)
-            floor_index = exoifcutils.find_floor(Elevation, g_OMA_Class.m_floor_list)
+            if Elevation == None:
+                floor_index = exoifcutils.find_floor_by_name(floor_longname, g_OMA_Class.m_floor_list)
+            else:
+                floor_index = exoifcutils.find_floor(Elevation, g_OMA_Class.m_floor_list)
             if floor_index < 0:
+                if Elevation == None:
+                    Elevation  = exogetifcparam.get_storey_Elevation_FFLRelative(a_story)
                 floor = {'Elevation': Elevation}
                 floor['Name'] = floor_longname
                 g_OMA_Class.m_floor_list.append(floor)
+            else:
+                if Elevation == None:
+                    Elevation = g_OMA_Class.m_floor_list[floor_index]['Elevation'];
             plot_item = True
             if plot_item:
                 print("Adding Staircase", Elevation)
@@ -798,7 +806,10 @@ def stairs_data(ifc_file, settings):
                         geom_data = level_flight_geom(entity_shape.geometry, Elevation, 0.05)
                         stair_flight_dict['GeomData'] = geom_data
                         stair_flight_dict['ExoAngle'] = CalcAngle(geom_data['UpperPoints'],geom_data['LowerPoints'])
-                        AStepCount, AStepData, PathData, calcwidth = extract_flight_geom(entity_shape.geometry, stair_flight_dict['RiserHeight']/2.0)
+                        if 'RiserHeight' in stair_flight_dict:
+                            AStepCount, AStepData, PathData, calcwidth = extract_flight_geom(entity_shape.geometry, stair_flight_dict['RiserHeight']/2.0)
+                        else:
+                            AStepCount, AStepData, PathData, calcwidth = extract_flight_geom(entity_shape.geometry, 0.2)
                         if calcwidth > 0.0:
                             width = calcwidth
                         stair_flight_dict['AStepCount'] = AStepCount
@@ -1298,11 +1309,22 @@ def build_door_list(ifc_file):
         element_info = a_story.get_info()
         Elevation = exogetifcparam.get_property(element_info, 'Elevation')
         floor_longname = exogetifcparam.get_property(element_info, 'LongName')
-        floor_index = exoifcutils.find_floor(Elevation, g_OMA_Class.m_floor_list)
+        if Elevation == None:
+            floor_index = exoifcutils.find_floor_by_name(floor_longname, g_OMA_Class.m_floor_list)
+        else:
+            floor_index = exoifcutils.find_floor(Elevation, g_OMA_Class.m_floor_list)
+        
         if floor_index < 0:
+            # add floor
+            print("story info:",element_info)
+            if Elevation == None:
+                Elevation  = exogetifcparam.get_storey_Elevation_FFLRelative(a_story)
             floor = {'Elevation': Elevation}
             floor['Name'] = floor_longname
             g_OMA_Class.m_floor_list.append(floor)
+        else:
+            if Elevation == None:
+                Elevation = g_OMA_Class.m_floor_list[floor_index]['Elevation'];
             
         plot_item = True
         if plot_item:
@@ -1488,6 +1510,7 @@ def generate_data(IFC_filename, output_file, output_type):
     bridge_data(ifc_file, settings)
 
     # sorts floors before finding spaces - as we require an ordered list for linking levels
+    print(g_OMA_Class.m_floor_list)
     ordered_floor_list = sorted(g_OMA_Class.m_floor_list, key=itemgetter('Elevation'))
     g_OMA_Class.m_floor_list = ordered_floor_list
 
