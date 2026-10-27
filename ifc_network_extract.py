@@ -677,7 +677,8 @@ def get_space_data(ifc_file, ifc_space, Elevation, floor_longname, settings):
                 # test if the door is in the correct ifc_space:
                 if True:
                     # confirm the door is near the space
-                    ifc_door = ifc_file.by_id(g_OMA_Class.m_door_list[doorIndex]['GlobalId'])
+                    anID = g_OMA_Class.m_door_list[doorIndex]['GlobalId'];
+                    ifc_door = ifc_file.by_guid(anID)
                     door_shape = ifcopenshell.geom.create_shape(settings, ifc_door)
                     aPoint = exoifcutils.get_centre(door_shape.geometry)
                     aDist = exoifcutils.CentreDistOfNearestFaceToPointTriangle(ifc_space_shape.geometry, aPoint)

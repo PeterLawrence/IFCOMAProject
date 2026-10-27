@@ -32,7 +32,7 @@ def calc_door_centre(shape):
 
 
 def calc_door_centre_ifc(GlobalID, ifc_file, settings):
-    ifc_door = ifc_file.by_id(GlobalID)
+    ifc_door = ifc_file.by_guid(GlobalID)
     entity_shape = ifcopenshell.geom.create_shape(settings, ifc_door)
     x_centre, y_centre = calc_door_centre(entity_shape.geometry)
     return x_centre, y_centre

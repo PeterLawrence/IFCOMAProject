@@ -162,7 +162,7 @@ def graph_view(OMA_Class, ifc_file, filename):
             for item in boundary_elems:
                 if item[0] == "IfcRelSpaceBoundaryV":
                     print(ifc_space['Name'], item[0], item[1])
-                    vb = ifc_file.by_id(item[1])
+                    vb = ifc_file.by_guid(item[1])
                     print("RelatedBuildingElement", vb.RelatedBuildingElement)
                 elif item[0] == "IfcVirtualElement":
                     print("IfcVirtualElement", item[0], item[1])

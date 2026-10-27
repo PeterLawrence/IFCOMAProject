@@ -460,7 +460,7 @@ def add_floor_nodes(space_list, ifc_file, settings):
     global g_lines
     print(' Meshing region')
     for space in space_list:
-        ifc_space = ifc_file.by_id(space['GlobalId'])
+        ifc_space = ifc_file.by_guid(space['GlobalId'])
         nodal_mesh_space_data(space, ifc_space, settings)
         for ifc_space_boundary in ifc_space.BoundedBy:
             if ifc_space_boundary.is_a("IfcRelSpaceBoundary"):
@@ -508,7 +508,7 @@ def add_landing_nodes(landings_list, ifc_file, settings):
     global g_lines
     print(' Meshing landing')
     for landing in landings_list:
-        ifc_landing = ifc_file.by_id(landing['GlobalId'])
+        ifc_landing = ifc_file.by_guid(landing['GlobalId'])
         nodal_mesh_landing_data(landing, ifc_landing, settings)
 
     print("Done")
@@ -584,7 +584,7 @@ def connect_virtual_spaces(space_list, ifc_file, settings):
             for elems in space['elemIDs']:
                 if elems[0] == 'IfcRelSpaceBoundaryV':  # note the V
                     print('IfcRelSpaceBoundaryV ', space['Reference'])
-                    ifc_relspace_boundary = ifc_file.by_id(elems[1])
+                    ifc_relspace_boundary = ifc_file.by_guid(elems[1])
                     if ifc_relspace_boundary:
                         print(ifc_relspace_boundary)
                         ifc_relshape = ifc_relspace_boundary.ConnectionGeometry.SurfaceOnRelatingElement
@@ -679,7 +679,7 @@ def connect_external_doors(door_list, space_list, ifc_file,settings):
         if door_data['IsExternal']:
             if len(door_data['Spaces']) == 1:
                 print("External door ", door_data)
-                ifc_door = ifc_file.by_id(door_data['GlobalId'])
+                ifc_door = ifc_file.by_guid(door_data['GlobalId'])
                 entity_shape = ifcopenshell.geom.create_shape(settings, ifc_door)
                 door_box = calc_door_box(entity_shape.geometry)
                 door_region = calc_door_region(entity_shape.geometry)
